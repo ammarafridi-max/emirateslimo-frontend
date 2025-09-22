@@ -32,7 +32,7 @@ export default function Footer() {
           </div>
           <div className="col-span-3 md:w-fit">
             <p className="text-xl text-white">Site Links</p>
-            <div className="flex flex-col mt-4 text-white text-md md:text-lg font-extralight gap-0.5">
+            <div className="flex flex-col mt-4 text-white text-md md:text-lg font-extralight gap-2">
               <FooterLink>Home</FooterLink>
               <FooterLink>About</FooterLink>
               <FooterLink>Services</FooterLink>
@@ -41,7 +41,7 @@ export default function Footer() {
           </div>
           <div className="col-span-3 md:w-fit">
             <p className="text-xl text-white">Visas</p>
-            <div className="flex flex-col mt-4 text-white text-md md:text-lg font-extralight gap-0.5">
+            <div className="flex flex-col mt-4 text-white text-md md:text-lg font-extralight gap-2">
               <FooterLink>Schengen Visa</FooterLink>
               <FooterLink>US Visa (B1/B2)</FooterLink>
               <FooterLink>UK Tourist Visa</FooterLink>
@@ -111,11 +111,11 @@ function FooterLink({ href = '#', children }) {
   return (
     <a
       href={href}
-      className="cursor-pointer group text-[16px] hover:text-primary-100"
+      className="cursor-pointer group text-[16px] text-primary-300 hover:text-primary-100"
     >
-      <span className="text-primary-100 mr-4 font-bold duration-300 group-hover:text-primary-500">
+      {/* <span className="mr-4 font-bold duration-300 group-hover:text-primary-500">
         —
-      </span>
+      </span> */}
       {children}
     </a>
   );
