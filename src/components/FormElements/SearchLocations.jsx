@@ -16,7 +16,8 @@ export default function SearchLocations({
   const [showOptions, setShowOptions] = useState(false);
   const wrapperRef = useRef(null);
   const inputRef = useRef(null);
-  const { locations, isLoadingLocations } = useGetLocations(query);
+  const { locations, isLoadingLocations, isErrorLocations } =
+    useGetLocations(query);
 
   useOutsideClick(wrapperRef, () => setShowOptions(false));
 
@@ -57,6 +58,11 @@ export default function SearchLocations({
       {showOptions && (
         <div className="relative">
           <div className="absolute top-3 bg-white border border-gray-300 h-fit max-h-[250px] w-full z-50 rounded-md overflow-scroll">
+            {isErrorLocations && (
+              <p className="py-3 px-4 font-extralight text-[15px]">
+                Error getting locations
+              </p>
+            )}
             {query.length < 3 && (
               <p className="py-3 px-4 font-extralight text-[15px]">
                 Enter 3 or more characters
@@ -70,17 +76,22 @@ export default function SearchLocations({
               </div>
             )}
             {locations?.map((loc) => (
-              <p
-                key={loc.id}
-                className="py-1 px-4 font-extralight text-[15px] cursor-pointer hover:bg-primary-100"
-                onClick={() => {
-                  setQuery(loc.name); // show name in input
-                  setValue(name, loc); // store full object in RHF
-                  setShowOptions(false); // close dropdown
-                }}
-              >
-                {loc.name}
-              </p>
+              <>
+                <p
+                  key={loc.id}
+                  className="flex flex-col py-2 px-4 font-extralight text-[15px] cursor-pointer hover:bg-primary-100 leading-5"
+                  onClick={() => {
+                    setQuery(loc.name); // show name in input
+                    setValue(name, loc); // store full object in RHF
+                    setShowOptions(false); // close dropdown
+                  }}
+                >
+                  <span className="font-normal">{loc.name}</span>
+                  <span className="font-extralight text-[13px]">
+                    {loc.address}
+                  </span>
+                </p>
+              </>
             ))}
           </div>
         </div>

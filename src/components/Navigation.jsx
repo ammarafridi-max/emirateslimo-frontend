@@ -3,8 +3,8 @@ import Container from './Container';
 
 export const links = [
   {
-    name: 'Airport Transfers',
-    href: '/airport-transfers',
+    name: 'Airport Transfer',
+    href: '/dubai-airport-transfer',
   },
   {
     name: 'Chauffeur Service',
@@ -36,8 +36,10 @@ export default function Navigation() {
   return (
     <nav className="shadow-md shadow-primary-200">
       <Container>
-        <div className="hidden lg:flex items-center justify-between gap-10 py-5">
-          <div></div>
+        <div className="hidden lg:flex items-center justify-between gap-10 py-7">
+          <div>
+            <img src="/logo-light.png" className="w-45 object-contain" />
+          </div>
           <div>
             {links.map((link, i) => (
               <SidebarLink

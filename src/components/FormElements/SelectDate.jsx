@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { FaCalendarDays } from 'react-icons/fa6';
 import { useOutsideClick } from '../../hooks/useOutsideClick';
 import Calendar from '../Calendar';
+import { format } from 'date-fns';
 
 export default function SelectDate({
   register,
@@ -36,7 +37,9 @@ export default function SelectDate({
           <input
             className="outline-0 w-full text-[15px] placeholder:text-primary-400 cursor-pointer"
             placeholder={placeholder}
-            value={date}
+            value={
+              date && format(new Date(date).toLocaleDateString(), 'dd LLLL y')
+            }
             onChange={(e) => {
               setDate(e.target.value);
               setShowCalendar(true);

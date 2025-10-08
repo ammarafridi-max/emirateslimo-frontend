@@ -11,6 +11,9 @@ import ScrollToTop from './components/ScrollToTop';
 import SelectLimo from './pages/SelectLimo';
 import BookingLayout from './components/BookingLayout';
 import BookingProvider from './context/BookingContext';
+import ContactInformation from './pages/ContactInformation';
+import DubaiAirportTransfer from './pages/DubaiAirportTransfer';
+import ChauffeurService from './pages/ChauffeurService';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -33,9 +36,18 @@ export default function App() {
               <Routes>
                 <Route element={<AppLayout />}>
                   <Route index element={<Home />} />
-                  <Route path="book" element={<BookingLayout />}>
-                    <Route path="select-limo" element={<SelectLimo />} />
-                  </Route>
+                  <Route
+                    path="dubai-airport-transfer"
+                    element={<DubaiAirportTransfer />}
+                  />
+                  <Route
+                    path="chauffeur-service"
+                    element={<ChauffeurService />}
+                  />
+                </Route>
+                <Route path="book" element={<BookingLayout />}>
+                  <Route path="select-limo" element={<SelectLimo />} />
+                  <Route path="contact-info" element={<ContactInformation />} />
                 </Route>
               </Routes>
             </BrowserRouter>

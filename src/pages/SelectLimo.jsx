@@ -1,15 +1,25 @@
-import { useSearchParams } from 'react-router-dom';
+import { useContext, useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useVehicles } from '../hooks/useVehicles';
-import VehicleCard from '../components/VehicleCard';
-import { useContext } from 'react';
 import { BookingContext } from '../context/BookingContext';
+import VehicleCard from '../components/VehicleCard';
 
 export default function SelectLimo() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { vehicles } = useVehicles();
-  const { setBookingData, bookingData } = useContext(BookingContext);
+  const { bookingData } = useContext(BookingContext);
 
-  console.log(bookingData);
+  useEffect(() => {
+    if (
+      !bookingData.pickup.name ||
+      !bookingData.dropoff.name ||
+      !bookingData.pickupDate ||
+      !bookingData.pickupTime
+    ) {
+      navigate('/');
+    }
+  }, [bookingData, navigate]);
 
   return (
     <div className="flex flex-col gap-6">

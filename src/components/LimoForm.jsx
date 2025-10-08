@@ -1,16 +1,22 @@
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { forwardRef, useContext } from 'react';
 import { FaClock } from 'react-icons/fa6';
 import SearchLocations from './FormElements/SearchLocations';
 import PrimaryButton from './PrimaryButton';
 import SelectDate from './FormElements/SelectDate';
+import SelectTime from './FormElements/SelectTime';
 import { BookingContext } from '../context/BookingContext';
+import TimePicker from 'react-time-picker';
 
 export default function LimoForm() {
-  const { register, handleSubmit, setValue, watch } = useForm();
   const navigate = useNavigate();
   const { setBookingData } = useContext(BookingContext);
+  const { register, handleSubmit, setValue, watch, control } = useForm({
+    defaultValues: {
+      pickupTime: '10:00',
+    },
+  });
 
   function onSubmit(data) {
     setBookingData((prev) => ({
@@ -21,7 +27,9 @@ export default function LimoForm() {
       pickupTime: data.pickupTime,
     }));
 
-    navigate('/book/select-limo');
+    navigate(
+      `/book/select-limo?pickupName=${data.pickup.name}&pickupLat=${data.pickup.lat}&pickupLng=${data.pickup.lng}&pickupDate=${data.pickupDate}&dropoffName=${data.dropoff.name}&dropoffLat=${data.dropoff.lat}&dropoffLng=${data.dropoff.lng}`
+    );
   }
 
   return (
@@ -65,11 +73,12 @@ export default function LimoForm() {
             register={register}
             setValue={setValue}
           />
-          <FormItem
-            register={register}
-            icon={<FaClock />}
-            label="Pick up Time"
+          <SelectTime
+            label="Pick up time"
             placeholder="Select time"
+            name="pickupTime"
+            register={register}
+            setValue={setValue}
           />
         </div>
 

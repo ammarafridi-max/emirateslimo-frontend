@@ -25,9 +25,11 @@ export default function VehicleCard({ vehicle, disabled }) {
     console.log(bookingData);
   }
 
+  console.log(vehicle);
+
   return (
     <>
-      <div className="sm:grid grid-cols-[5fr_7fr] items-start gap-7 bg-transparent rounded-lg">
+      <div className="sm:grid grid-cols-[4.5fr_7.5fr] items-start gap-7 bg-transparent rounded-lg">
         <div className="relative w-full h-50 bg-primary-100 rounded-lg">
           <button
             type="button"
@@ -38,13 +40,16 @@ export default function VehicleCard({ vehicle, disabled }) {
           </button>
         </div>
         <div>
-          <h3 className="text-[21px] font-medium">
+          {/* <span className="flex items-center gap-2 text-[12px] text-primary-400 uppercase">
+            {vehicle?.class} {vehicle?.type}
+          </span> */}
+          <h3 className="text-[20px] font-medium">
             {vehicle?.brand} {vehicle?.model}
           </h3>
-          <p className="text-[18px] font-normal mb-2 text-primary-500">
+          <p className="text-[17px] font-normal mb-2 text-primary-500">
             AED {totalVehiclePrice}
           </p>
-          <p className="text-[15px] font-extralight leading-5 mb-2">
+          <p className="text-[15px] font-extralight leading-5 mt-2 mb-2">
             Luxury and premium sedans ideal for business travel or stylish city
             rides. Similar cars include BYD Han, and Tesla Model 3.
           </p>

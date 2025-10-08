@@ -16,17 +16,8 @@ export default function BookingProvider({ children }) {
     },
   });
 
-  function setVehicleId(id) {
-    setBookingData((data) => ({
-      ...data,
-      vehicleId: id,
-    }));
-  }
-
   return (
-    <BookingContext.Provider
-      value={{ bookingData, setBookingData, setVehicleId }}
-    >
+    <BookingContext.Provider value={{ bookingData, setBookingData }}>
       {children}
     </BookingContext.Provider>
   );
