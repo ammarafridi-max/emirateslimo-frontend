@@ -37,9 +37,9 @@ export default function Navigation() {
     <nav className="shadow-md shadow-primary-200">
       <Container>
         <div className="hidden lg:flex items-center justify-between gap-10 py-7">
-          <div>
+          <a href="/">
             <img src="/logo-light.png" className="w-45 object-contain" />
-          </div>
+          </a>
           <div>
             {links.map((link, i) => (
               <SidebarLink
