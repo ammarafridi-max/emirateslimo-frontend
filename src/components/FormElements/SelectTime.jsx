@@ -1,82 +1,157 @@
 import { useRef, useState } from 'react';
-import { FaCalendarDays } from 'react-icons/fa6';
+import { FaClock } from 'react-icons/fa6';
 import { useOutsideClick } from '../../hooks/useOutsideClick';
-import Calendar from '../Calendar';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function SelectTime({
   register,
-  label,
-  placeholder,
-  setValue,
+  label = 'Pickup time',
+  placeholder = 'Select time',
   name,
+  setValue,
 }) {
   const wrapperRef = useRef(null);
   const [time, setTime] = useState('');
   const [showTimeOptions, setShowTimeOptions] = useState(false);
+  const [hour, setHour] = useState('');
+  const [minute, setMinute] = useState('');
+  const [period, setPeriod] = useState('AM');
 
   useOutsideClick(wrapperRef, () => setShowTimeOptions(false));
+
+  function handleTimeSelect(h, m, p) {
+    const formatted = `${String(h).padStart(2, '0')}:${String(m).padStart(
+      2,
+      '0'
+    )} ${p}`;
+    setTime(formatted);
+    setValue && setValue(name, formatted);
+    setShowTimeOptions(false);
+  }
 
   return (
     <div className="w-full" ref={wrapperRef}>
       <input type="hidden" {...register(name)} />
+
+      {/* Input field */}
       <div
-        onClick={() => {
-          setTime('');
-          setShowTimeOptions(true);
-        }}
-        className="flex items-center gap-3 bg-primary-100 p-3 rounded-md duration-300 cursor-pointer hover:bg-primary-200"
+        onClick={() => setShowTimeOptions(true)}
+        className={`flex items-center gap-3 bg-white border border-primary-200 rounded-xl px-4 py-3 cursor-pointer transition-all duration-300 
+        ${
+          showTimeOptions
+            ? 'ring-2 ring-accent-500/40 border-accent-500/50'
+            : 'hover:border-accent-500/50'
+        }`}
       >
-        <span className="text-primary-600">
-          <FaCalendarDays />
+        <span className="text-primary-700 text-[18px]">
+          <FaClock />
         </span>
         <div className="flex flex-col w-full">
-          <label className="text-[12px] text-gray-500 uppercase font-light cursor-pointer">
+          <label className="text-[12px] uppercase text-primary-400 font-light tracking-wider cursor-pointer">
             {label}
           </label>
           <input
-            className="outline-0 w-full text-[15px] placeholder:text-primary-400 cursor-pointer"
+            readOnly
+            className="bg-transparent border-0 outline-none w-full text-[15.5px] font-light text-primary-900 placeholder:text-primary-300 cursor-pointer"
             placeholder={placeholder}
             value={time}
-            onChange={(e) => {
-              setTime(e.target.value);
-              setShowTimeOptions(true);
-            }}
           />
         </div>
       </div>
-      <div className="w-full relative">
+
+      {/* Dropdown */}
+      <AnimatePresence>
         {showTimeOptions && (
-          <div className="absolute flex w-[300px] h-[250px] bg-white rounded-md border border-primary-300 mt-3 p-3">
-            <div className="w-[33%]">
-              <p className="text-center py-2">Hour</p>
-              <div className="h-[180px] overflow-scroll">
-                {Array.from({ length: 12 }, (_, i) => (
-                  <p
-                    className="px-2 font-extralight hover:bg-primary-100 cursor-pointer text-center overflow-scroll"
-                    key={i}
-                  >
-                    {i + 1}
+          <motion.div
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.25 }}
+            className="relative"
+          >
+            <div className="absolute top-2 bg-white border border-primary-100 shadow-[0_6px_24px_rgba(0,0,0,0.08)] rounded-lg w-full max-w-[340px] z-50 overflow-hidden p-3">
+              <div className="grid grid-cols-3 gap-2 text-center">
+                {/* Hour column */}
+                <div>
+                  <p className="text-[13px] font-light text-primary-500 mb-1 uppercase">
+                    Hour
                   </p>
-                ))}
-              </div>
-            </div>
-            <div className="w-[33%]">
-              <p className="text-center py-2">Minute</p>
-              <div className="h-[180px] overflow-scroll">
-                {[0]}
-                {Array.from({ length: 12 }, (_, i) => (
-                  <p
-                    className="px-2 font-extralight hover:bg-primary-100 cursor-pointer text-center"
-                    key={i}
-                  >
-                    {i + 5}
+                  <div className="h-[160px] overflow-y-auto rounded-md border border-primary-50">
+                    {Array.from({ length: 12 }, (_, i) => i + 1).map((h) => (
+                      <p
+                        key={h}
+                        onClick={() => setHour(h)}
+                        className={`py-1.5 text-[15px] cursor-pointer font-light transition-colors duration-150 ${
+                          hour === h
+                            ? 'bg-accent-500 text-white'
+                            : 'hover:bg-primary-50 text-primary-800'
+                        }`}
+                      >
+                        {h}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Minute column */}
+                <div>
+                  <p className="text-[13px] font-light text-primary-500 mb-1 uppercase">
+                    Minute
                   </p>
-                ))}
+                  <div className="h-[160px] overflow-y-auto rounded-md border border-primary-50">
+                    {[0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55].map((m) => (
+                      <p
+                        key={m}
+                        onClick={() => setMinute(m)}
+                        className={`py-1.5 text-[15px] cursor-pointer font-light transition-colors duration-150 ${
+                          minute === m
+                            ? 'bg-accent-500 text-white'
+                            : 'hover:bg-primary-50 text-primary-800'
+                        }`}
+                      >
+                        {String(m).padStart(2, '0')}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Period column */}
+                <div>
+                  <p className="text-[13px] font-light text-primary-500 mb-1 uppercase">
+                    AM / PM
+                  </p>
+                  <div className="h-[160px] overflow-y-auto rounded-md border border-primary-50">
+                    {['AM', 'PM'].map((p) => (
+                      <p
+                        key={p}
+                        onClick={() => setPeriod(p)}
+                        className={`py-1.5 text-[15px] cursor-pointer font-light transition-colors duration-150 ${
+                          period === p
+                            ? 'bg-accent-500 text-white'
+                            : 'hover:bg-primary-50 text-primary-800'
+                        }`}
+                      >
+                        {p}
+                      </p>
+                    ))}
+                  </div>
+                </div>
               </div>
+
+              {/* Confirm Button */}
+              {hour && minute !== '' && (
+                <button
+                  type="button"
+                  onClick={() => handleTimeSelect(hour, minute, period)}
+                  className="w-full mt-4 py-2 rounded-md bg-accent-500 text-white text-[14px] font-light hover:bg-accent-600 transition-colors"
+                >
+                  Set Time
+                </button>
+              )}
             </div>
-          </div>
+          </motion.div>
         )}
-      </div>
+      </AnimatePresence>
     </div>
   );
 }

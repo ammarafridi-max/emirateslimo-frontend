@@ -1,4 +1,3 @@
-import { XIcon } from 'lucide-react';
 import { forwardRef, useRef, useState } from 'react';
 import { FaXmark } from 'react-icons/fa6';
 

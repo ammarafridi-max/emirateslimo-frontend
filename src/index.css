@@ -18,16 +18,16 @@
   --color-primary-700: #262626;
   --color-primary-800: #141414;
   --color-primary-900: #000000; /* Black */
-  --color-accent-50: #e6f9f0;
-  --color-accent-100: #c2f0d9;
-  --color-accent-200: #99e6c2;
-  --color-accent-300: #66d9a8;
-  --color-accent-400: #33cc8f;
-  --color-accent-500: #00b26b; /* Base */
-  --color-accent-600: #00995c;
-  --color-accent-700: #007a4a;
-  --color-accent-800: #005c39;
-  --color-accent-900: #003d26;
+  --color-accent-50: #fff8f1;
+  --color-accent-100: #ffe9cc;
+  --color-accent-200: #ffd199;
+  --color-accent-300: #ffb866;
+  --color-accent-400: #ff9f33;
+  --color-accent-500: #ff7a00; /* Base orange – warm, vivid */
+  --color-accent-600: #e66e00;
+  --color-accent-700: #cc6200;
+  --color-accent-800: #994900;
+  --color-accent-900: #663000;
   --font-nunito: 'Nunito Variable';
   --font-merriweather: 'Merriweather';
   --font-outfit: 'Outfit Variable', sans-serif;

@@ -1,32 +1,29 @@
-export default function accentButtonOutline({
+export function PrimaryButtonOutline({
   children,
   className = '',
   size = 'medium',
-  selected,
+  selected = false,
   ...props
 }) {
-  let newClassName =
-    className +
-    ' text-center no-underline font-normal font-outfit rounded-md capitalize border border-solid border-accent-500 cursor-pointer duration-300 shadow disabled:bg-accent-600 disabled:text-white disabled:opacity-50 disabled:cursor-auto';
+  const base =
+    'inline-flex items-center justify-center text-center font-outfit font-medium rounded-md capitalize border border-solid cursor-pointer transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent-400 disabled:opacity-50 disabled:cursor-not-allowed';
 
-  if (size === 'large') {
-    newClassName = newClassName + ` text-[15px] md:text-[18px] py-3 px-5 `;
-  } else if (size === 'small') {
-    newClassName = newClassName + `text-[12px] md:text-[14px] py-2 px-4`;
-  } else {
-    newClassName = newClassName + `text-[14px] md:text-[16px] py-2.5 px-5`;
-  }
+  const sizeClasses =
+    size === 'large'
+      ? 'text-[15px] md:text-[18px] py-3 px-6'
+      : size === 'small'
+        ? 'text-[13px] md:text-[14px] py-2 px-4'
+        : 'text-[14px] md:text-[15px] py-2.5 px-5';
 
-  if (selected) {
-    newClassName = newClassName + ` bg-accent-500 text-white`;
-  } else {
-    newClassName =
-      newClassName +
-      ` bg-transparent text-accent-500 hover:bg-accent-600 hover:text-white hover:border-accent-600`;
-  }
+  const colorClasses = selected
+    ? 'bg-accent-500 text-white border-accent-500'
+    : 'bg-transparent text-accent-500 border-accent-500 hover:bg-accent-600 hover:text-white hover:border-accent-600 active:scale-[0.98]';
 
   return (
-    <button className={newClassName} {...props}>
+    <button
+      className={`${base} ${sizeClasses} ${colorClasses} ${className}`}
+      {...props}
+    >
       {children}
     </button>
   );

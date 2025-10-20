@@ -119,7 +119,7 @@ export default function Calendar({
 
   return (
     <div
-      className="fixed inset-0 md:absolute md:top-3 md:inset-auto z-[1000] bg-black/70 md:bg-transparent flex items-center justify-center font-nunito"
+      className="fixed inset-0 md:absolute md:top-3 md:inset-auto z-[1000] bg-primary-300/90 md:bg-transparent flex items-center justify-center font-nunito"
       onClick={() => setShowCalendar(false)}
     >
       <div

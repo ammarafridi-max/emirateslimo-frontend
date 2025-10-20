@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ChevronRight } from 'lucide-react'; // or any icon lib you like
+import { ChevronRight } from 'lucide-react';
 
 export default function Breadcrumb({ paths = [] }) {
   return (

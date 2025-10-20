@@ -4,16 +4,22 @@ import { HelmetProvider } from 'react-helmet-async';
 import { Toaster } from 'react-hot-toast';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
+// Layout
 import AppLayout from './components/AppLayout';
-
-import Home from './pages/Home';
-import ScrollToTop from './components/ScrollToTop';
-import SelectLimo from './pages/SelectLimo';
 import BookingLayout from './components/BookingLayout';
+
+// Context
 import BookingProvider from './context/BookingContext';
-import ContactInformation from './pages/ContactInformation';
+import ScrollToTop from './components/ScrollToTop';
+
+// Pages
+import Home from './pages/Home';
 import DubaiAirportTransfer from './pages/DubaiAirportTransfer';
 import ChauffeurService from './pages/ChauffeurService';
+
+// Booking
+import SelectLimo from './pages/SelectLimo';
+import BookingDetails from './pages/BookingDetails';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -29,9 +35,9 @@ export default function App() {
       <Toaster />
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false} />
-        <BookingProvider>
-          <HelmetProvider>
-            <BrowserRouter>
+        <HelmetProvider>
+          <BrowserRouter>
+            <BookingProvider>
               <ScrollToTop />
               <Routes>
                 <Route element={<AppLayout />}>
@@ -47,12 +53,12 @@ export default function App() {
                 </Route>
                 <Route path="book" element={<BookingLayout />}>
                   <Route path="select-limo" element={<SelectLimo />} />
-                  <Route path="contact-info" element={<ContactInformation />} />
+                  <Route path="booking-details" element={<BookingDetails />} />
                 </Route>
               </Routes>
-            </BrowserRouter>
-          </HelmetProvider>
-        </BookingProvider>
+            </BookingProvider>
+          </BrowserRouter>
+        </HelmetProvider>
       </QueryClientProvider>
     </>
   );

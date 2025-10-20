@@ -2,7 +2,6 @@ import {
   FaStripe,
   FaGooglePay,
   FaApplePay,
-  FaCcMastercard,
   FaPhoneAlt,
   FaEnvelope,
   FaMapPin,
@@ -22,16 +21,15 @@ const icons = [
 
 export default function Footer() {
   return (
-    <footer className="py-5 bg-primary-800">
+    <footer className="py-5 bg-primary-900">
       <Container className="py-7.5 bg-transparent box-border font-outfit">
         <div className="grid grid-cols-6 md:flex justify-between gap-8 mb-10 text-white">
           <div className="col-span-6 md:w-[33%] flex flex-col gap-5">
             <img src="/logo-dark.png" className="w-40" />
             <p className="text-primary-300 text-md md:text-[16px] font-extralight leading-7">
-              VisaWadi provides reliable and hassle-free visa services,
-              specializing in Schengen, UK, US, and other international visas.
-              We make the process simple, transparent, and stress-free so you
-              can focus on your travel plans.
+              Emirates Limo provides premium chauffeured transfer services
+              across the UAE, ensuring every journey is smooth, safe, and on
+              time.
             </p>
             <div className="flex gap-2">
               <IconCard icon={<FaFacebook />} href="tel:971506045355" />
@@ -44,7 +42,7 @@ export default function Footer() {
               <FooterLink>Home</FooterLink>
               <FooterLink>About</FooterLink>
               <FooterLink>Services</FooterLink>
-              <FooterLink>Benefits</FooterLink>
+              <FooterLink>Fleet</FooterLink>
             </div>
           </div>
           <div className="col-span-3 md:w-fit">
@@ -136,7 +134,7 @@ function IconCard({ icon, href, children, target }) {
       className="flex items-center gap-3 leading-6 group"
       target="_blank"
     >
-      <span className="bg-primary-500 w-[30px] h-[30px] rounded-full flex items-center justify-center text-sm duration-300 group-hover:bg-primary-600">
+      <span className="bg-white text-black w-[30px] h-[30px] rounded-full flex items-center justify-center text-sm duration-300 group-hover:bg-primary-200">
         {icon}
       </span>
       {children && <p className="text-[16px]">{children}</p>}

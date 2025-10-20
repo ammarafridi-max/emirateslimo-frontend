@@ -1,30 +1,14 @@
-import { Link, Outlet, useLocation } from 'react-router-dom';
-import PrimarySection from './PrimarySection';
-import Container from './Container';
-import PrimaryLink from './PrimaryLink';
-import Footer from './Footer';
+import { Outlet, useLocation, Link } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import { BookingContext } from '../context/BookingContext';
-import { useVehicle } from '../hooks/useVehicle';
 import { Helmet } from 'react-helmet-async';
-import { format } from 'date-fns';
 import { ChevronRight } from 'lucide-react';
-import { FaCheck } from 'react-icons/fa';
-
-const steps = [
-  {
-    name: 'Choose Your Limo',
-    page: '/book/select-limo',
-  },
-  {
-    name: 'Contact Information',
-    page: '/book/contact-info',
-  },
-  {
-    name: 'Payment',
-    page: '/book/payment',
-  },
-];
+import { FaWhatsapp } from 'react-icons/fa6';
+import BookingSteps from './BookingSteps';
+import BookingSummary from './BookingSummary';
+import PrimarySection from './PrimarySection';
+import Container from './Container';
+import Footer from './Footer';
 
 export default function BookingLayout() {
   const location = useLocation();
@@ -34,12 +18,15 @@ export default function BookingLayout() {
 
   useEffect(() => {
     if (location.pathname === '/book/select-limo') {
-      setCta({ text: 'Enter Contact Information', link: '/book/contact-info' });
+      setCta({
+        text: 'Enter Contact Information',
+        link: '/book/booking-details',
+      });
       setTitle('Choose Your Limo');
     }
-    if (location.pathname === '/book/contact-info') {
+    if (location.pathname === '/book/booking-details') {
       setCta({ text: 'Proceed to Payment', link: '/book/payment' });
-      setTitle('Enter Contact Information');
+      setTitle('Booking Details');
     }
   }, [location.pathname]);
 
@@ -48,146 +35,43 @@ export default function BookingLayout() {
       <Helmet>
         <title>{`${title} | Booking`}</title>
       </Helmet>
-      <PrimarySection>
-        <Steps />
-        <Container className="pt-10 pb-20">
-          <div className="sm:grid sm:grid-cols-[8.5fr_3.5fr] gap-6">
-            <div>
-              <Breadcrumb />
-              <Outlet />
-            </div>
-            <SummaryBox cta={cta} />
-          </div>
-        </Container>
-      </PrimarySection>
+      <Navigation />
+      <Body cta={cta} />
       <Footer />
     </>
   );
 }
 
-function Steps() {
-  const location = useLocation();
-
+function Navigation() {
   return (
-    <div className="w-full h-fit flex justify-center gap-20 mx-auto bg-white z-50 py-5 shadow-md">
-      {steps.map((item, i) => {
-        const isActive = location.pathname === item.page;
-        const isCompleted =
-          steps.findIndex((step) => step.page === location.pathname) > i;
-
-        return (
-          <Link
-            key={i}
-            onClick={(e) => {
-              if (!isCompleted && !isActive) e.preventDefault();
-            }}
-            to={item.page}
-            className="flex flex-col items-center gap-2"
-          >
-            <span
-              className={`w-8 h-8 text-sm flex items-center justify-center rounded-full transition-colors ${
-                isActive
-                  ? 'bg-black text-white'
-                  : isCompleted
-                    ? 'bg-green-600 text-white'
-                    : 'bg-primary-100 text-primary-400'
-              }`}
-            >
-              {isCompleted ? <FaCheck /> : i + 1}
-            </span>
-            <span
-              className={`text-sm ${
-                isActive
-                  ? 'text-black font-medium'
-                  : isCompleted
-                    ? 'text-primary-900'
-                    : 'text-primary-300'
-              }`}
-            >
-              {item.name}
-            </span>
-          </Link>
-        );
-      })}
-    </div>
+    <PrimarySection className="bg-white relative py-3 md:py-5 shadow-md shadow-gray-200 z-50">
+      <Container className="md:grid md:grid-cols-[2fr_8fr_2fr] items-center h-fit">
+        <a className="hidden md:block" href="/">
+          <img src="/logo-light.png" className="w-full object-contain" />
+        </a>
+        <BookingSteps />
+        <div className="hidden md:flex justify-end gap-3">
+          <button className="flex items-center gap-2 bg-primary-100 px-4 py-2 rounded-md cursor-pointer duration-300 hover:bg-primary-200">
+            <FaWhatsapp />
+            <span className="text-[14px] font-light">Chat With Us</span>
+          </button>
+        </div>
+      </Container>
+    </PrimarySection>
   );
 }
 
-function SummaryBox({ cta }) {
-  const { bookingData } = useContext(BookingContext);
-  const { vehicle } = useVehicle(bookingData?.vehicleId);
-
-  const pickupLocation = bookingData.pickup;
-  const dropoffLocation = bookingData.dropoff;
-  const pickupDate = bookingData.pickupDate;
-  const pickupTime = bookingData.pickupTime;
-  const orderSummary = bookingData.orderSummary;
-
+function Body({ cta }) {
   return (
-    <div>
-      <div className="h-fit p-4 mb-5 bg-primary-100 rounded-lg shadow-md shadow-primary-200 divide-y divide-primary-300">
-        <div className="pb-3 mb-3">
-          <label className="text-[12px] text-gray-500 uppercase font-light">
-            Pickup Location
-          </label>
-          <p className="text-[15px] font-light">
-            {pickupLocation.name
-              ? `${pickupLocation.name} - ${pickupLocation.address}`
-              : ''}
-          </p>
+    <PrimarySection className="bg-gray-100">
+      <Container className="sm:grid sm:grid-cols-[8.5fr_3.5fr] w-[95%] gap-6 py-4 md:pt-10 md:pb-20">
+        <div>
+          <Breadcrumb />
+          <Outlet />
         </div>
-        <div className="pb-3 mb-3">
-          <label className="text-[12px] text-gray-500 uppercase font-light">
-            Dropoff Location
-          </label>
-          <p className="text-[15px] font-light">
-            {dropoffLocation.name
-              ? `${dropoffLocation.name} - ${dropoffLocation.address}`
-              : ''}
-          </p>
-        </div>
-        <div className="pb-3 mb-3">
-          <label className="text-[12px] text-gray-500 uppercase font-light">
-            Pickup Date & Time
-          </label>
-          <p className="text-[15px] font-light">
-            {pickupDate
-              ? format(new Date(pickupDate).toLocaleDateString(), 'dd LLLL y')
-              : ''}
-          </p>
-        </div>
-        {bookingData?.vehicleId && (
-          <div className="pb-3">
-            <label className="text-[12px] text-gray-500 uppercase font-light">
-              Vehicle
-            </label>
-            <p className="text-[15px] font-light">
-              {vehicle?.brand} {vehicle?.model}
-            </p>
-          </div>
-        )}
-      </div>
-      <div className="mb-5">
-        <h2 className="font-medium text-lg border-l-3 mb-2 px-2">
-          Order Total
-        </h2>
-        <div className="flex items-center justify-between font-light px-2 border-l-2 border-transparent">
-          <p>Limo Price: </p>
-          <p>AED {orderSummary.vehiclePrice}</p>
-        </div>
-        <div className="flex items-center justify-between font-light px-2 border-l-2 border-transparent">
-          <p>Extras Price: </p>
-          <p>AED </p>
-        </div>
-      </div>
-      <PrimaryLink
-        className="w-full"
-        disabled={!bookingData?.vehicleId}
-        to={cta?.link}
-      >
-        {cta?.text}
-      </PrimaryLink>
-    </div>
+        <BookingSummary cta={cta} />
+      </Container>
+    </PrimarySection>
   );
 }
 
@@ -197,23 +81,31 @@ function Breadcrumb() {
 
   useEffect(() => {
     const path = location.pathname;
-    if (path === '/book/select-limo') {
-      setPageTitle('Choose Your Limo');
-    }
-    if (path === '/book/contact-info') {
-      setPageTitle('Contact Information');
-    }
+    if (path === '/book/select-limo') setPageTitle('Choose Your Limo');
+    if (path === '/book/booking-details') setPageTitle('Booking Details');
   }, [location.pathname]);
 
   return (
-    <div className="flex gap-2 items-center text-[15px] mb-7">
-      <a className="text-primary-400" href="/">
+    <div className="hidden md:flex items-center gap-2 text-[13px] md:text-[14.5px] font-light text-primary-500 mb-4 md:mb-7">
+      <Link
+        to="/"
+        className="text-primary-400 hover:text-accent-500 transition-colors duration-200"
+      >
         Home
-      </a>
-      <ChevronRight size={16} />
-      <a className="text-primary-400">Book</a>
-      <ChevronRight size={16} />
-      {pageTitle}
+      </Link>
+
+      <ChevronRight size={15} className="text-primary-300" />
+
+      <Link
+        to="/book"
+        className="text-primary-400 hover:text-accent-500 transition-colors duration-200"
+      >
+        Book
+      </Link>
+
+      <ChevronRight size={15} className="text-primary-300" />
+
+      <span className="text-primary-900 font-normal">{pageTitle}</span>
     </div>
   );
 }

@@ -1,27 +1,27 @@
-export default function accentButton({
+export default function PrimaryButton({
   children,
-  className,
+  className = '',
   size = 'medium',
   ...props
 }) {
-  let newClassName = className;
+  const base =
+    'inline-flex items-center justify-center text-center font-outfit font-medium rounded-md capitalize border border-solid cursor-pointer transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent-400 disabled:opacity-60 disabled:cursor-not-allowed';
 
-  if (size === 'large') {
-    newClassName =
-      newClassName +
-      ` text-center text-white text-[15px] md:text-[18px] no-underline font-medium font-outfit py-3 px-5 rounded-sm capitalize bg-accent-500 hover:bg-accent-600 border border-solid border-accent-500 cursor-pointer duration-300  disabled:bg-accent-500 disabled:opacity-60 disabled:cursor-auto disabled:hover:bg-accent-500`;
-  } else if (size === 'small') {
-    newClassName =
-      newClassName +
-      ` text-center text-white text-[12px] md:text-[14px] no-underline font-light font-outfit py-2 px-4 rounded-sm capitalize bg-accent-500 hover:bg-accent-600 border border-solid border-accent-500 cursor-pointer duration-300  disabled:bg-accent-500 disabled:opacity-60 disabled:cursor-auto disabled:hover:bg-accent-500`;
-  } else {
-    newClassName =
-      newClassName +
-      ` text-center text-white text-[14px] md:text-[16px] no-underline font-regular font-outfit py-2.5 px-5 rounded-sm capitalize bg-accent-500 hover:bg-accent-600 border border-solid border-accent-500 cursor-pointer duration-300  disabled:bg-accent-500 disabled:opacity-60 disabled:cursor-auto disabled:hover:bg-accent-500`;
-  }
+  const sizeClasses =
+    size === 'large'
+      ? 'text-[15px] md:text-[18px] py-3 px-6'
+      : size === 'small'
+        ? 'text-[13px] md:text-[14px] py-2 px-4'
+        : 'text-[14px] md:text-[15px] py-2.5 px-5';
+
+  const colorClasses =
+    'text-white bg-accent-500 border-accent-500 hover:bg-accent-600 hover:border-accent-600 active:scale-[0.98]';
 
   return (
-    <button className={newClassName} {...props}>
+    <button
+      className={`${base} ${sizeClasses} ${colorClasses} ${className}`}
+      {...props}
+    >
       {children}
     </button>
   );
