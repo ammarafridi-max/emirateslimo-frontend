@@ -27,9 +27,13 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <PrimarySection id="testimonials" className="bg-primary-100 py-15 md:py-20">
+    <PrimarySection id="testimonials" className="bg-primary-900 py-15 md:py-20">
       <Container>
-        <SectionTitle textAlign="center" subtitle="Client Testimonials">
+        <SectionTitle
+          type="secondary"
+          textAlign="center"
+          subtitle="Client Testimonials"
+        >
           What Our Clients Say
         </SectionTitle>
 

@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom';
 import Navigation from './Navigation';
 import Footer from './Footer';
 import MobileNavigation from './MobileNavigation';
+import ContactBanner from './ContactBanner';
 
 export default function AppLayout() {
   return (
@@ -9,6 +10,7 @@ export default function AppLayout() {
       <MobileNavigation />
       <Navigation />
       <Outlet />
+      <ContactBanner />
       <Footer />
     </div>
   );

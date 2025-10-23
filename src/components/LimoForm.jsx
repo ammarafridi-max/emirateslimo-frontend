@@ -1,80 +1,114 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { BookingContext } from '../context/BookingContext';
 import SearchLocations from './FormElements/SearchLocations';
 import SelectDate from './FormElements/SelectDate';
 import SelectTime from './FormElements/SelectTime';
 import PrimaryButton from './PrimaryButton';
 import SelectHours from './FormElements/SelectHours';
+import toast from 'react-hot-toast';
+import { useGetZoneByAddress } from '../hooks/useGetZoneByAddress';
+import { useGetDistance } from '../hooks/useGetDistance';
 
 export default function LimoForm() {
   const navigate = useNavigate();
-  const { bookingData, setBookingData } = useContext(BookingContext);
-  const { tripType, pickup, dropoff, pickupTime, pickupDate } = bookingData;
+  const { getZoneByAddress } = useGetZoneByAddress();
+  const { getDistance } = useGetDistance();
+  const { bookingData, setBookingData, validateLimoForm } =
+    useContext(BookingContext);
+  const { tripType } = bookingData;
   const { register, handleSubmit, setValue, watch } = useForm();
 
-  function onSubmit(data) {
-    console.log(data);
-    setBookingData((prev) => ({
-      ...prev,
-      pickup: data.pickup,
-      dropoff: data.dropoff,
-      pickupDate: data.pickupDate,
-      pickupTime: data.pickupTime,
-    }));
+  useEffect(() => {
+    setValue('pickup', bookingData.pickup);
+    setValue('dropoff', bookingData.dropoff);
+    setValue('pickupDate', bookingData.pickupDate);
+    setValue('pickupTime', bookingData.pickupTime);
+    setValue('hoursBooked', bookingData.hoursBooked);
+  }, [bookingData, setValue]);
 
-    console.log(bookingData);
+  async function onSubmit(data) {
+    const error = validateLimoForm(data);
+    if (error) return toast.error(error);
 
-    navigate(
-      `/book/select-limo?pickupName=${data.pickup?.name}&pickupLat=${data.pickup?.lat}&pickupLng=${data.pickup?.lng}&pickupDate=${data.pickupDate}&dropoffName=${data.dropoff?.name}&dropoffLat=${data.dropoff?.lat}&dropoffLng=${data.dropoff?.lng}`
-    );
+    try {
+      const pickupZone = await getZoneByAddress({
+        lat: data.pickup.lat,
+        lng: data.pickup.lng,
+      });
+
+      let dropoffZone = null;
+
+      if (tripType === 'distance' && data.dropoff?.lat && data.dropoff?.lng) {
+        dropoffZone = await getZoneByAddress({
+          lat: data.dropoff.lat,
+          lng: data.dropoff.lng,
+        });
+      }
+
+      toast.dismiss();
+
+      if (!pickupZone) return toast.error('Pickup location not covered.');
+
+      const distance = await getDistance({
+        originLat: data?.pickup?.lat,
+        originLng: data?.pickup?.lng,
+        destLat: data?.dropoff?.lat,
+        destLng: data?.dropoff?.lng,
+      });
+
+      setBookingData((prev) => ({
+        ...prev,
+        pickup: {
+          ...data.pickup,
+          zone: pickupZone?._id ? pickupZone?._id : null,
+        },
+        dropoff:
+          {
+            ...data.dropoff,
+            zone: dropoffZone?._id ? dropoffZone?._id : null,
+          } || null,
+        pickupDate: data.pickupDate,
+        pickupTime: data.pickupTime,
+        hoursBooked: tripType === 'hourly' ? data?.hoursBooked : null,
+        distance: distance?.distanceKm,
+        tripDuration: distance?.durationMin,
+      }));
+
+      navigate('/book/select-limo');
+    } catch (err) {
+      toast.dismiss();
+      console.error(err);
+      toast.error('Something went wrong fetching zones.');
+    }
   }
 
   return (
-    <div className="w-full bg-white rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.06)]">
+    <div className="w-full bg-white rounded-2xl shadow-md shadow-primary-900">
       {/* Trip Type Switch */}
       <div className="flex">
-        <button
-          type="button"
-          onClick={() =>
-            setBookingData((prev) => ({
-              ...prev,
-              tripType: 'distance',
-            }))
-          }
-          className={`w-1/2 text-center py-3 text-[15px] font-medium transition-all duration-300 rounded-2xl cursor-pointer ${
-            tripType === 'distance'
-              ? 'bg-primary-100 text-black'
-              : 'bg-white text-primary-500 hover:text-accent-500'
-          }`}
-        >
-          Point-to-Point
-        </button>
-        <button
-          type="button"
-          onClick={() =>
-            setBookingData((prev) => ({
-              ...prev,
-              tripType: 'hourly',
-            }))
-          }
-          className={`w-1/2 text-center py-3 text-[15px] font-medium transition-all duration-300 rounded-2xl cursor-pointer ${
-            tripType === 'hourly'
-              ? 'bg-primary-100 text-black'
-              : 'bg-white text-primary-300 hover:text-primary-900'
-          }`}
-        >
-          Hourly
-        </button>
+        {['distance', 'hourly'].map((type) => (
+          <button
+            key={type}
+            type="button"
+            onClick={() => setBookingData((p) => ({ ...p, tripType: type }))}
+            className={`w-1/2 text-center py-3 text-[15px] font-medium transition-all rounded-2xl ${
+              tripType === type
+                ? 'bg-primary-100 text-black'
+                : 'bg-white text-primary-400 hover:text-accent-500'
+            }`}
+          >
+            {type === 'distance' ? 'Point-to-Point' : 'Hourly'}
+          </button>
+        ))}
       </div>
 
-      {/* Booking Form */}
+      {/* Form */}
       <form
         className="flex flex-col gap-4 p-6 md:p-7"
         onSubmit={handleSubmit(onSubmit)}
       >
-        {/* Locations */}
         <SearchLocations
           register={register}
           setValue={setValue}
@@ -100,25 +134,21 @@ export default function LimoForm() {
           />
         )}
 
-        {/* Date & Time */}
         <div className="flex flex-col xl:flex-row xl:items-center gap-4">
           <SelectDate
             label="Pick-up date"
-            placeholder="Select date"
             name="pickupDate"
             register={register}
             setValue={setValue}
           />
           <SelectTime
             label="Pick-up time"
-            placeholder="Select time"
             name="pickupTime"
             register={register}
             setValue={setValue}
           />
         </div>
 
-        {/* Submit Button */}
         <PrimaryButton
           type="submit"
           size="large"

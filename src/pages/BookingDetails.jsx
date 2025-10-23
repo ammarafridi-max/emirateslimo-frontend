@@ -48,7 +48,7 @@ export default function BookingDetails() {
   }, [watchedValues, setBookingData]);
 
   return (
-    <div className="flex flex-col gap-8 md:gap-12 w-full p-5 md:p-7 bg-white rounded-lg shadow-md">
+    <div className="flex flex-col gap-8 md:gap-12 w-full p-5 md:p-7 bg-white rounded-xl shadow-xl shadow-gray-300">
       <PassengerInformation register={register} bookingData={bookingData} />
       <PaymentOptions
         setValue={setValue}
@@ -70,14 +70,14 @@ function PassengerInformation({ register, bookingData }) {
         <div className="flex flex-col gap-1">
           <label className="font-light text-[14px]">First Name</label>
           <input
-            className="w-full bg-primary-100 text-[14px] font-light px-3 md:px-4 py-2 rounded-md shadow-sm shadow-primary-300 outline-0"
+            className="w-full bg-transparent text-[14px] font-light px-3 md:px-4 py-2 rounded-md border border-gray-300 focus:border-primary-900 outline-0"
             {...register('firstName')}
           />
         </div>
         <div className="flex flex-col gap-1">
           <label className="font-light text-[14px]">Last Name</label>
           <input
-            className="w-full bg-primary-100 text-[14px] font-light px-3 md:px-4 py-2 rounded-md shadow-sm shadow-primary-300 outline-0"
+            className="w-full bg-transparent text-[14px] font-light px-3 md:px-4 py-2 rounded-md border border-gray-300 focus:border-primary-900 outline-0"
             {...register('lastName')}
           />
         </div>
@@ -86,14 +86,14 @@ function PassengerInformation({ register, bookingData }) {
         <div className="flex flex-col gap-1">
           <label className="font-light text-[14px]">Email Address</label>
           <input
-            className="w-full bg-primary-100 text-[14px] font-light px-3 md:px-4 py-2 rounded-md shadow-sm shadow-primary-300 outline-0"
+            className="w-full bg-transparent text-[14px] font-light px-3 md:px-4 py-2 rounded-md border border-gray-300 focus:border-primary-900 outline-0"
             {...register('email')}
           />
         </div>
         <div className="flex flex-col gap-1">
           <label className="font-light text-[14px]">Phone Number</label>
           <input
-            className="w-full bg-primary-100 text-[14px] font-light px-3 md:px-4 py-2 rounded-md shadow-sm shadow-primary-300 outline-0"
+            className="w-full bg-transparent text-[14px] font-light px-3 md:px-4 py-2 rounded-md border border-gray-300 focus:border-primary-900 outline-0"
             {...register('phoneNumber')}
           />
         </div>
@@ -102,20 +102,21 @@ function PassengerInformation({ register, bookingData }) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mt-3">
           <div className="flex flex-col gap-1">
             <label className="font-light text-[14px]">
-              Flight Number <span className="text-primary-300">(optional)</span>
+              Flight Number <span className="text-primary-400">(optional)</span>
             </label>
             <input
               placeholder="eg. AC057"
-              className="w-full bg-primary-100 text-[14px] font-light px-3 md:px-4 py-2 rounded-md shadow-sm shadow-primary-300 outline-0"
+              className="w-full bg-transparent text-[14px] font-light px-3 md:px-4 py-2 rounded-md border border-gray-300 focus:border-primary-900 outline-0"
               {...register('flightNumber')}
             />
           </div>
           <div className="flex flex-col gap-1">
             <label className="font-light text-[14px]">
-              Expected Arrival Time
+              Expected Arrival Time{' '}
+              <span className="text-primary-400">(optional)</span>
             </label>
             <input
-              className="w-full bg-primary-100 text-[14px] font-light px-3 md:px-4 py-2 rounded-md shadow-sm shadow-primary-300 outline-0"
+              className="w-full bg-transparent text-[14px] font-light px-3 md:px-4 py-2 rounded-md border border-gray-300 focus:border-primary-900 outline-0"
               {...register('arrivalTime')}
             />
           </div>
@@ -129,7 +130,7 @@ function PassengerInformation({ register, bookingData }) {
         <textarea
           rows={5}
           placeholder="e.g., “Need a baby seat”"
-          className="w-full bg-primary-100 text-[14px] font-light px-4 py-2 rounded-md shadow-sm shadow-primary-300 outline-0"
+          className="w-full bg-transparent text-[14px] font-light px-4 py-2 rounded-md border border-gray-300 focus:border-primary-900 outline-0"
           {...register('message')}
         />
       </div>

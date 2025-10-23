@@ -63,7 +63,7 @@ function Navigation() {
 
 function Body({ cta }) {
   return (
-    <PrimarySection className="bg-gray-100">
+    <PrimarySection className="bg-gray-50">
       <Container className="sm:grid sm:grid-cols-[8.5fr_3.5fr] w-[95%] gap-6 py-4 md:pt-10 md:pb-20">
         <div>
           <Breadcrumb />

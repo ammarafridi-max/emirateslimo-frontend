@@ -41,27 +41,29 @@ export default function BookingSummary({ cta }) {
               : ''
           }
         />
-        {vehicle && (
-          <Detail
-            label="Vehicle Selected"
-            value={`${vehicleData?.brand || ''} ${vehicleData?.model || ''}`}
-          />
-        )}
+        <Detail
+          label="Vehicle Selected"
+          value={
+            vehicle
+              ? `${vehicleData?.brand || ''} ${vehicleData?.model || ''}`
+              : 'Please select your limo'
+          }
+        />
       </div>
 
       {/* Order Summary (DO NOT CHANGE SIZE) */}
       <div className="mb-5 bg-white rounded-xl border border-primary-100 shadow-[0_4px_25px_rgba(0,0,0,0.05)] overflow-hidden">
-        <h2 className="font-medium text-lg px-4 pt-4 pb-2 border-l-[3px] border-accent-500/80 text-primary-900">
+        <h2 className="font-medium text-lg px-4 pt-4 pb-2 border-l-[4px] border-primary-900/100 text-primary-900">
           Order Total
         </h2>
         <div className="flex flex-col gap-1 pb-4">
-          <div className="flex items-center justify-between font-light text-sm px-4">
+          <div className="flex items-center justify-between font-light text-sm px-4 border-l-[4px] border-transparent">
             <p className="text-primary-500">Limo Price</p>
             <p className="text-primary-900 font-medium">
               AED {orderSummary?.vehiclePrice || 0}
             </p>
           </div>
-          <div className="flex items-center justify-between font-light text-sm px-4">
+          <div className="flex items-center justify-between font-light text-sm px-4 border-l-[4px] border-transparent">
             <p className="text-primary-500">Extras Price</p>
             <p className="text-primary-900 font-medium">AED 0</p>
           </div>

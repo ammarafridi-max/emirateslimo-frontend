@@ -1,3 +1,4 @@
+import 'react-tooltip/dist/react-tooltip.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { HelmetProvider } from 'react-helmet-async';
@@ -16,6 +17,7 @@ import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
 import DubaiAirportTransfer from './pages/DubaiAirportTransfer';
 import ChauffeurService from './pages/ChauffeurService';
+import Fleet from './pages/Fleet';
 
 // Booking
 import SelectLimo from './pages/SelectLimo';
@@ -50,6 +52,7 @@ export default function App() {
                     path="chauffeur-service"
                     element={<ChauffeurService />}
                   />
+                  <Route path="fleet" element={<Fleet />} />
                 </Route>
                 <Route path="book" element={<BookingLayout />}>
                   <Route path="select-limo" element={<SelectLimo />} />

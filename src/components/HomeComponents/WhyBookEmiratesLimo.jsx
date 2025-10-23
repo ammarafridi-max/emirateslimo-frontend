@@ -31,7 +31,7 @@ export default function WhyBookEmiratesLimo() {
   return (
     <PrimarySection
       id="why-book"
-      className="bg-[#0c0c0c] py-15 md:py-20 text-white"
+      className="bg-primary-800 py-15 md:py-25 text-white"
     >
       <Container>
         <SectionTitle
@@ -46,9 +46,9 @@ export default function WhyBookEmiratesLimo() {
           {reasons.map((item, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: i * 0.15 }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
               className="group relative flex flex-col items-start rounded-2xl bg-gradient-to-b from-[#141414] to-[#0a0a0a] p-6 border border-white/30 shadow-[0_6px_25px_rgba(255,255,255,0.03)] hover:shadow-[0_6px_35px_rgba(255,255,255,0.06)] transition-all duration-300"
             >
               <div className="flex items-center justify-center mb-5 w-12 h-12 rounded-full bg-gradient-to-br from-primary-500 to-primary-700 text-white text-xl shadow-[0_0_10px_rgba(255,255,255,0.05)]">

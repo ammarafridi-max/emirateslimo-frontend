@@ -1,6 +1,6 @@
 import { NavLink, useLocation } from 'react-router-dom';
-import Container from './Container';
 import { motion } from 'framer-motion';
+import Container from './Container';
 
 export const links = [
   { name: 'Airport Transfer', href: '/dubai-airport-transfer' },
@@ -34,19 +34,13 @@ function SidebarLink({ name, href }) {
 
 export default function Navigation() {
   const { pathname } = useLocation();
-  const isHome = pathname === '/';
 
   return (
     <nav
-      className={`hidden md:block relative top-0 left-0 w-full z-50 transition-all duration-500 ${
-        isHome
-          ? 'bg-transparent backdrop-blur-sm'
-          : 'bg-[#0b0b0b]/95 backdrop-blur-lg shadow-[0_1px_10px_rgba(0,0,0,0.2)]'
-      }`}
+      className={`hidden lg:block w-full transition-all duration-500 bg-transparent shadow-lg shadow-gray-200`}
     >
       <Container>
         <div className="flex items-center justify-between py-5">
-          {/* Logo */}
           <a href="/" className="flex items-center gap-2">
             <img
               src="/logo-light.png"

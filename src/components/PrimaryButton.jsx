@@ -5,7 +5,7 @@ export default function PrimaryButton({
   ...props
 }) {
   const base =
-    'inline-flex items-center justify-center text-center font-outfit font-medium rounded-md capitalize border border-solid cursor-pointer transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent-400 disabled:opacity-60 disabled:cursor-not-allowed';
+    'inline-flex items-center justify-center text-center font-outfit font-medium rounded-lg capitalize border border-solid cursor-pointer transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent-400 disabled:opacity-60 disabled:cursor-not-allowed';
 
   const sizeClasses =
     size === 'large'

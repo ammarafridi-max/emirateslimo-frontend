@@ -1,11 +1,12 @@
-import { useQuery } from '@tanstack/react-query';
+// hooks/useGetZoneByAddress.js
+import { useMutation } from '@tanstack/react-query';
 import { getZoneByAddressApi } from '../services/apiZones';
 
 export function useGetZoneByAddress() {
-  const { data: zone, isLoading: isLoadingZone } = useQuery({
-    queryKey: ['zone'],
-    queryFn: ({ lat, lng }) => getZoneByAddressApi({ lat, lng }),
-  });
+  const { mutateAsync: getZoneByAddress, isPending: isLoadingZone } =
+    useMutation({
+      mutationFn: ({ lat, lng }) => getZoneByAddressApi({ lat, lng }),
+    });
 
-  return { zone, isLoadingZone };
+  return { getZoneByAddress, isLoadingZone };
 }

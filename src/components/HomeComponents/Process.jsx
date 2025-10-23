@@ -25,7 +25,7 @@ const steps = [
 
 export default function Process() {
   return (
-    <PrimarySection id="process" className="py-15 md:py-20">
+    <PrimarySection id="process" className="py-15 md:py-25">
       <Container>
         <SectionTitle
           textAlign="center"

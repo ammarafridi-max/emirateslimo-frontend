@@ -64,7 +64,7 @@ export default function SelectHours({
             transition={{ duration: 0.25 }}
             className="absolute left-0 top-[calc(100%+6px)] z-[100]"
           >
-            <div className="bg-white border border-primary-100 shadow-[0_6px_24px_rgba(0,0,0,0.08)] rounded-xl w-auto min-w-[200px] overflow-hidden">
+            <div className="bg-white border border-primary-100 shadow-[0_6px_24px_rgba(0,0,0,0.08)] rounded-xl w-auto min-w-[200px] overflow-hidden divide-y divide-primary-100">
               {hours.map((hour) => (
                 <p
                   key={hour}

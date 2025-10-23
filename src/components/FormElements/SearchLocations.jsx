@@ -34,9 +34,11 @@ export default function SearchLocations({
           inputRef.current.focus();
         }}
         className={`flex items-center gap-3 bg-white border border-primary-200 rounded-xl px-4 py-3 cursor-pointer transition-all duration-300 
-          ${showOptions ? 'ring-2 ring-accent-500/40 border-accent-500/50' : 'hover:border-accent-500/50'}`}
+          ${showOptions ? 'ring ring-primary-900' : 'hover:ring hover:ring-primary-300'}`}
       >
-        <span className="text-primary-900 text-[18px]">
+        <span
+          className={`text-[18px] ${showOptions ? 'text-primary-900' : 'text-primary-500'}`}
+        >
           <FaLocationDot />
         </span>
         <div className="flex flex-col w-full">

@@ -42,7 +42,7 @@ export default function Footer() {
               <FooterLink>Home</FooterLink>
               <FooterLink>About</FooterLink>
               <FooterLink>Services</FooterLink>
-              <FooterLink>Fleet</FooterLink>
+              <FooterLink href="/fleet">Fleet</FooterLink>
             </div>
           </div>
           <div className="col-span-3 md:w-fit">

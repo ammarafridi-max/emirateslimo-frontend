@@ -10,7 +10,7 @@ export default function AccentLink({
 }) {
   let newClassName =
     className +
-    ' inline-block text-center text-white no-underline rounded-sm capitalize bg-accent-500 hover:bg-accent-600 border border-solid border-accent-500 cursor-pointer duration-300 disabled:bg-accent-500/50 disabled:opacity-60 disabled:cursor-auto disabled:hover:bg-accent-500';
+    ' inline-block text-center text-white no-underline rounded-lg capitalize bg-accent-500 hover:bg-accent-600 border border-solid border-accent-500 cursor-pointer duration-300 disabled:bg-accent-500/50 disabled:opacity-60 disabled:cursor-auto disabled:hover:bg-accent-500';
 
   if (size === 'large') {
     newClassName +=

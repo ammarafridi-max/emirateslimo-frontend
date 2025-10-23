@@ -1,19 +1,27 @@
+import { useContext, useEffect, useState } from 'react';
 import { MdOutlineLuggage, MdOutlineMan2 } from 'react-icons/md';
-import { useContext, useState } from 'react';
-import { BookingContext } from '../context/BookingContext';
-import { FaImage } from 'react-icons/fa6';
+import { FaImage, FaLeaf } from 'react-icons/fa6';
 import { HiOutlineStar } from 'react-icons/hi2';
-import PrimaryButton from './PrimaryButton';
+import { BookingContext } from '../context/BookingContext';
+import { Tooltip } from 'react-tooltip';
+import PrimaryButtonOutline from './PrimaryButtonOutline';
 import VehicleGallery from './VehicleGallery';
 
 export default function VehicleCard({ vehicle, disabled }) {
-  const [showGallery, setShowGallery] = useState(false);
   const { bookingData, setBookingData } = useContext(BookingContext);
-  const { tripType } = bookingData;
+  const { tripType, hoursBooked, distance } = bookingData;
+  const [showGallery, setShowGallery] = useState(false);
+  const [totalVehiclePrice, setTotalVehiclePrice] = useState(
+    Math.ceil(
+      vehicle?.pricing?.initialPrice + vehicle?.pricing?.pricePerKm * distance
+    )
+  );
 
-  const totalVehiclePrice =
-    (vehicle?.pricing?.initialPrice || 0) +
-    (vehicle?.pricing?.pricePerHour || 0) * 2;
+  useEffect(() => {
+    if (tripType === 'hourly') {
+      setTotalVehiclePrice(vehicle?.pricing?.pricePerHour * hoursBooked);
+    }
+  }, []);
 
   const vehicleSelected = bookingData.vehicle === vehicle?._id;
 
@@ -36,7 +44,7 @@ export default function VehicleCard({ vehicle, disabled }) {
         }`}
       >
         {/* Vehicle Image */}
-        <div className="relative hidden md:block w-full h-48 rounded-xl overflow-hidden">
+        <div className="relative hidden md:block w-full aspect-video rounded-xl overflow-hidden">
           <VehicleImage vehicle={vehicle} setShowGallery={setShowGallery} />
         </div>
 
@@ -46,19 +54,20 @@ export default function VehicleCard({ vehicle, disabled }) {
             tripType={tripType}
             vehicle={vehicle}
             totalVehiclePrice={totalVehiclePrice}
+            hoursBooked={hoursBooked}
           />
           <Description vehicle={vehicle} />
           <QuickFacts vehicle={vehicle} />
 
-          <PrimaryButton
+          <PrimaryButtonOutline
             selected={vehicleSelected}
             size="small"
             onClick={handleClick}
             disabled={disabled}
-            className="mt-2 w-fit"
+            className="mt-2 w-fit relative right-0"
           >
             {vehicleSelected ? 'Selected' : 'Select Vehicle'}
-          </PrimaryButton>
+          </PrimaryButtonOutline>
         </div>
       </div>
 
@@ -78,9 +87,14 @@ export default function VehicleCard({ vehicle, disabled }) {
 
 /* --------------------------- Subcomponents --------------------------- */
 
-function VehicleTitlePrice({ vehicle, totalVehiclePrice, tripType }) {
+function VehicleTitlePrice({
+  vehicle,
+  totalVehiclePrice,
+  tripType,
+  hoursBooked,
+}) {
   return (
-    <div className="grid grid-cols-[4fr_8fr] items-center gap-3 md:block">
+    <div className="grid grid-cols-[3fr_9fr] items-center gap-3 md:block">
       {/* Mobile image */}
       <div className="block md:hidden bg-primary-100 rounded-lg overflow-hidden aspect-video">
         <img
@@ -96,7 +110,8 @@ function VehicleTitlePrice({ vehicle, totalVehiclePrice, tripType }) {
             {vehicle?.brand} {vehicle?.model}
           </span>
           {vehicle?.fuel?.toLowerCase() === 'hybrid' && (
-            <span className="uppercase ml-3 text-[10px] bg-accent-100 text-accent-600 px-2 py-0.5 rounded-md">
+            <span className="flex items-center gap-1 uppercase ml-3 text-[10px] font-medium bg-green-200 text-green-900 px-2 py-0.5 rounded-md">
+              <FaLeaf />
               {vehicle?.fuel}
             </span>
           )}
@@ -104,7 +119,7 @@ function VehicleTitlePrice({ vehicle, totalVehiclePrice, tripType }) {
         <p className="text-[15px] font-medium text-accent-500">
           AED {totalVehiclePrice}
           <span className="text-[13px] text-primary-400 font-light ml-1">
-            / {tripType === 'distance' ? 'ride' : 'hour'}
+            / {tripType === 'distance' ? 'ride' : `${hoursBooked} hours`}
           </span>
         </p>
       </div>
@@ -123,7 +138,7 @@ function VehicleImage({ vehicle, setShowGallery }) {
       <button
         type="button"
         onClick={() => setShowGallery(true)}
-        className="absolute bottom-3 right-3 flex items-center gap-2 bg-white/80 hover:bg-white text-primary-700 hover:text-accent-600 duration-300 px-3 py-1.5 rounded-full shadow-sm backdrop-blur-sm"
+        className="absolute bottom-3 right-3 flex items-center gap-2 bg-white text-primary-700 hover:text-accent-600 duration-300 px-3 py-1.5 rounded-full shadow-sm cursor-pointer"
       >
         <FaImage className="text-[14px]" />
         <span className="text-[12px] font-light">View</span>
@@ -144,8 +159,19 @@ function Description({ vehicle }) {
 function QuickFacts({ vehicle }) {
   return (
     <div className="flex flex-wrap items-center gap-2 mb-3">
-      <Fact icon={MdOutlineLuggage} label={`${vehicle.luggage} Bags`} />
-      <Fact icon={MdOutlineMan2} label={`${vehicle.passengers} Pax`} />
+      <Tooltip className="text-sm" id="my-tooltip" />
+      <div
+        data-tooltip-id="my-tooltip"
+        data-tooltip-content="Fits up to 3 luggage bags"
+      >
+        <Fact icon={MdOutlineLuggage} label={`${vehicle.luggage}`} />
+      </div>
+      <div
+        data-tooltip-id="my-tooltip"
+        data-tooltip-content="Fits up to 3 passengers"
+      >
+        <Fact icon={MdOutlineMan2} label={`${vehicle.passengers}`} />
+      </div>
       <Fact icon={HiOutlineStar} label={`${vehicle?.class} ${vehicle?.type}`} />
     </div>
   );
@@ -153,7 +179,7 @@ function QuickFacts({ vehicle }) {
 
 function Fact({ icon: Icon, label }) {
   return (
-    <div className="flex items-center gap-1 bg-primary-100 px-2 py-1 rounded-md text-primary-500 hover:text-accent-500 transition-colors">
+    <div className="flex items-center gap-1 bg-primary-100 px-2 py-1 rounded-md text-primary-500 transition-colors">
       <Icon className="text-[14px]" />
       <span className="text-[12.5px] font-light">{label}</span>
     </div>

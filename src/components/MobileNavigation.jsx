@@ -7,7 +7,7 @@ export default function MobileNavigation() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav className="block lg:hidden py-4 relative z-50">
+    <nav className="block lg:hidden py-4 shadow-lg shadow-gray-200">
       <Container className="flex justify-between items-center">
         <a href="/" className="w-40 h-auto flex items-center">
           <img

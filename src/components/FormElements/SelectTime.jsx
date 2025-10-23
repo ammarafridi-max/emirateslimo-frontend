@@ -83,7 +83,7 @@ export default function SelectTime({
                         onClick={() => setHour(h)}
                         className={`py-1.5 text-[15px] cursor-pointer font-light transition-colors duration-150 ${
                           hour === h
-                            ? 'bg-accent-500 text-white'
+                            ? 'bg-primary-200 text-black'
                             : 'hover:bg-primary-50 text-primary-800'
                         }`}
                       >
@@ -105,7 +105,7 @@ export default function SelectTime({
                         onClick={() => setMinute(m)}
                         className={`py-1.5 text-[15px] cursor-pointer font-light transition-colors duration-150 ${
                           minute === m
-                            ? 'bg-accent-500 text-white'
+                            ? 'bg-primary-200 text-black'
                             : 'hover:bg-primary-50 text-primary-800'
                         }`}
                       >
@@ -127,7 +127,7 @@ export default function SelectTime({
                         onClick={() => setPeriod(p)}
                         className={`py-1.5 text-[15px] cursor-pointer font-light transition-colors duration-150 ${
                           period === p
-                            ? 'bg-accent-500 text-white'
+                            ? 'bg-primary-200 text-black'
                             : 'hover:bg-primary-50 text-primary-800'
                         }`}
                       >
@@ -143,7 +143,7 @@ export default function SelectTime({
                 <button
                   type="button"
                   onClick={() => handleTimeSelect(hour, minute, period)}
-                  className="w-full mt-4 py-2 rounded-md bg-accent-500 text-white text-[14px] font-light hover:bg-accent-600 transition-colors"
+                  className="w-full mt-4 py-2 rounded-md bg-accent-500 text-white text-[14px] font-light hover:bg-accent-600 transition-colors cursor-pointer"
                 >
                   Set Time
                 </button>
