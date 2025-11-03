@@ -1,5 +1,4 @@
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import { useContext, useEffect } from 'react';
 import { BookingContext } from '../context/BookingContext';
 import SearchLocations from './FormElements/SearchLocations';
@@ -7,85 +6,29 @@ import SelectDate from './FormElements/SelectDate';
 import SelectTime from './FormElements/SelectTime';
 import PrimaryButton from './PrimaryButton';
 import SelectHours from './FormElements/SelectHours';
-import toast from 'react-hot-toast';
-import { useGetZoneByAddress } from '../hooks/useGetZoneByAddress';
-import { useGetDistance } from '../hooks/useGetDistance';
 
 export default function LimoForm() {
-  const navigate = useNavigate();
-  const { getZoneByAddress } = useGetZoneByAddress();
-  const { getDistance } = useGetDistance();
-  const { bookingData, setBookingData, validateLimoForm } =
+  const { bookingData, setBookingData, submitLimoForm } =
     useContext(BookingContext);
   const { tripType } = bookingData;
-  const { register, handleSubmit, setValue, watch } = useForm();
+  const { register, handleSubmit, setValue, watch, reset } = useForm();
 
   useEffect(() => {
-    setValue('pickup', bookingData.pickup);
-    setValue('dropoff', bookingData.dropoff);
-    setValue('pickupDate', bookingData.pickupDate);
-    setValue('pickupTime', bookingData.pickupTime);
-    setValue('hoursBooked', bookingData.hoursBooked);
-  }, [bookingData, setValue]);
+    reset({
+      pickup: bookingData?.pickup,
+      dropoff: bookingData?.dropoff,
+      pickupDate: bookingData?.pickupDate,
+      pickupTime: bookingData?.pickupTime,
+      hoursBooked: bookingData?.hoursBooked,
+    });
+  }, [bookingData, reset]);
 
-  async function onSubmit(data) {
-    const error = validateLimoForm(data);
-    if (error) return toast.error(error);
-
-    try {
-      const pickupZone = await getZoneByAddress({
-        lat: data.pickup.lat,
-        lng: data.pickup.lng,
-      });
-
-      let dropoffZone = null;
-
-      if (tripType === 'distance' && data.dropoff?.lat && data.dropoff?.lng) {
-        dropoffZone = await getZoneByAddress({
-          lat: data.dropoff.lat,
-          lng: data.dropoff.lng,
-        });
-      }
-
-      toast.dismiss();
-
-      if (!pickupZone) return toast.error('Pickup location not covered.');
-
-      const distance = await getDistance({
-        originLat: data?.pickup?.lat,
-        originLng: data?.pickup?.lng,
-        destLat: data?.dropoff?.lat,
-        destLng: data?.dropoff?.lng,
-      });
-
-      setBookingData((prev) => ({
-        ...prev,
-        pickup: {
-          ...data.pickup,
-          zone: pickupZone?._id ? pickupZone?._id : null,
-        },
-        dropoff:
-          {
-            ...data.dropoff,
-            zone: dropoffZone?._id ? dropoffZone?._id : null,
-          } || null,
-        pickupDate: data.pickupDate,
-        pickupTime: data.pickupTime,
-        hoursBooked: tripType === 'hourly' ? data?.hoursBooked : null,
-        distance: distance?.distanceKm,
-        tripDuration: distance?.durationMin,
-      }));
-
-      navigate('/book/select-limo');
-    } catch (err) {
-      toast.dismiss();
-      console.error(err);
-      toast.error('Something went wrong fetching zones.');
-    }
+  function onSubmit(data) {
+    submitLimoForm(data);
   }
 
   return (
-    <div className="w-full bg-white rounded-2xl shadow-md shadow-primary-900">
+    <div className="w-full bg-white rounded-2xl shadow-lg shadow-primary-300 md:shadow-none">
       {/* Trip Type Switch */}
       <div className="flex">
         {['distance', 'hourly'].map((type) => (

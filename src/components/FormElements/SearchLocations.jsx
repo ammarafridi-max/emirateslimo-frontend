@@ -33,7 +33,7 @@ export default function SearchLocations({
           setShowOptions(true);
           inputRef.current.focus();
         }}
-        className={`flex items-center gap-3 bg-white border border-primary-200 rounded-xl px-4 py-3 cursor-pointer transition-all duration-300 
+        className={`flex items-center gap-3 bg-primary-100 border border-primary-100 rounded-xl px-4 py-3 cursor-pointer transition-all duration-300 
           ${showOptions ? 'ring ring-primary-900' : 'hover:ring hover:ring-primary-300'}`}
       >
         <span
@@ -42,7 +42,9 @@ export default function SearchLocations({
           <FaLocationDot />
         </span>
         <div className="flex flex-col w-full">
-          <label className="text-[12px] uppercase text-primary-400 font-light tracking-wider cursor-pointer">
+          <label
+            className={`text-[11.5px] uppercase font-light tracking-wider cursor-pointer ${showOptions ? 'text-primary-900' : 'text-primary-500'}`}
+          >
             {label}
           </label>
           <input
@@ -68,7 +70,7 @@ export default function SearchLocations({
             transition={{ duration: 0.25 }}
             className="relative"
           >
-            <div className="absolute top-2 bg-white border border-primary-100 shadow-[0_6px_24px_rgba(0,0,0,0.08)] rounded-lg w-full z-50 max-h-[250px] overflow-auto">
+            <div className="absolute top-2 bg-white border border-primary-300 shadow-[0_6px_24px_rgba(0,0,0,0.08)] rounded-lg w-full z-50 max-h-[270px] overflow-auto">
               {/* Error */}
               {isErrorLocations && (
                 <p className="py-3 px-4 text-[15px] font-extralight text-primary-600">
@@ -77,7 +79,7 @@ export default function SearchLocations({
               )}
 
               {/* Instruction */}
-              {query.length < 3 && !isLoadingLocations && (
+              {query.length < 3 && (
                 <p className="py-3 px-4 text-[14.5px] text-primary-500 font-extralight">
                   Enter at least 3 characters to search.
                 </p>
@@ -103,11 +105,11 @@ export default function SearchLocations({
                   }}
                   className="py-2 px-4 border-b border-primary-200 hover:bg-primary-100 cursor-pointer transition-colors duration-200"
                 >
-                  <p className="text-[15px] text-primary-900 font-light">
+                  <p className="text-[14px] text-primary-900 font-normal">
                     {loc.name}
                   </p>
                   {loc.address && (
-                    <p className="text-[13px] text-primary-400 font-extralight">
+                    <p className="text-[12px] text-primary-500 font-extralight">
                       {loc.address}
                     </p>
                   )}

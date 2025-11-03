@@ -2,7 +2,7 @@ export default function SectionTitle({
   textAlign = 'left',
   children,
   subtitle,
-  className = '',
+  className = 'mb-10 md:mb-15',
   type = 'primary', // primary = light bg sections, secondary = dark bg sections
 }) {
   const isCenter = textAlign === 'center';
@@ -26,6 +26,7 @@ export default function SectionTitle({
     font-light font-outfit 
     leading-snug 
     capitalize 
+    mt-2
     ${isCenter ? 'text-center' : 'text-left'}
   `;
 
@@ -39,13 +40,13 @@ export default function SectionTitle({
   }
 
   return (
-    <div className={`mb-10 md:mb-10 ${className}`}>
+    <div className={className}>
       {subtitle && <p className={pClassName}>{subtitle}</p>}
       <h2 className={h2ClassName}>{children}</h2>
 
       {/* Accent underline */}
       <div
-        className={`mt-4 flex ${isCenter ? 'justify-center' : 'justify-start'}`}
+        className={`mt-3 flex ${isCenter ? 'justify-center' : 'justify-start'}`}
       >
         <span className="inline-block h-[2px] w-16 bg-accent-500 rounded-full"></span>
       </div>

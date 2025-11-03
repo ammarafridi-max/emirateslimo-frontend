@@ -5,7 +5,7 @@ import SectionTitle from '../SectionTitle';
 import FleetCard from '../FleetCard';
 
 export default function Fleet() {
-  const { vehicles, isLoadingVehicles } = useVehicles();
+  const { vehicles } = useVehicles();
 
   return (
     <PrimarySection className="pb-15 md:pb-20">

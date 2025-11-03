@@ -25,19 +25,17 @@ export default function SelectDate({
       {/* Input Field */}
       <div
         onClick={() => setShowCalendar(true)}
-        className={`flex items-center gap-3 bg-white border border-primary-200 rounded-xl px-4 py-3 cursor-pointer transition-all duration-300 
-          ${
-            showCalendar
-              ? 'ring-2 ring-accent-500/40 border-accent-500/50'
-              : 'hover:border-accent-500/50'
-          }`}
+        className={`flex items-center gap-3 bg-primary-100 border border-primary-100 rounded-xl px-4 py-3 cursor-pointer transition-all duration-300 
+          ${showCalendar ? 'ring ring-primary-900' : 'hover:ring hover:ring-primary-300'}`}
       >
         <span className="text-primary-900 text-[18px]">
           <FaCalendarDays />
         </span>
 
         <div className="flex flex-col w-full">
-          <label className="text-[12px] uppercase text-primary-400 font-light tracking-wider cursor-pointer">
+          <label
+            className={`text-[11.5px] uppercase font-light tracking-wider cursor-pointer ${showCalendar ? 'text-primary-900' : 'text-primary-500'}`}
+          >
             {label}
           </label>
           <input

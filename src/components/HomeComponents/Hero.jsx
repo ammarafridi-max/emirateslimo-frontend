@@ -6,20 +6,18 @@ import { motion } from 'framer-motion';
 
 export default function Hero() {
   return (
-    <PrimarySection className="relative py-10 md:py-15 bg-primary-900">
-      {/* Background image + gradient overlay */}
-      <div className="absolute inset-0 bg-[url('/hero-bg.png')] bg-cover bg-center"></div>
-      <div className="absolute inset-0 bg-gradient-to-r from-black/100 via-black/30 to-transparent"></div>
+    <PrimarySection className="relative py-10 md:py-15">
+      <div className="absolute max-h-80 md:max-h-none inset-0 bg-[url('/hero-bg.png')] bg-cover bg-center"></div>
+      <div className="absolute max-h-80 md:max-h-none inset-0 bg-gradient-to-br from-black/90 to-black/50 md:bg-gradient-to-r md:from-black/95 md:via-black/50 md:to-transparent"></div>
 
       <Container className="relative z-10">
-        {/* Left Content */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="block md:grid md:grid-cols-[5.7fr_4.3fr] items-start justify-between gap-2 lg:items-center"
         >
-          <div>
+          <div className="min-h-fit">
             <PageHeading className="text-white text-[30px] md:text-[50px] leading-[1.1] font-light mb-4 md:mb-0">
               Book Your <span className="text-accent-500">Chauffeur</span>
             </PageHeading>
@@ -37,6 +35,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
+            className="relative"
           >
             <LimoForm />
           </motion.div>

@@ -44,7 +44,7 @@ export default function Services() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: i * 0.1 }}
-              className="group relative overflow-hidden rounded-2xl shadow-[0_8px_25px_rgba(0,0,0,0.05)] border border-gray-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all duration-300"
+              className="group relative overflow-hidden rounded-2xl shadow-[0_8px_25px_rgba(0,0,0,0.05)] border border-gray-100 hover:shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-all duration-300 cursor-pointer"
             >
               {/* Image */}
               <div className="relative h-54 overflow-hidden">
@@ -54,8 +54,8 @@ export default function Services() {
                   className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
-                <div className="absolute bottom-5 left-5 flex items-center gap-3 text-white">
-                  <service.icon className="text-[22px] text-accent-500" />
+                <div className="absolute bottom-4 left-4 flex items-center gap-3 text-white">
+                  {/* <service.icon className="text-[22px] text-accent-500" /> */}
                   <h3 className="text-[20px] font-light tracking-wide">
                     {service.title}
                   </h3>
@@ -63,14 +63,14 @@ export default function Services() {
               </div>
 
               {/* Text */}
-              <div className="p-6">
+              <div className="p-4">
                 <p className="text-[15.5px] font-extralight text-gray-600 leading-relaxed">
                   {service.text}
                 </p>
               </div>
 
               {/* Accent line on hover */}
-              <span className="absolute bottom-0 left-0 h-[3px] w-0 bg-accent-500 transition-all duration-500 group-hover:w-full"></span>
+              {/* <span className="absolute bottom-0 left-0 h-[3px] w-0 bg-accent-500 transition-all duration-500 group-hover:w-full"></span> */}
             </motion.div>
           ))}
         </div>
