@@ -1,10 +1,9 @@
-import { useContext, useEffect } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { useVehicles } from '../hooks/useVehicles';
+import { useContext } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { useAvailableVehicles } from '../hooks/useAvailableVehicles';
 import { BookingContext } from '../context/BookingContext';
 import VehicleCard from '../components/VehicleCard';
 import VehicleLoadingCard from '../components/VehicleLoadingCard';
-import { useAvailableVehicles } from '../hooks/useAvailableVehicles';
 
 export default function SelectLimo() {
   const [searchParams] = useSearchParams();
@@ -13,19 +12,11 @@ export default function SelectLimo() {
   const { vehicles, isLoadingVehicles, isErrorVehicles, errorVehicles } =
     useAvailableVehicles(bookingData);
 
-  useEffect(() => {
-    console.log(bookingData);
-
-    if (vehicles?.length) console.log('Vehicles loaded:', vehicles);
-  }, [vehicles]);
-
-  if (isLoadingVehicles) return <p>Loading available vehicles...</p>;
-
   if (isErrorVehicles)
     return <p>Error loading vehicles: {errorVehicles.message}</p>;
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-3">
       {tripType === 'hourly' && <p>For hourly rides...</p>}
       {isLoadingVehicles && (
         <>
@@ -36,7 +27,7 @@ export default function SelectLimo() {
       )}
       {vehicles?.map((vehicle) => (
         <VehicleCard
-          key={vehicle?._id}
+          key={vehicle?.id}
           vehicle={vehicle}
           disabled={searchParams.get('vehicleId') === vehicle._id}
         />
