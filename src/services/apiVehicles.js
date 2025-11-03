@@ -1,18 +1,6 @@
-import { baseURL } from '../utils/baseUrl';
+import { checkError, returnData, baseURL } from './apiClient';
 
 const URL = `${baseURL}/api/vehicles`;
-
-async function checkError(res) {
-  if (!res.ok) {
-    const error = await res.json();
-    throw new Error(error.message || 'Something went wrong');
-  }
-}
-
-async function returnData(res) {
-  const json = await res.json();
-  return json?.data;
-}
 
 export async function getAllVehiclesApi() {
   const res = await fetch(URL);
