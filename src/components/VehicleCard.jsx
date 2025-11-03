@@ -1,46 +1,28 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { MdOutlineLuggage, MdOutlineMan2 } from 'react-icons/md';
 import { FaImage, FaLeaf } from 'react-icons/fa6';
 import { HiOutlineStar } from 'react-icons/hi2';
 import { BookingContext } from '../context/BookingContext';
 import { Tooltip } from 'react-tooltip';
-import PrimaryButtonOutline from './PrimaryButtonOutline';
+import { CurrencyContext } from '../context/CurrencyContext';
 import VehicleGallery from './VehicleGallery';
 
 export default function VehicleCard({ vehicle, disabled }) {
-  const { bookingData, setBookingData } = useContext(BookingContext);
-  const { tripType, hoursBooked, distance } = bookingData;
+  const { currency } = useContext(CurrencyContext);
+  const { bookingData, handleSelectVehicle } = useContext(BookingContext);
+  const { tripType, hoursBooked } = bookingData;
   const [showGallery, setShowGallery] = useState(false);
-  const [totalVehiclePrice, setTotalVehiclePrice] = useState(
-    Math.ceil(
-      vehicle?.pricing?.initialPrice + vehicle?.pricing?.pricePerKm * distance
-    )
-  );
 
-  useEffect(() => {
-    if (tripType === 'hourly') {
-      setTotalVehiclePrice(vehicle?.pricing?.pricePerHour * hoursBooked);
-    }
-  }, []);
+  const vehicleSelected = bookingData.vehicle === vehicle?.id;
 
-  const vehicleSelected = bookingData.vehicle === vehicle?._id;
-
-  function handleClick() {
-    setBookingData((prev) => ({
-      ...prev,
-      vehicle: vehicle?._id,
-      orderSummary: {
-        ...prev.orderSummary,
-        vehiclePrice: totalVehiclePrice,
-      },
-    }));
-  }
+  if (vehicle?.totalPrice === 0) return;
 
   return (
     <>
       <div
-        className={`group relative grid sm:grid-cols-[4.5fr_7.5fr] items-start gap-5 rounded-2xl bg-white/90 border border-primary-100 p-5 md:p-6 shadow-[0_4px_25px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-all duration-300 backdrop-blur-sm ${
-          vehicleSelected ? 'ring-2 ring-primary-500/100' : ''
+        onClick={() => handleSelectVehicle(vehicle)}
+        className={`group relative grid sm:grid-cols-[4.5fr_7.5fr] items-start gap-5 rounded-2xl bg-white/90 border border-primary-100 p-5 md:p-6 shadow-[0_4px_25px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:bg-primary-50 transition-all duration-300 backdrop-blur-sm cursor-pointer ${
+          vehicleSelected ? 'ring-3 ring-primary-500/100' : ''
         }`}
       >
         {/* Vehicle Image */}
@@ -51,14 +33,15 @@ export default function VehicleCard({ vehicle, disabled }) {
         {/* Details */}
         <div className="flex flex-col justify-between h-full">
           <VehicleTitlePrice
+            currency={currency}
             tripType={tripType}
             vehicle={vehicle}
-            totalVehiclePrice={totalVehiclePrice}
+            vehiclePrice={vehicle?.totalPrice}
             hoursBooked={hoursBooked}
           />
           <Description vehicle={vehicle} />
           <QuickFacts vehicle={vehicle} />
-
+          {/* 
           <PrimaryButtonOutline
             selected={vehicleSelected}
             size="small"
@@ -68,6 +51,7 @@ export default function VehicleCard({ vehicle, disabled }) {
           >
             {vehicleSelected ? 'Selected' : 'Select Vehicle'}
           </PrimaryButtonOutline>
+          */}
         </div>
       </div>
 
@@ -88,8 +72,9 @@ export default function VehicleCard({ vehicle, disabled }) {
 /* --------------------------- Subcomponents --------------------------- */
 
 function VehicleTitlePrice({
+  currency,
   vehicle,
-  totalVehiclePrice,
+  vehiclePrice,
   tripType,
   hoursBooked,
 }) {
@@ -117,7 +102,8 @@ function VehicleTitlePrice({
           )}
         </h3>
         <p className="text-[15px] font-medium text-accent-500">
-          AED {totalVehiclePrice}
+          {currency?.sign}{' '}
+          {(vehiclePrice * currency?.conversionRate).toFixed(2)}
           <span className="text-[13px] text-primary-400 font-light ml-1">
             / {tripType === 'distance' ? 'ride' : `${hoursBooked} hours`}
           </span>

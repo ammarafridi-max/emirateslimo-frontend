@@ -1,7 +1,7 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { bookingSteps } from '../data/bookingSteps';
 import { FaCheck } from 'react-icons/fa6';
-import { HiOutlineArrowLeft } from 'react-icons/hi2';
+import { HiChevronLeft, HiOutlineArrowLeft } from 'react-icons/hi2';
 
 export default function BookingSteps() {
   const location = useLocation();
@@ -26,9 +26,9 @@ export default function BookingSteps() {
           return (
             <Link
               key={i}
-              onClick={(e) => {
-                if (!isCompleted && !isActive) e.preventDefault();
-              }}
+              // onClick={(e) => {
+              //   if (!isCompleted && !isActive) e.preventDefault();
+              // }}
               to={item.page}
               className="flex flex-col items-center gap-2"
             >
@@ -59,17 +59,18 @@ export default function BookingSteps() {
         })}
       </div>
 
-      <div className="flex sm:hidden items-center justify-between bg-white">
-        {previousStep ? (
-          <button onClick={() => navigate(previousStep.page)}>
-            <HiOutlineArrowLeft size={20} />
-          </button>
-        ) : (
-          <span className="w-6" />
-        )}
+      <div className="flex sm:hidden items-center justify-start gap-3 bg-white">
+        <button
+          type="button"
+          className="disabled:text-primary-300"
+          disabled={!previousStep}
+          onClick={() => navigate(previousStep?.page)}
+        >
+          <HiChevronLeft size={20} />
+        </button>
 
         <span className="text-md font-light">
-          {currentStepIndex + 1}. {currentStep?.name}
+          Step {currentStepIndex + 1} / 3 - {currentStep?.name}
         </span>
 
         <span className="w-6" />
