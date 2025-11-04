@@ -9,9 +9,10 @@ export default function SelectTime({
   placeholder = 'Select time',
   name,
   setValue,
+  defaultValue,
 }) {
   const wrapperRef = useRef(null);
-  const [time, setTime] = useState('');
+  const [time, setTime] = useState(defaultValue || '');
   const [showTimeOptions, setShowTimeOptions] = useState(false);
   const [hour, setHour] = useState('');
   const [minute, setMinute] = useState('');

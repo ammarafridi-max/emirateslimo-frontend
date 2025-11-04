@@ -11,9 +11,10 @@ export default function SelectDate({
   placeholder = 'Select a date',
   setValue,
   name,
+  defaultValue,
 }) {
   const wrapperRef = useRef(null);
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState(defaultValue || '');
   const [showCalendar, setShowCalendar] = useState(false);
 
   useOutsideClick(wrapperRef, () => setShowCalendar(false));

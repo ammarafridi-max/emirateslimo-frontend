@@ -11,9 +11,9 @@ export default function SearchLocations({
   name,
   register,
   setValue,
-  watch,
+  defaultValue,
 }) {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState(defaultValue ?? '');
   const [showOptions, setShowOptions] = useState(false);
   const wrapperRef = useRef(null);
   const inputRef = useRef(null);

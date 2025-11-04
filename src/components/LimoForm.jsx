@@ -11,7 +11,8 @@ export default function LimoForm() {
   const { bookingData, setBookingData, submitLimoForm } =
     useContext(BookingContext);
   const { tripType } = bookingData;
-  const { register, handleSubmit, setValue, watch, reset } = useForm();
+  const { register, handleSubmit, getValues, setValue, watch, reset } =
+    useForm();
 
   useEffect(() => {
     reset({
@@ -83,12 +84,14 @@ export default function LimoForm() {
             name="pickupDate"
             register={register}
             setValue={setValue}
+            defaultValue={bookingData?.pickupDate}
           />
           <SelectTime
             label="Pick-up time"
             name="pickupTime"
             register={register}
             setValue={setValue}
+            defaultValue={bookingData?.pickupTime}
           />
         </div>
 
