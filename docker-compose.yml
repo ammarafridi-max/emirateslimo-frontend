@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: emirateslimo/frontend:latest
+    container_name: emirateslimo_frontend
+    restart: always
+    ports:
+      - '80:80'
+    env_file:
+      - .env.production
+    environment:
+      - MODE=production
+    logging:
+      driver: json-file
+      options:
+        max-size: '10m'
+        max-file: '3'
