@@ -69,7 +69,9 @@ export default function BookingProvider({ children }) {
     },
   };
 
-  const [bookingData, setBookingData] = useState(initialBookingData);
+  const [bookingData, setBookingData] = useState(
+    JSON.parse(localStorage.getItem('bookingData')) || initialBookingData
+  );
   const [pageTitle, setPageTitle] = useState('');
   const [btn, setBtn] = useState({
     text: '',
@@ -155,6 +157,9 @@ export default function BookingProvider({ children }) {
       }));
 
       navigate('/book/select-limo');
+
+      localStorage.removeItem('bookingData');
+      localStorage.setItem('bookingData', JSON.stringify(bookingData));
     } catch (err) {
       toast.dismiss();
       console.error(err);
