@@ -23,6 +23,7 @@ import Fleet from './pages/Fleet';
 // Booking
 import SelectLimo from './pages/SelectLimo';
 import BookingDetails from './pages/BookingDetails';
+import Payment from './pages/Payment';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -55,6 +56,7 @@ export default function App() {
                       element={<ChauffeurService />}
                     />
                     <Route path="fleet" element={<Fleet />} />
+                    <Route path="payment" element={<Payment />} />
                   </Route>
                   <Route path="book" element={<BookingLayout />}>
                     <Route path="select-limo" element={<SelectLimo />} />
@@ -62,7 +64,6 @@ export default function App() {
                       path="booking-details"
                       element={<BookingDetails />}
                     />
-                    <Route path="payment" element={<></>} />
                   </Route>
                 </Routes>
               </BookingProvider>
