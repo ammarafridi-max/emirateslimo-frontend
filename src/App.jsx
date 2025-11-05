@@ -1,3 +1,4 @@
+import '@fontsource-variable/outfit';
 import 'react-tooltip/dist/react-tooltip.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';

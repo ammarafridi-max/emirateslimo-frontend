@@ -32,10 +32,10 @@ export default function SectionTitle({
 
   // Theming for primary / secondary sections
   if (type === 'secondary') {
-    pClassName += ' bg-accent-500/30 text-accent-400';
+    pClassName += ' bg-accent-500/90 text-white/80';
     h2ClassName += ' text-white';
   } else {
-    pClassName += ' bg-accent-500/10 text-accent-600';
+    pClassName += ' bg-accent-100 text-accent-500';
     h2ClassName += ' text-primary-900';
   }
 

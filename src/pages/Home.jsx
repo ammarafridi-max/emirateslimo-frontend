@@ -13,6 +13,10 @@ export default function Home() {
         <title>
           Dubai Airport Transfers & Chauffeur Service - Emirates Limo
         </title>
+        <meta
+          name="description"
+          content="Luxury chauffeur rides and airport transfers in Dubai with Emirates Limo. Multilingual, licensed, and experienced chauffeurs. Book now."
+        />
       </Helmet>
       <Hero />
       <Process />

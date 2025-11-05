@@ -9,7 +9,9 @@ export default function AppLayout() {
     <div className="h-dvh w-full flex flex-col m-0 p-0">
       <MobileNavigation />
       <Navigation />
-      <Outlet />
+      <main>
+        <Outlet />
+      </main>
       <ContactBanner />
       <Footer />
     </div>

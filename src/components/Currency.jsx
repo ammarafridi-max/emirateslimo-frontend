@@ -22,9 +22,7 @@ export default function Currency() {
           className="relative flex items-center justify-between text-[12px] gap-2 border border-primary-200 bg-white hover:bg-primary-100 rounded-sm px-3 py-1.5 cursor-pointer duration-300 z-50"
           onClick={() => setShowCurrencies((val) => !val)}
         >
-          <span>
-            {currency?.code} ({currency?.sign})
-          </span>
+          <span>{currency?.code}</span>
           <HiChevronDown />
         </button>
         {showCurrencies && (
