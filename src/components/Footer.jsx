@@ -25,15 +25,23 @@ export default function Footer() {
       <Container className="py-7.5 bg-transparent box-border font-outfit">
         <div className="grid grid-cols-6 md:flex justify-between gap-8 mb-10 text-white">
           <div className="col-span-6 md:w-[33%] flex flex-col gap-5">
-            <img src="/logo-dark.png" className="w-40" />
+            <img
+              src="/logo-dark.webp"
+              className="w-40"
+              alt="Emirates Limo logo"
+            />
             <p className="text-primary-300 text-md md:text-[16px] font-extralight leading-7">
               Emirates Limo provides premium chauffeured transfer services
               across the UAE, ensuring every journey is smooth, safe, and on
               time.
             </p>
             <div className="flex gap-2">
-              <IconCard icon={<FaFacebook />} href="tel:971506045355" />
-              <IconCard icon={<FaInstagram />} href="tel:971506045355" />
+              <IconCard icon={<FaFacebook />} href="tel:971506045355">
+                Follow us on Facebook
+              </IconCard>
+              <IconCard icon={<FaInstagram />} href="tel:971506045355">
+                Follow us on Instagram
+              </IconCard>
             </div>
           </div>
           <div className="col-span-3 md:w-fit">
@@ -127,12 +135,12 @@ function FooterLink({ href = '#', children }) {
   );
 }
 
-function IconCard({ icon, href, children, target }) {
+function IconCard({ icon, href, children, target = '_blank' }) {
   return (
     <a
       href={href}
       className="flex items-center gap-3 leading-6 group"
-      target="_blank"
+      target={target}
     >
       <span className="bg-white text-black w-[30px] h-[30px] rounded-full flex items-center justify-center text-sm duration-300 group-hover:bg-primary-200">
         {icon}

@@ -11,13 +11,18 @@ export default function MobileNavigation() {
       <Container className="flex justify-between items-center">
         <a href="/" className="w-40 h-auto flex items-center">
           <img
-            src="/logo-light.png"
+            src="/logo-light.webp"
             alt="Emirates Limo Logo"
             title="Emirates Limo Logo"
             className="w-full h-auto object-contain"
           />
         </a>
-        <button onClick={() => setMenuOpen(!menuOpen)} name="mobileMenu">
+        <button
+          type="button"
+          onClick={() => setMenuOpen(!menuOpen)}
+          title="Mobile Menu button"
+          aria-label="Mobile Menu button"
+        >
           {menuOpen ? (
             <HiOutlineXMark className="text-3xl" />
           ) : (

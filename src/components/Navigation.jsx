@@ -18,7 +18,7 @@ function SidebarLink({ name, href }) {
       to={href}
       className={({ isActive }) =>
         `relative font-light tracking-wide px-3 py-1 text-[16px] transition-colors duration-200
-         ${isActive ? 'text-primary-600' : 'text-black/50 hover:text-black/90'}`
+         ${isActive ? 'text-primary-600' : 'text-black/70 hover:text-black/90'}`
       }
     >
       {name}
@@ -44,7 +44,7 @@ export default function Navigation() {
         <div className="flex items-center justify-between py-5">
           <a href="/" className="flex items-center gap-2">
             <img
-              src="/logo-light.png"
+              src="/logo-light.webp"
               alt="Emirates Limo"
               className="w-40 object-contain"
             />

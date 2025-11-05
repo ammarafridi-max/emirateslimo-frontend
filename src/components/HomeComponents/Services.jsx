@@ -9,19 +9,19 @@ const services = [
     icon: LuPlane,
     title: 'Airport Transfers',
     text: 'Reliable airport pick-up and drop-off in luxury sedans and SUVs, ensuring punctuality and comfort every time.',
-    image: '/airport-transfer.jpg',
+    image: '/airport-transfer.webp',
   },
   {
     icon: LuBriefcase,
     title: 'Chauffeur Service',
     text: 'Professional chauffeurs available hourly or full-day, ideal for business meetings, events, and corporate travel.',
-    image: '/chauffeur-service.jpg',
+    image: '/chauffeur-service.webp',
   },
   {
     icon: LuMapPin,
     title: 'City Tours',
     text: 'Explore Dubai and Abu Dhabi in style — your private chauffeur will take you to the city’s top attractions at your pace.',
-    image: '/city-tours.jpg',
+    image: '/city-tours.webp',
   },
 ];
 
@@ -52,6 +52,7 @@ export default function Services() {
                   src={service.image}
                   alt={service.title}
                   className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
                 <div className="absolute bottom-4 left-4 flex items-center gap-3 text-white">

@@ -1,13 +1,13 @@
+import { motion } from 'framer-motion';
 import Container from '../Container';
 import PrimarySection from '../PrimarySection';
 import PageHeading from '../PageHeading';
 import LimoForm from '../LimoForm';
-import { motion } from 'framer-motion';
 
 export default function Hero() {
   return (
     <PrimarySection className="relative py-10 md:py-15">
-      <div className="absolute max-h-80 md:max-h-none inset-0 bg-[url('/hero-bg.png')] bg-cover bg-center"></div>
+      <div className="absolute max-h-80 md:max-h-none inset-0 bg-[url('/hero-bg.webp')] bg-cover bg-center"></div>
       <div className="absolute max-h-80 md:max-h-none inset-0 bg-gradient-to-br from-black/90 to-black/50 md:bg-gradient-to-r md:from-black/95 md:via-black/50 md:to-transparent"></div>
 
       <Container className="relative z-10">

@@ -62,9 +62,9 @@ export default function Testimonials() {
                   className="w-12 h-12 rounded-full object-cover"
                 />
                 <div>
-                  <h4 className="text-[16px] font-medium text-primary-900 font-merriweather leading-tight">
+                  <p className="text-[16px] font-medium text-primary-900 font-merriweather leading-tight">
                     {t.name}
-                  </h4>
+                  </p>
                   <p className="text-[14px] text-primary-400 font-outfit">
                     {t.position}
                   </p>
