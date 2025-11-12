@@ -22,7 +22,9 @@ export default function VehicleCard({ vehicle, disabled }) {
       <div
         onClick={() => handleSelectVehicle(vehicle)}
         className={`group relative grid sm:grid-cols-[4.5fr_7.5fr] items-start gap-5 rounded-2xl bg-white/90 border border-primary-100 p-5 md:p-6 shadow-[0_4px_25px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:bg-primary-50 transition-all duration-300 backdrop-blur-sm cursor-pointer ${
-          vehicleSelected ? 'ring-3 ring-primary-500/100' : ''
+          vehicleSelected
+            ? 'ring-3 ring-primary-500/100'
+            : 'ring-2 ring-primary-200/100'
         }`}
       >
         {/* Vehicle Image */}
@@ -90,7 +92,7 @@ function VehicleTitlePrice({
       </div>
 
       <div>
-        <h3 className="flex items-center text-[18px] md:text-[20px] font-light text-primary-900 mb-1">
+        <h3 className="flex items-center text-[18px] md:text-[20px] font-light text-primary-900 mb-0.5">
           <span>
             {vehicle?.brand} {vehicle?.model}
           </span>
@@ -101,7 +103,7 @@ function VehicleTitlePrice({
             </span>
           )}
         </h3>
-        <p className="text-[15px] font-medium text-accent-500">
+        <p className="text-[15px] font-medium text-accent-600">
           {currency?.sign}{' '}
           {(vehiclePrice * currency?.conversionRate).toFixed(2)}
           <span className="text-[13px] text-primary-400 font-light ml-1">

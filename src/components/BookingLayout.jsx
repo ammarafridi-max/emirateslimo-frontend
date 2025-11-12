@@ -22,7 +22,7 @@ export default function BookingLayout() {
       <PrimarySection className="bg-white relative py-3 md:py-5 shadow-md shadow-gray-200 z-50">
         <Container className="grid grid-cols-[1fr_auto] md:grid-cols-[2fr_8fr_2fr] items-center h-fit">
           <a className="hidden md:block" href="/">
-            <img src="/logo-light.png" className="w-full object-contain" />
+            <img src="/logo-light.webp" className="w-full object-contain" />
           </a>
           <BookingSteps />
           <div className="flex justify-end gap-3">

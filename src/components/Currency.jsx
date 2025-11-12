@@ -26,7 +26,7 @@ export default function Currency() {
           <HiChevronDown />
         </button>
         {showCurrencies && (
-          <div className="absolute top-10 h-50 w-full bg-white mx-auto rounded-sm border border-primary-200 z-50">
+          <div className="min-w-25 absolute top-10 right-0 h-50 bg-white mx-auto rounded-sm border border-primary-200 z-50">
             {currencies?.map((cur, i) => (
               <button
                 key={cur.code}

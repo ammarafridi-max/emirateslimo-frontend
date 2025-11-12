@@ -68,7 +68,7 @@ export default function BookingSummary({ btnText, btnOnClick, btnDisabled }) {
         .
       </p>
 
-      <Benefits />
+      {/* <Benefits /> */}
     </div>
   );
 }

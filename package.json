@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host 0.0.0.0",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
@@ -41,7 +41,8 @@
     "react-tooltip": "^5.30.0",
     "styled-components": "^6.1.13",
     "tailwindcss": "^4.1.12",
-    "universal-cookie": "^7.2.2"
+    "universal-cookie": "^7.2.2",
+    "vite-plugin-compression": "^0.5.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.15.0",

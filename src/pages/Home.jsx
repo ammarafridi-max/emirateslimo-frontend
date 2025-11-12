@@ -1,10 +1,19 @@
 import { Helmet } from 'react-helmet-async';
+import React, { Suspense } from 'react';
 import Hero from '../components/HomeComponents/Hero';
-import Process from '../components/HomeComponents/Process';
-import WhyBookEmiratesLimo from '../components/HomeComponents/WhyBookEmiratesLimo';
-import Services from '../components/HomeComponents/Services';
-import Testimonials from '../components/HomeComponents/Testimonials';
-import Fleet from '../components/HomeComponents/Fleet';
+const Process = React.lazy(
+  () => import('../components/HomeComponents/Process')
+);
+const WhyBookEmiratesLimo = React.lazy(
+  () => import('../components/HomeComponents/WhyBookEmiratesLimo')
+);
+const Services = React.lazy(
+  () => import('../components/HomeComponents/Services')
+);
+const Testimonials = React.lazy(
+  () => import('../components/HomeComponents/Testimonials')
+);
+const Fleet = React.lazy(() => import('../components/HomeComponents/Fleet'));
 
 export default function Home() {
   return (
@@ -19,11 +28,21 @@ export default function Home() {
         />
       </Helmet>
       <Hero />
-      <Process />
-      <WhyBookEmiratesLimo />
-      <Services />
-      <Fleet />
-      <Testimonials />
+      <Suspense fallback={null}>
+        <Process />
+      </Suspense>
+      <Suspense fallback={null}>
+        <WhyBookEmiratesLimo />
+      </Suspense>
+      <Suspense fallback={null}>
+        <Services />
+      </Suspense>
+      <Suspense fallback={null}>
+        <Fleet />
+      </Suspense>
+      <Suspense fallback={null}>
+        <Testimonials />
+      </Suspense>
     </>
   );
 }
