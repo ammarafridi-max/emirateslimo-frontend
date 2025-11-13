@@ -3,7 +3,7 @@ import { toast } from 'react-hot-toast';
 import { createBookingApi, getPaymentLinkApi } from '../services/apiBooking';
 
 export function useCreateBooking() {
-  const createBooking = useMutation({
+  const { mutate: createBooking, isPending: isCreatingBooking } = useMutation({
     mutationFn: async (formData) => {
       const booking = await createBookingApi(formData);
       if (!booking?._id) throw new Error('Booking creation failed');
@@ -20,7 +20,7 @@ export function useCreateBooking() {
   });
 
   return {
-    createBooking: createBooking.mutate,
-    isCreating: createBooking.isPending,
+    createBooking,
+    isCreatingBooking,
   };
 }
