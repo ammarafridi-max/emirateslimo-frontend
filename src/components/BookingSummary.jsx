@@ -5,8 +5,9 @@ import { format } from 'date-fns';
 import { motion } from 'framer-motion';
 import { HiChevronDown, HiChevronRight } from 'react-icons/hi2';
 import PrimaryButton from './PrimaryButton';
-import { FaCheck } from 'react-icons/fa6';
+import { FaCheck, FaChevronRight } from 'react-icons/fa6';
 import { CurrencyContext } from '../context/CurrencyContext';
+import Container from './Container';
 
 export default function BookingSummary({ btnText, btnOnClick, btnDisabled }) {
   const { currency } = useContext(CurrencyContext);
@@ -49,6 +50,26 @@ export default function BookingSummary({ btnText, btnOnClick, btnDisabled }) {
         {btnText}
       </PrimaryButton>
 
+      <div className="fixed lg:hidden w-full bottom-0 left-0 bg-white py-5 shadow-[0px_0px_15px_10px_rgba(0,0,0,0.2)]">
+        <Container className="grid grid-cols-[3.5fr_6.5fr] items-center gap-2">
+          <div>
+            <p className="text-sm font-extralight">Total:</p>
+            <p className="text-lg font-medium">
+              {currency?.sign} {orderSummary?.total?.toFixed(2)}
+            </p>
+          </div>
+          <div>
+            <PrimaryButton
+              className="w-full flex items-center gap-2 px-2"
+              disabled={btnDisabled}
+              onClick={btnOnClick}
+            >
+              <span>{btnText}</span> <FaChevronRight />
+            </PrimaryButton>
+          </div>
+        </Container>
+      </div>
+
       {/* Terms Note */}
       <p className="text-center text-[12px] mt-3 font-extralight px-3 text-primary-500">
         By proceeding, you agree to our{' '}
@@ -86,7 +107,7 @@ function TripSummary({
   const [showTripSummary, setShowTripSummary] = useState(false);
 
   return (
-    <div className="h-fit mt-5 mb-5 px-4 md:mt-0 md:mb-3 bg-white rounded-xl border border-primary-100 shadow-[0px_0px_5px_rgba(0,0,0,0.04)] overflow-hidden">
+    <div className="h-fit mt-5 mb-5 px-4 lg:mt-0 lg:mb-3 bg-white rounded-xl border border-primary-100 shadow-[0px_0px_5px_rgba(0,0,0,0.04)] overflow-hidden">
       <button
         type="button"
         className="w-full grid grid-cols-[1fr_auto] justify-between items-center duration-300 py-2.5 px-3 cursor-pointer border-b border-primary-100"
@@ -145,7 +166,7 @@ function OrderSummary({ currency, orderSummary }) {
     `${currency?.sign} ${(amount || 0).toFixed(2)}`;
 
   return (
-    <div className="h-fit mt-5 mb-5 px-4 md:mt-0 md:mb-3 bg-white rounded-xl border border-primary-100 shadow-[0px_0px_5px_rgba(0,0,0,0.04)] overflow-hidden">
+    <div className="h-fit mt-5 mb-5 px-4 lg:mt-0 lg:mb-3 bg-white rounded-xl border border-primary-100 shadow-[0px_0px_5px_rgba(0,0,0,0.04)] overflow-hidden">
       <button
         type="button"
         className="w-full grid grid-cols-[1fr_auto] justify-between items-center duration-300 py-2.5 px-3 border-b border-primary-100"
@@ -215,11 +236,13 @@ function Benefits({}) {
 
 function Detail({ label, value }) {
   return (
-    <div className="flex items-center justify-between md:block py-2.5 px-3">
-      <label className="text-[12px] text-gray-500 uppercase font-extralight tracking-wide block mb-0.5 leading-3">
+    <div className="flex items-center justify-between lg:block py-2.5 px-3">
+      <label className="text-[12px] text-gray-500 uppercase font-extralight tracking-wide block mb-0.5 leading-6">
         {label}
       </label>
-      <p className="text-[15px] font-light text-primary-900">{value || '—'}</p>
+      <p className="text-[15px] font-light text-right lg:text-left text-primary-900">
+        {value || '—'}
+      </p>
     </div>
   );
 }

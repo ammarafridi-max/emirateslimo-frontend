@@ -1,7 +1,13 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { bookingSteps } from '../data/bookingSteps';
 import { FaCheck } from 'react-icons/fa6';
-import { HiChevronLeft, HiOutlineArrowLeft } from 'react-icons/hi2';
+import {
+  HiArrowLeft,
+  HiChevronLeft,
+  HiHome,
+  HiOutlineArrowLeft,
+  HiOutlineHome,
+} from 'react-icons/hi2';
 
 export default function BookingSteps() {
   const location = useLocation();
@@ -15,7 +21,7 @@ export default function BookingSteps() {
 
   return (
     <>
-      <div className="hidden md:flex justify-center gap-15 mx-auto z-50">
+      <div className="hidden lg:flex justify-center gap-15 mx-auto z-50">
         {bookingSteps.map((item, i) => {
           const currentStepIndex = bookingSteps.findIndex(
             (step) => step.page === location.pathname
@@ -66,11 +72,15 @@ export default function BookingSteps() {
           disabled={!previousStep}
           onClick={() => navigate(previousStep?.page)}
         >
-          <HiChevronLeft size={20} />
+          <HiArrowLeft size={20} />
         </button>
 
+        <a href="/" type="button" onClick={() => navigate(previousStep?.page)}>
+          <HiOutlineHome size={20} />
+        </a>
+
         <span className="text-md font-light">
-          Step {currentStepIndex + 1} / 3 - {currentStep?.name}
+          {currentStepIndex + 1} of 3 - {currentStep?.name}
         </span>
 
         <span className="w-6" />

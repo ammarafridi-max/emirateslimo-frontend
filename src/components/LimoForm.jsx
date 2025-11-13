@@ -6,13 +6,25 @@ import SelectDate from './FormElements/SelectDate';
 import SelectTime from './FormElements/SelectTime';
 import PrimaryButton from './PrimaryButton';
 import SelectHours from './FormElements/SelectHours';
+import toast from 'react-hot-toast';
 
 export default function LimoForm() {
-  const { bookingData, setBookingData, submitLimoForm } =
+  const { bookingData, setBookingData, submitLimoForm, isLoadingLimoForm } =
     useContext(BookingContext);
-  const { tripType } = bookingData;
-  const { register, handleSubmit, getValues, setValue, watch, reset } =
-    useForm();
+  const { tripType, pickup, dropoff, pickupDate, pickupTime, hoursBooked } =
+    bookingData;
+  const { register, handleSubmit, setValue, watch, reset } = useForm();
+
+  function validateLimoForm(data) {
+    if (!data?.pickup?.name) return 'Please select your pickup location.';
+    if (tripType === 'distance' && !data?.dropoff?.name)
+      return 'Please select your drop-off location.';
+    if (tripType === 'hourly' && !data?.hoursBooked)
+      return 'Please select how many hours you’d like to book.';
+    if (!data?.pickupDate) return 'Please select a pickup date.';
+    if (!data?.pickupTime) return 'Please select a pickup time.';
+    return null;
+  }
 
   useEffect(() => {
     reset({
@@ -25,6 +37,8 @@ export default function LimoForm() {
   }, [bookingData, reset]);
 
   function onSubmit(data) {
+    const error = validateLimoForm(data);
+    if (error) return toast.error(error);
     submitLimoForm(data);
   }
 
@@ -99,6 +113,7 @@ export default function LimoForm() {
           type="submit"
           size="large"
           className="mt-2 font-medium tracking-wide"
+          disabled={isLoadingLimoForm}
         >
           Search
         </PrimaryButton>

@@ -1,8 +1,13 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useCreateBooking } from '../hooks/useCreateBooking';
 import { BookingContext } from '../context/BookingContext';
-import { FaApplePay, FaCcPaypal, FaStripe } from 'react-icons/fa6';
+import { FaStripe } from 'react-icons/fa6';
+import { Helmet } from 'react-helmet-async';
 import SectionTitle from '../components/SectionTitle';
 import Input from '../components/FormElements/Input';
+import BookingLayout from '../components/BookingLayout';
+import BookingSummary from '../components/BookingSummary';
 
 const paymentMethods = [
   {
@@ -12,46 +17,95 @@ const paymentMethods = [
     text: 'Pay Securely with Stripe',
     color: '#5433ff',
   },
-  // {
-  //   name: 'Paypal',
-  //   id: 'paypal',
-  //   icon: <FaCcPaypal />,
-  //   text: 'Pay Now with PayPal',
-  //   color: '#009cde',
-  // },
-  // {
-  //   name: 'Apple Pay',
-  //   id: 'applePay',
-  //   icon: <FaApplePay />,
-  //   text: 'Instant Payment With Apple Pay',
-  //   color: '#000',
-  // },
 ];
 
 export default function BookingDetails() {
+  const navigate = useNavigate();
+  const { createBooking, isCreatingBooking } = useCreateBooking();
   const { bookingData, handleChange, handleSelectPaymentMethod } =
     useContext(BookingContext);
+  const {
+    tripType,
+    pickup,
+    dropoff,
+    pickupDate,
+    pickupTime,
+    hoursBooked,
+    vehicle,
+    bookingDetails,
+  } = bookingData;
+
+  const { firstName, lastName, email, phoneNumber, payment } = bookingDetails;
+
+  function validateBookingForm() {
+    if (!firstName) return "Please enter the passenger's first name.";
+    if (!lastName) return "Please enter the passenger's last name.";
+    if (!email) return "Please enter the passenger's email address.";
+    if (!phoneNumber) return "Please enter the passenger's phone number.";
+    if (!payment?.method) return 'Please select a payment method to proceed.';
+    return null;
+  }
+
+  const error = validateBookingForm(bookingData);
+
+  useEffect(() => {
+    if (
+      tripType === 'distance' &&
+      (!pickup?.name || !dropoff?.name || !pickupDate || !pickupTime)
+    )
+      navigate('/');
+
+    if (
+      tripType === 'hourly' &&
+      (!pickup?.name || !hoursBooked || !pickupDate || !pickupTime)
+    )
+      navigate('/');
+
+    if (!vehicle) {
+      navigate('/book/select-limo');
+    }
+  }, [bookingData, navigate]);
 
   return (
-    <div className="flex flex-col gap-8 md:gap-12 w-full p-5 md:p-7 bg-white rounded-xl shadow-xl shadow-gray-300">
-      <PassengerInformation onChange={handleChange} bookingData={bookingData} />
-      <PaymentOptions
-        selected={bookingData.bookingDetails.payment.method}
-        onSelect={handleSelectPaymentMethod}
-      />
-    </div>
+    <>
+      <Helmet>
+        <title>Booking Details</title>
+      </Helmet>
+      <BookingLayout>
+        <div className="flex flex-col gap-8 lg:gap-12 w-full p-5 lg:p-7 bg-white rounded-xl shadow-xl shadow-gray-300">
+          <PassengerInformation
+            onChange={handleChange}
+            bookingData={bookingData}
+          />
+          <PaymentOptions
+            selected={bookingData.bookingDetails.payment.method}
+            onSelect={handleSelectPaymentMethod}
+          />
+        </div>
+        <div>
+          <BookingSummary
+            btnText="Proceed to Payment"
+            btnDisabled={error || isCreatingBooking}
+            btnOnClick={() => {
+              createBooking(bookingData);
+              console.log(bookingData);
+            }}
+          />
+        </div>
+      </BookingLayout>
+    </>
   );
 }
 
 function PassengerInformation({ onChange, bookingData }) {
   return (
     <div>
-      <SectionTitle className="md:mb-0">Passenger Information</SectionTitle>
+      <SectionTitle className="lg:mb-0">Passenger Information</SectionTitle>
       <p className="font-extralight text-[14px] text-primary-500 leading-6 pt-5">
         Please fill in your contact details for a seamless pickup and drop-off
         experience.
       </p>
-      <div className="grid grid-cols-2 md:grid-cols-2 gap-3 mt-3">
+      <div className="grid grid-cols-2 lg:grid-cols-2 gap-3 mt-3">
         <Input
           label="First Name"
           defaultValue={bookingData.bookingDetails.firstName}
@@ -114,7 +168,7 @@ function PassengerInformation({ onChange, bookingData }) {
 function PaymentOptions({ selected, onSelect }) {
   return (
     <div>
-      <SectionTitle className="md:mb-0">Payment</SectionTitle>
+      <SectionTitle className="lg:mb-0">Payment</SectionTitle>
       <p className="font-extralight text-[14px] text-primary-500 leading-6 pt-5">
         Select your preferred payment method. Your details are processed
         securely by our trusted partners. We do not store any credit/debit card
