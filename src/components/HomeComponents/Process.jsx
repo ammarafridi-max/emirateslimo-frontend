@@ -27,11 +27,7 @@ export default function Process() {
   return (
     <PrimarySection id="process" className="py-15 lg:py-25">
       <Container>
-        <SectionTitle
-          textAlign="center"
-          subtitle="Our Process"
-          className="text-center"
-        >
+        <SectionTitle textAlign="center" subtitle="Our Process" className="text-center">
           Book Your Ride in 4 Easy Steps
         </SectionTitle>
 
@@ -52,9 +48,7 @@ export default function Process() {
                 {step.title}
               </h3>
 
-              <p className="text-[15.5px] font-extralight leading-relaxed text-gray-600">
-                {step.text}
-              </p>
+              <p className="text-[15.5px] font-extralight leading-relaxed text-gray-600">{step.text}</p>
 
               <LuArrowRight className="absolute bottom-6 right-6 text-gray-300 group-hover:text-primary-800 transition-transform group-hover:translate-x-1 duration-300" />
             </motion.div>

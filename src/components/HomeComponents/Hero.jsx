@@ -23,9 +23,8 @@ export default function Hero() {
             </PageHeading>
 
             <p className="text-[17px] lg:text-[19px] font-extralight text-white/80 max-w-xl leading-relaxed mt-4">
-              Experience refined travel with Emirates Limo — premium vehicles,
-              professional chauffeurs, and seamless airport transfers across the
-              UAE.
+              Experience refined travel with Emirates Limo — premium vehicles, professional chauffeurs, and seamless
+              airport transfers across the UAE.
             </p>
 
             <div className="h-[3px] w-24 bg-gradient-to-r from-primary-400 to-transparent mt-7 mb-6 lg:mb-0"></div>

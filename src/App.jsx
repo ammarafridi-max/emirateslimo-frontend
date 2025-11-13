@@ -9,7 +9,6 @@ import ScrollToTop from './components/ScrollToTop';
 
 // Layout
 import AppLayout from './components/AppLayout';
-import BookingLayout from './components/BookingLayout';
 
 // Context
 import BookingProvider from './context/BookingContext';
@@ -48,22 +47,13 @@ export default function App() {
                 <Routes>
                   <Route element={<AppLayout />}>
                     <Route index element={<Home />} />
-                    <Route
-                      path="dubai-airport-transfer"
-                      element={<DubaiAirportTransfer />}
-                    />
-                    <Route
-                      path="chauffeur-service"
-                      element={<ChauffeurService />}
-                    />
+                    <Route path="dubai-airport-transfer" element={<DubaiAirportTransfer />} />
+                    <Route path="chauffeur-service" element={<ChauffeurService />} />
                     <Route path="fleet" element={<Fleet />} />
                     <Route path="payment" element={<Payment />} />
+                    <Route path="book/select-limo" element={<SelectLimo />} />
+                    <Route path="book/booking-details" element={<BookingDetails />} />
                   </Route>
-                  <Route path="book/select-limo" element={<SelectLimo />} />
-                  <Route
-                    path="book/booking-details"
-                    element={<BookingDetails />}
-                  />
                 </Routes>
               </BookingProvider>
             </CurrencyProvider>

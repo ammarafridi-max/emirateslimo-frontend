@@ -12,13 +12,10 @@ export default function Fleet() {
     <PrimarySection className="py-10 lg:py-15 bg-white text-black">
       <Container>
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <PageHeading className="text-[32px] lg:text-[44px] font-light leading-[1.1] mb-4">
-            Our Fleet
-          </PageHeading>
+          <PageHeading className="text-[32px] lg:text-[44px] font-light leading-[1.1] mb-4">Our Fleet</PageHeading>
           <p className="text-gray-600 text-base lg:text-lg font-light">
-            Experience comfort, elegance, and style. Our fleet includes a range
-            of luxury sedans, SUVs, and vans to suit every occasion — from
-            airport transfers to private city tours.
+            Experience comfort, elegance, and style. Our fleet includes a range of luxury sedans, SUVs, and vans to suit
+            every occasion — from airport transfers to private city tours.
           </p>
         </div>
 

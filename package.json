@@ -12,6 +12,7 @@
   "dependencies": {
     "@fontsource-variable/outfit": "^5.2.8",
     "@fontsource/outfit": "^5.2.8",
+    "@googlemaps/places": "^2.2.0",
     "@mapbox/mapbox-gl-draw": "^1.5.0",
     "@react-google-maps/api": "^2.20.7",
     "@tailwindcss/vite": "^4.1.12",

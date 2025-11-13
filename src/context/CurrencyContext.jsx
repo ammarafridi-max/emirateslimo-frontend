@@ -39,9 +39,7 @@ export default function CurrencyProvider({ children }) {
   }
 
   return (
-    <CurrencyContext.Provider
-      value={{ currencies, currency, setCurrency, handleSetCurrency }}
-    >
+    <CurrencyContext.Provider value={{ currencies, currency, setCurrency, handleSetCurrency }}>
       {children}
     </CurrencyContext.Provider>
   );

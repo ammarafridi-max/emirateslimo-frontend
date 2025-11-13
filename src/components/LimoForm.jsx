@@ -9,18 +9,14 @@ import SelectHours from './FormElements/SelectHours';
 import toast from 'react-hot-toast';
 
 export default function LimoForm() {
-  const { bookingData, setBookingData, submitLimoForm, isLoadingLimoForm } =
-    useContext(BookingContext);
-  const { tripType, pickup, dropoff, pickupDate, pickupTime, hoursBooked } =
-    bookingData;
+  const { bookingData, setBookingData, submitLimoForm, isLoadingLimoForm } = useContext(BookingContext);
+  const { tripType } = bookingData;
   const { register, handleSubmit, setValue, watch, reset } = useForm();
 
   function validateLimoForm(data) {
     if (!data?.pickup?.name) return 'Please select your pickup location.';
-    if (tripType === 'distance' && !data?.dropoff?.name)
-      return 'Please select your drop-off location.';
-    if (tripType === 'hourly' && !data?.hoursBooked)
-      return 'Please select how many hours you’d like to book.';
+    if (tripType === 'distance' && !data?.dropoff?.name) return 'Please select your drop-off location.';
+    if (tripType === 'hourly' && !data?.hoursBooked) return 'Please select how many hours you’d like to book.';
     if (!data?.pickupDate) return 'Please select a pickup date.';
     if (!data?.pickupTime) return 'Please select a pickup time.';
     return null;
@@ -52,9 +48,7 @@ export default function LimoForm() {
             type="button"
             onClick={() => setBookingData((p) => ({ ...p, tripType: type }))}
             className={`w-1/2 text-center py-3 text-[15px] font-medium transition-all rounded-2xl ${
-              tripType === type
-                ? 'bg-primary-100 text-black'
-                : 'bg-white text-primary-400 hover:text-accent-500'
+              tripType === type ? 'bg-primary-100 text-black' : 'bg-white text-primary-400 hover:text-accent-500'
             }`}
           >
             {type === 'distance' ? 'Point-to-Point' : 'Hourly'}
@@ -63,16 +57,8 @@ export default function LimoForm() {
       </div>
 
       {/* Form */}
-      <form
-        className="flex flex-col gap-4 p-6 md:p-7"
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <SearchLocations
-          register={register}
-          setValue={setValue}
-          watch={watch}
-          name="pickup"
-        />
+      <form className="flex flex-col gap-4 p-6 md:p-7" onSubmit={handleSubmit(onSubmit)}>
+        <SearchLocations register={register} setValue={setValue} watch={watch} name="pickup" />
         {tripType === 'distance' && (
           <SearchLocations
             label="Drop-off location"

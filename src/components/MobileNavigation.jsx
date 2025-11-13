@@ -7,9 +7,9 @@ export default function MobileNavigation() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav className="block lg:hidden py-4 shadow-lg shadow-gray-200">
+    <nav className="relative block lg:hidden py-3 shadow-[0_1px_2px_rgba(0,0,0,0.05)] z-10">
       <Container className="flex justify-between items-center">
-        <a href="/" className="w-40 h-auto flex items-center">
+        <a href="/" className="w-35 h-auto flex items-center">
           <img
             src="/logo-light.webp"
             alt="Emirates Limo Logo"
@@ -23,25 +23,15 @@ export default function MobileNavigation() {
           title="Mobile Menu button"
           aria-label="Mobile Menu button"
         >
-          {menuOpen ? (
-            <HiOutlineXMark className="text-3xl" />
-          ) : (
-            <HiOutlineBars3 className="text-3xl" />
-          )}
+          {menuOpen ? <HiOutlineXMark className="text-3xl" /> : <HiOutlineBars3 className="text-3xl" />}
         </button>
       </Container>
 
       {menuOpen && (
         <>
-          <div
-            className="fixed inset-0 bg-black opacity-60 z-40"
-            onClick={() => setMenuOpen(false)}
-          />
-          <div
-            className="fixed inset-0 z-50 flex items-start m-10 justify-center"
-            onClick={() => setMenuOpen(false)}
-          >
-            <div className="w-full h-fit bg-white shadow-md border border-gray-200 rounded-md">
+          <div className="fixed inset-0 bg-black opacity-60 z-25" onClick={() => setMenuOpen(false)} />
+          <div className="fixed inset-0 z-25 flex items-start m-10 justify-center" onClick={() => setMenuOpen(false)}>
+            <div className="w-full h-fit bg-white shadow-md border border-gray-200 rounded-md z-25">
               {links.map((page, i) => (
                 <a
                   key={i}

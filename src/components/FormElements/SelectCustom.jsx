@@ -1,10 +1,7 @@
 import { forwardRef, useRef, useState } from 'react';
 import { FaXmark } from 'react-icons/fa6';
 
-const SelectCustom = forwardRef(function SelectCustom(
-  { className = '', value, setValue, children, ...props },
-  ref
-) {
+const SelectCustom = forwardRef(function SelectCustom({ className = '', value, setValue, children, ...props }, ref) {
   const inputRef = useRef(null);
   const [showOptions, setShowOptions] = useState(false);
 

@@ -10,14 +10,9 @@ export async function getLocationsApi(query) {
   return data?.data;
 }
 
-export async function getDistanceApi({
-  originLat,
-  originLng,
-  destLat,
-  destLng,
-}) {
+export async function getDistanceApi({ originLat, originLng, destLat, destLng }) {
   const res = await fetch(
-    `${URL}/distance?originLat=${originLat}&originLng=${originLng}&destLat=${destLat}&destLng=${destLng}`
+    `${URL}/distance?originLat=${originLat}&originLng=${originLng}&destLat=${destLat}&destLng=${destLng}`,
   );
 
   await checkError(res);

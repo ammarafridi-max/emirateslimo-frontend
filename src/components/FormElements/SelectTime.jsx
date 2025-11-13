@@ -21,10 +21,7 @@ export default function SelectTime({
   useOutsideClick(wrapperRef, () => setShowTimeOptions(false));
 
   function handleTimeSelect(h, m, p) {
-    const formatted = `${String(h).padStart(2, '0')}:${String(m).padStart(
-      2,
-      '0'
-    )} ${p}`;
+    const formatted = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')} ${p}`;
     setTime(formatted);
     setValue && setValue(name, formatted);
     setShowTimeOptions(false);
@@ -38,11 +35,7 @@ export default function SelectTime({
       <div
         onClick={() => setShowTimeOptions(true)}
         className={`flex items-center gap-3 bg-primary-100 border border-primary-100 rounded-xl px-4 py-3 cursor-pointer transition-all duration-300 
-        ${
-          showTimeOptions
-            ? 'ring ring-primary-900'
-            : 'hover:ring hover:ring-primary-300'
-        }`}
+        ${showTimeOptions ? 'ring ring-primary-900' : 'hover:ring hover:ring-primary-300'}`}
       >
         <span className="text-primary-700 text-[18px]">
           <FaClock />
@@ -76,18 +69,14 @@ export default function SelectTime({
               <div className="grid grid-cols-3 gap-2 text-center">
                 {/* Hour column */}
                 <div>
-                  <p className="text-[13px] font-light text-primary-500 mb-1 uppercase">
-                    Hour
-                  </p>
+                  <p className="text-[13px] font-light text-primary-500 mb-1 uppercase">Hour</p>
                   <div className="h-[160px] overflow-y-auto rounded-md border border-primary-50">
                     {Array.from({ length: 12 }, (_, i) => i + 1).map((h) => (
                       <p
                         key={h}
                         onClick={() => setHour(h)}
                         className={`py-1.5 text-[15px] cursor-pointer font-light transition-colors duration-150 ${
-                          hour === h
-                            ? 'bg-primary-200 text-black'
-                            : 'hover:bg-primary-50 text-primary-800'
+                          hour === h ? 'bg-primary-200 text-black' : 'hover:bg-primary-50 text-primary-800'
                         }`}
                       >
                         {h}
@@ -98,18 +87,14 @@ export default function SelectTime({
 
                 {/* Minute column */}
                 <div>
-                  <p className="text-[13px] font-light text-primary-500 mb-1 uppercase">
-                    Minute
-                  </p>
+                  <p className="text-[13px] font-light text-primary-500 mb-1 uppercase">Minute</p>
                   <div className="h-[160px] overflow-y-auto rounded-md border border-primary-50">
                     {[0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55].map((m) => (
                       <p
                         key={m}
                         onClick={() => setMinute(m)}
                         className={`py-1.5 text-[15px] cursor-pointer font-light transition-colors duration-150 ${
-                          minute === m
-                            ? 'bg-primary-200 text-black'
-                            : 'hover:bg-primary-50 text-primary-800'
+                          minute === m ? 'bg-primary-200 text-black' : 'hover:bg-primary-50 text-primary-800'
                         }`}
                       >
                         {String(m).padStart(2, '0')}
@@ -120,18 +105,14 @@ export default function SelectTime({
 
                 {/* Period column */}
                 <div>
-                  <p className="text-[13px] font-light text-primary-500 mb-1 uppercase">
-                    AM / PM
-                  </p>
+                  <p className="text-[13px] font-light text-primary-500 mb-1 uppercase">AM / PM</p>
                   <div className="h-[160px] overflow-y-auto rounded-md border border-primary-50">
                     {['AM', 'PM'].map((p) => (
                       <p
                         key={p}
                         onClick={() => setPeriod(p)}
                         className={`py-1.5 text-[15px] cursor-pointer font-light transition-colors duration-150 ${
-                          period === p
-                            ? 'bg-primary-200 text-black'
-                            : 'hover:bg-primary-50 text-primary-800'
+                          period === p ? 'bg-primary-200 text-black' : 'hover:bg-primary-50 text-primary-800'
                         }`}
                       >
                         {p}

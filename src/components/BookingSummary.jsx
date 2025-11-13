@@ -4,24 +4,15 @@ import { useVehicle } from '../hooks/useVehicle';
 import { format } from 'date-fns';
 import { motion } from 'framer-motion';
 import { HiChevronDown, HiChevronRight } from 'react-icons/hi2';
-import PrimaryButton from './PrimaryButton';
 import { FaCheck, FaChevronRight } from 'react-icons/fa6';
 import { CurrencyContext } from '../context/CurrencyContext';
+import PrimaryButton from './PrimaryButton';
 import Container from './Container';
 
 export default function BookingSummary({ btnText, btnOnClick, btnDisabled }) {
   const { currency } = useContext(CurrencyContext);
   const {
-    bookingData: {
-      tripType,
-      hoursBooked,
-      pickup,
-      dropoff,
-      pickupDate,
-      pickupTime,
-      orderSummary,
-      vehicle,
-    },
+    bookingData: { tripType, hoursBooked, pickup, dropoff, pickupDate, pickupTime, orderSummary, vehicle },
   } = useContext(BookingContext);
   const { vehicle: vehicleData } = useVehicle(vehicle);
 
@@ -42,13 +33,11 @@ export default function BookingSummary({ btnText, btnOnClick, btnDisabled }) {
       <OrderSummary currency={currency} orderSummary={orderSummary} />
 
       {/* CTA Button */}
-      <PrimaryButton
-        className="w-full"
-        disabled={btnDisabled}
-        onClick={btnOnClick}
-      >
-        {btnText}
-      </PrimaryButton>
+      <div className="hidden lg:block">
+        <PrimaryButton className="w-full" disabled={btnDisabled} onClick={btnOnClick}>
+          {btnText}
+        </PrimaryButton>
+      </div>
 
       <div className="fixed lg:hidden w-full bottom-0 left-0 bg-white py-5 shadow-[0px_0px_15px_10px_rgba(0,0,0,0.2)]">
         <Container className="grid grid-cols-[3.5fr_6.5fr] items-center gap-2">
@@ -59,11 +48,7 @@ export default function BookingSummary({ btnText, btnOnClick, btnDisabled }) {
             </p>
           </div>
           <div>
-            <PrimaryButton
-              className="w-full flex items-center gap-2 px-2"
-              disabled={btnDisabled}
-              onClick={btnOnClick}
-            >
+            <PrimaryButton className="w-full flex items-center gap-2 px-2" disabled={btnDisabled} onClick={btnOnClick}>
               <span>{btnText}</span> <FaChevronRight />
             </PrimaryButton>
           </div>
@@ -80,10 +65,7 @@ export default function BookingSummary({ btnText, btnOnClick, btnDisabled }) {
           Terms & Conditions
         </a>{' '}
         and our{' '}
-        <a
-          href="/privacy-policy"
-          className="text-accent-600 hover:text-accent-700 underline-offset-2 hover:underline"
-        >
+        <a href="/privacy-policy" className="text-accent-600 hover:text-accent-700 underline-offset-2 hover:underline">
           Privacy Policy
         </a>
         .
@@ -94,16 +76,7 @@ export default function BookingSummary({ btnText, btnOnClick, btnDisabled }) {
   );
 }
 
-function TripSummary({
-  tripType,
-  hoursBooked,
-  pickup,
-  dropoff,
-  pickupDate,
-  pickupTime,
-  vehicle,
-  vehicleData,
-}) {
+function TripSummary({ tripType, hoursBooked, pickup, dropoff, pickupDate, pickupTime, vehicle, vehicleData }) {
   const [showTripSummary, setShowTripSummary] = useState(false);
 
   return (
@@ -129,32 +102,20 @@ function TripSummary({
         transition={{ duration: 0.3, ease: 'easeInOut' }}
         className="divide-y divide-primary-100 overflow-hidden"
       >
-        {tripType === 'distance' && (
-          <Detail label="Trip Type" value="Point-to-Point" />
-        )}
+        {tripType === 'distance' && <Detail label="Trip Type" value="Point-to-Point" />}
         {tripType === 'hourly' && <Detail label="Trip Type" value="Hourly" />}
         {tripType === 'hourly' && <Detail label="Hours" value={hoursBooked} />}
         <Detail label="Pickup Location" value={pickup?.name} />
-        {tripType === 'distance' && (
-          <Detail label="Dropoff Location" value={dropoff?.name} />
-        )}
+        {tripType === 'distance' && <Detail label="Dropoff Location" value={dropoff?.name} />}
         <Detail
           label="Pickup Date & Time"
           value={
-            pickupDate
-              ? `${format(new Date(pickupDate), 'dd LLLL yyyy')} @ ${
-                  pickupTime || '10:00 AM Dubai Time'
-                }`
-              : ''
+            pickupDate ? `${format(new Date(pickupDate), 'dd LLLL yyyy')} @ ${pickupTime || '10:00 AM Dubai Time'}` : ''
           }
         />
         <Detail
           label="Vehicle Selected"
-          value={
-            vehicle
-              ? `${vehicleData?.brand || ''} ${vehicleData?.model || ''}`
-              : 'Please select your limo'
-          }
+          value={vehicle ? `${vehicleData?.brand || ''} ${vehicleData?.model || ''}` : 'Please select your limo'}
         />
       </motion.div>
     </div>
@@ -162,8 +123,7 @@ function TripSummary({
 }
 
 function OrderSummary({ currency, orderSummary }) {
-  const formatPrice = (amount) =>
-    `${currency?.sign} ${(amount || 0).toFixed(2)}`;
+  const formatPrice = (amount) => `${currency?.sign} ${(amount || 0).toFixed(2)}`;
 
   return (
     <div className="h-fit mt-5 mb-5 px-4 lg:mt-0 lg:mb-3 bg-white rounded-xl border border-primary-100 shadow-[0px_0px_5px_rgba(0,0,0,0.04)] overflow-hidden">
@@ -176,27 +136,19 @@ function OrderSummary({ currency, orderSummary }) {
       <div className="flex flex-col gap-2 py-3">
         <div className="flex items-center justify-between font-light text-sm px-3">
           <p className="text-primary-500">Limo Price</p>
-          <p className="text-primary-900 font-normal">
-            {formatPrice(orderSummary?.baseFare)}
-          </p>
+          <p className="text-primary-900 font-normal">{formatPrice(orderSummary?.baseFare)}</p>
         </div>
         <div className="flex items-center justify-between font-light text-sm px-3">
           <p className="text-primary-500">Extras Price</p>
-          <p className="text-primary-900 font-normal">
-            {formatPrice(orderSummary?.addOns)}
-          </p>
+          <p className="text-primary-900 font-normal">{formatPrice(orderSummary?.addOns)}</p>
         </div>
         <div className="flex items-center justify-between font-light text-sm px-3">
           <p className="text-primary-500">Tax</p>
-          <p className="text-primary-900 font-normal">
-            {formatPrice(orderSummary?.taxes)}
-          </p>
+          <p className="text-primary-900 font-normal">{formatPrice(orderSummary?.taxes)}</p>
         </div>
         <div className="border-t border-primary-100 mt-2 pt-2 px-3 flex justify-between items-center font-medium text-sm">
           <p className="text-primary-800">Total</p>
-          <p className="text-accent-600 font-semibold">
-            {formatPrice(orderSummary?.total)}
-          </p>
+          <p className="text-accent-600 font-semibold">{formatPrice(orderSummary?.total)}</p>
         </div>
       </div>
     </div>
@@ -240,9 +192,7 @@ function Detail({ label, value }) {
       <label className="text-[12px] text-gray-500 uppercase font-extralight tracking-wide block mb-0.5 leading-6">
         {label}
       </label>
-      <p className="text-[15px] font-light text-right lg:text-left text-primary-900">
-        {value || '—'}
-      </p>
+      <p className="text-[15px] font-light text-right lg:text-left text-primary-900">{value || '—'}</p>
     </div>
   );
 }

@@ -21,10 +21,8 @@ export default function VehicleCard({ vehicle }) {
     <>
       <div
         onClick={() => handleSelectVehicle(vehicle)}
-        className={`group relative grid sm:grid-cols-[3.5fr_8.5fr] items-start gap-5 rounded-2xl bg-white/90 border border-primary-100 p-5 lg:p-5 shadow-[0_4px_25px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:bg-primary-50 transition-all duration-300 backdrop-blur-sm cursor-pointer ${
-          vehicleSelected
-            ? 'ring-3 ring-primary-500/100'
-            : 'ring-2 ring-primary-200/100'
+        className={`group relative grid sm:grid-cols-[3.5fr_8.5fr] items-start gap-5 rounded-2xl bg-white/90 border border-primary-100 p-4 lg:p-5 shadow-[0_4px_25px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:bg-primary-50 transition-all duration-300 backdrop-blur-sm cursor-pointer ${
+          vehicleSelected ? 'ring-3 ring-primary-500/100' : 'ring-2 ring-primary-200/100'
         }`}
       >
         <div className="relative hidden lg:block w-full aspect-video rounded-xl overflow-hidden">
@@ -58,9 +56,7 @@ export default function VehicleCard({ vehicle }) {
       {showGallery && (
         <VehicleGallery
           vehicle={`${vehicle?.brand} ${vehicle.model}`}
-          images={[vehicle?.featuredImage, ...(vehicle?.images || [])].filter(
-            Boolean
-          )}
+          images={[vehicle?.featuredImage, ...(vehicle?.images || [])].filter(Boolean)}
           showGallery={showGallery}
           setShowGallery={setShowGallery}
         />
@@ -71,15 +67,9 @@ export default function VehicleCard({ vehicle }) {
 
 /* --------------------------- Subcomponents --------------------------- */
 
-function VehicleTitlePrice({
-  currency,
-  vehicle,
-  vehiclePrice,
-  tripType,
-  hoursBooked,
-}) {
+function VehicleTitlePrice({ currency, vehicle, vehiclePrice, tripType, hoursBooked }) {
   return (
-    <div className="grid grid-cols-[3fr_9fr] items-center gap-3 lg:block">
+    <div className="grid grid-cols-[3.5fr_8.5fr] items-center gap-3 lg:block">
       {/* Mobile image */}
       <div className="block lg:hidden bg-primary-100 rounded-lg overflow-hidden aspect-video">
         <img
@@ -94,16 +84,15 @@ function VehicleTitlePrice({
           <span>
             {vehicle?.brand} {vehicle?.model}
           </span>
-          {vehicle?.fuel?.toLowerCase() === 'hybrid' && (
+          {/* {vehicle?.fuel?.toLowerCase() === 'hybrid' && (
             <span className="flex items-center gap-1 uppercase ml-3 text-[10px] font-medium bg-green-200 text-green-900 px-2 py-0.5 rounded-md">
               <FaLeaf />
               {vehicle?.fuel}
             </span>
-          )}
+          )} */}
         </h3>
         <p className="text-[15px] font-medium text-accent-600">
-          {currency?.sign}{' '}
-          {(vehiclePrice * currency?.conversionRate).toFixed(2)}
+          {currency?.sign} {(vehiclePrice * currency?.conversionRate).toFixed(2)}
           <span className="text-[13px] text-primary-400 font-light ml-1">
             / {tripType === 'distance' ? 'ride' : `${hoursBooked} hours`}
           </span>
@@ -135,7 +124,7 @@ function VehicleImage({ vehicle, setShowGallery }) {
 
 function Description({ vehicle }) {
   return (
-    <p className="text-[15px] lg:text-[14px] font-extralight text-primary-600 leading-relaxed mt-3 mb-4">
+    <p className="text-[14px] lg:text-[14px] font-extralight text-primary-600 leading-5 mt-3 mb-4">
       {vehicle?.description?.slice(0, 130) ||
         'Travel in comfort and elegance with our luxury chauffeur-driven vehicles, perfect for any occasion.'}
     </p>
@@ -144,18 +133,12 @@ function Description({ vehicle }) {
 
 function QuickFacts({ vehicle }) {
   return (
-    <div className="flex flex-wrap items-center gap-2 mb-3">
+    <div className="flex flex-wrap items-center gap-2 mb-0 lg:mb-3">
       <Tooltip className="text-sm" id="my-tooltip" />
-      <div
-        data-tooltip-id="my-tooltip"
-        data-tooltip-content="Fits up to 3 luggage bags"
-      >
+      <div data-tooltip-id="my-tooltip" data-tooltip-content="Fits up to 3 luggage bags">
         <Fact icon={MdOutlineLuggage} label={`${vehicle.luggage}`} />
       </div>
-      <div
-        data-tooltip-id="my-tooltip"
-        data-tooltip-content="Fits up to 3 passengers"
-      >
+      <div data-tooltip-id="my-tooltip" data-tooltip-content="Fits up to 3 passengers">
         <Fact icon={MdOutlineMan2} label={`${vehicle.passengers}`} />
       </div>
       <Fact icon={HiOutlineStar} label={`${vehicle?.class} ${vehicle?.type}`} />

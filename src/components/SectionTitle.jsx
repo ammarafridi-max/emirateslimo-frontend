@@ -45,9 +45,7 @@ export default function SectionTitle({
       <h2 className={h2ClassName}>{children}</h2>
 
       {/* Accent underline */}
-      <div
-        className={`mt-3 flex ${isCenter ? 'justify-center' : 'justify-start'}`}
-      >
+      <div className={`mt-3 flex ${isCenter ? 'justify-center' : 'justify-start'}`}>
         <span className="inline-block h-[2px] w-16 bg-accent-500 rounded-full"></span>
       </div>
     </div>

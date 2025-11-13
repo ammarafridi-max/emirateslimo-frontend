@@ -1,9 +1,6 @@
 import { forwardRef } from 'react';
 
-const Textarea = forwardRef(function Textarea(
-  { className = '', rows = 7, ...props },
-  ref
-) {
+const Textarea = forwardRef(function Textarea({ className = '', rows = 7, ...props }, ref) {
   return (
     <textarea
       ref={ref}

@@ -20,10 +20,7 @@ export default function PrimaryButtonOutline({
     : 'bg-transparent text-accent-500 border-accent-500 hover:bg-accent-600 hover:text-white hover:border-accent-600 active:scale-[0.98]';
 
   return (
-    <button
-      className={`${base} ${sizeClasses} ${colorClasses} ${className}`}
-      {...props}
-    >
+    <button className={`${base} ${sizeClasses} ${colorClasses} ${className}`} {...props}>
       {children}
     </button>
   );

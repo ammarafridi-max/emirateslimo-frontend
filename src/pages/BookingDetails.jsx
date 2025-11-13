@@ -22,18 +22,8 @@ const paymentMethods = [
 export default function BookingDetails() {
   const navigate = useNavigate();
   const { createBooking, isCreatingBooking } = useCreateBooking();
-  const { bookingData, handleChange, handleSelectPaymentMethod } =
-    useContext(BookingContext);
-  const {
-    tripType,
-    pickup,
-    dropoff,
-    pickupDate,
-    pickupTime,
-    hoursBooked,
-    vehicle,
-    bookingDetails,
-  } = bookingData;
+  const { bookingData, handleChange, handleSelectPaymentMethod } = useContext(BookingContext);
+  const { tripType, pickup, dropoff, pickupDate, pickupTime, hoursBooked, vehicle, bookingDetails } = bookingData;
 
   const { firstName, lastName, email, phoneNumber, payment } = bookingDetails;
 
@@ -49,17 +39,9 @@ export default function BookingDetails() {
   const error = validateBookingForm(bookingData);
 
   useEffect(() => {
-    if (
-      tripType === 'distance' &&
-      (!pickup?.name || !dropoff?.name || !pickupDate || !pickupTime)
-    )
-      navigate('/');
+    if (tripType === 'distance' && (!pickup?.name || !dropoff?.name || !pickupDate || !pickupTime)) navigate('/');
 
-    if (
-      tripType === 'hourly' &&
-      (!pickup?.name || !hoursBooked || !pickupDate || !pickupTime)
-    )
-      navigate('/');
+    if (tripType === 'hourly' && (!pickup?.name || !hoursBooked || !pickupDate || !pickupTime)) navigate('/');
 
     if (!vehicle) {
       navigate('/book/select-limo');
@@ -73,14 +55,8 @@ export default function BookingDetails() {
       </Helmet>
       <BookingLayout>
         <div className="flex flex-col gap-8 lg:gap-12 w-full p-5 lg:p-7 bg-white rounded-xl shadow-xl shadow-gray-300">
-          <PassengerInformation
-            onChange={handleChange}
-            bookingData={bookingData}
-          />
-          <PaymentOptions
-            selected={bookingData.bookingDetails.payment.method}
-            onSelect={handleSelectPaymentMethod}
-          />
+          <PassengerInformation onChange={handleChange} bookingData={bookingData} />
+          <PaymentOptions selected={bookingData.bookingDetails.payment.method} onSelect={handleSelectPaymentMethod} />
         </div>
         <div>
           <BookingSummary
@@ -102,8 +78,7 @@ function PassengerInformation({ onChange, bookingData }) {
     <div>
       <SectionTitle className="lg:mb-0">Passenger Information</SectionTitle>
       <p className="font-extralight text-[14px] text-primary-500 leading-6 pt-5">
-        Please fill in your contact details for a seamless pickup and drop-off
-        experience.
+        Please fill in your contact details for a seamless pickup and drop-off experience.
       </p>
       <div className="grid grid-cols-2 lg:grid-cols-2 gap-3 mt-3">
         <Input
@@ -150,8 +125,7 @@ function PassengerInformation({ onChange, bookingData }) {
 
       <div className="flex flex-col gap-1 mt-3">
         <label className="font-light text-[14px]">
-          Special Requests / Notes{' '}
-          <span className="text-primary-300">(optional)</span>
+          Special Requests / Notes <span className="text-primary-300">(optional)</span>
         </label>
         <textarea
           rows={5}
@@ -170,9 +144,8 @@ function PaymentOptions({ selected, onSelect }) {
     <div>
       <SectionTitle className="lg:mb-0">Payment</SectionTitle>
       <p className="font-extralight text-[14px] text-primary-500 leading-6 pt-5">
-        Select your preferred payment method. Your details are processed
-        securely by our trusted partners. We do not store any credit/debit card
-        details.
+        Select your preferred payment method. Your details are processed securely by our trusted partners. We do not
+        store any credit/debit card details.
       </p>
       <div className="flex flex-col gap-2 mt-4">
         {paymentMethods.map((method) => (
@@ -191,13 +164,7 @@ function PaymentOptions({ selected, onSelect }) {
   );
 }
 
-function SelectPaymentButton({
-  onClick,
-  isSelected,
-  icon,
-  text,
-  color = '#000',
-}) {
+function SelectPaymentButton({ onClick, isSelected, icon, text, color = '#000' }) {
   return (
     <button
       onClick={onClick}
@@ -224,21 +191,11 @@ function SelectPaymentButton({
           >
             {icon}
           </span>
-          <span
-            className={`text-[14px] font-light ${
-              isSelected ? 'text-primary-700' : 'text-gray-700'
-            }`}
-          >
-            {text}
-          </span>
+          <span className={`text-[14px] font-light ${isSelected ? 'text-primary-700' : 'text-gray-700'}`}>{text}</span>
         </div>
       </div>
 
-      {isSelected && (
-        <span className="text-[12px] text-primary-600 font-medium">
-          Selected
-        </span>
-      )}
+      {isSelected && <span className="text-[12px] text-primary-600 font-medium">Selected</span>}
     </button>
   );
 }

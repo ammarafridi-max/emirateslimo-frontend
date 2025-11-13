@@ -9,11 +9,7 @@ const formatToDateString = (date) => {
   return `${year}-${month}-${day}`;
 };
 
-export default function Calendar({
-  onDateClick,
-  isDateDisabled,
-  setShowCalendar,
-}) {
+export default function Calendar({ onDateClick, isDateDisabled, setShowCalendar }) {
   const [currentDate, setCurrentDate] = useState(new Date());
   const componentRef = useRef(null);
 
@@ -62,16 +58,8 @@ export default function Calendar({
   };
 
   const renderCells = () => {
-    const monthStart = new Date(
-      currentDate.getFullYear(),
-      currentDate.getMonth(),
-      1
-    );
-    const monthEnd = new Date(
-      currentDate.getFullYear(),
-      currentDate.getMonth() + 1,
-      0
-    );
+    const monthStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+    const monthEnd = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
     const startDate = new Date(monthStart);
     startDate.setDate(startDate.getDate() - startDate.getDay());
     const endDate = new Date(monthEnd);
@@ -101,7 +89,7 @@ export default function Calendar({
             >
               {dayClone.getDate()}
             </span>
-          </div>
+          </div>,
         );
         day.setDate(day.getDate() + 1);
       }
@@ -109,7 +97,7 @@ export default function Calendar({
       rows.push(
         <div key={day.toISOString()} className="flex w-full">
           {days}
-        </div>
+        </div>,
       );
       days = [];
     }

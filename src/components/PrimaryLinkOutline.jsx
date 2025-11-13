@@ -1,11 +1,6 @@
 import { Link } from 'react-router-dom';
 
-export default function PrimaryLinkOutline({
-  children,
-  className = '',
-  size = 'medium',
-  ...props
-}) {
+export default function PrimaryLinkOutline({ children, className = '', size = 'medium', ...props }) {
   let newClassName = className;
 
   if (size === 'large') {

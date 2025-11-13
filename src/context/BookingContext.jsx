@@ -67,9 +67,7 @@ export default function BookingProvider({ children }) {
     },
   };
 
-  const [bookingData, setBookingData] = useState(
-    JSON.parse(localStorage.getItem('bookingData')) || initialBookingData
-  );
+  const [bookingData, setBookingData] = useState(JSON.parse(localStorage.getItem('bookingData')) || initialBookingData);
 
   async function submitLimoForm(data) {
     try {
@@ -82,11 +80,7 @@ export default function BookingProvider({ children }) {
 
       let dropoffZone = null;
 
-      if (
-        bookingData?.tripType === 'distance' &&
-        data.dropoff?.lat &&
-        data.dropoff?.lng
-      ) {
+      if (bookingData?.tripType === 'distance' && data.dropoff?.lat && data.dropoff?.lng) {
         dropoffZone = await getZoneByAddress({
           lat: data.dropoff.lat,
           lng: data.dropoff.lng,
@@ -120,8 +114,7 @@ export default function BookingProvider({ children }) {
           } || null,
         pickupDate: data.pickupDate,
         pickupTime: data.pickupTime,
-        hoursBooked:
-          bookingData?.tripType === 'hourly' ? data?.hoursBooked : null,
+        hoursBooked: bookingData?.tripType === 'hourly' ? data?.hoursBooked : null,
         distance: distance?.distanceKm,
         tripDuration: distance?.durationMin,
       }));
@@ -179,8 +172,7 @@ export default function BookingProvider({ children }) {
   useEffect(() => {
     setBookingData((prev) => {
       const { baseFare = 0, addOns = 0, taxes = 0 } = prev.orderSummary;
-      const total =
-        parseFloat(baseFare) + parseFloat(addOns) + parseFloat(taxes);
+      const total = parseFloat(baseFare) + parseFloat(addOns) + parseFloat(taxes);
 
       return {
         ...prev,
@@ -190,11 +182,7 @@ export default function BookingProvider({ children }) {
         },
       };
     });
-  }, [
-    bookingData.orderSummary.baseFare,
-    bookingData.orderSummary.addOns,
-    bookingData.orderSummary.taxes,
-  ]);
+  }, [bookingData.orderSummary.baseFare, bookingData.orderSummary.addOns, bookingData.orderSummary.taxes]);
 
   // Update currency whenever changed
   useEffect(() => {
@@ -206,8 +194,7 @@ export default function BookingProvider({ children }) {
         ...prev,
         orderSummary: {
           ...prev.orderSummary,
-          baseFare:
-            (prev.orderSummary.baseFare / oldRate) * currency.conversionRate, // 👈 numeric only
+          baseFare: (prev.orderSummary.baseFare / oldRate) * currency.conversionRate, // 👈 numeric only
           currency: currency?.code?.toLowerCase(),
           conversionRate: currency.conversionRate,
         },

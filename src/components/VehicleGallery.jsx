@@ -10,9 +10,7 @@ export default function VehicleGallery({ vehicle, images, setShowGallery }) {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setImageIndex((prevIndex) =>
-        prevIndex >= images.length - 1 ? 0 : prevIndex + 1
-      );
+      setImageIndex((prevIndex) => (prevIndex >= images.length - 1 ? 0 : prevIndex + 1));
     }, 3000);
 
     return () => clearInterval(interval);
@@ -22,33 +20,22 @@ export default function VehicleGallery({ vehicle, images, setShowGallery }) {
 
   return (
     <div className="fixed top-0 left-0 z-50 h-full w-full bg-black/80 flex items-center justify-center">
-      <button
-        type="button"
-        className="absolute top-5 right-5 text-white text-3xl cursor-pointer"
-      >
+      <button type="button" className="absolute top-5 right-5 text-white text-3xl cursor-pointer">
         <FaXmark />
       </button>
       <div className="flex flex-col gap-4" ref={wrapperRef}>
         {!images.length ? (
-          <p className="text-center text-white text-2xl">
-            No images to display
-          </p>
+          <p className="text-center text-white text-2xl">No images to display</p>
         ) : (
           <>
             <p className="text-center text-white text-2xl">{vehicle}</p>
             <div className="w-150 aspect-video rounded-xl overflow-hidden bg-white">
-              <img
-                src={images[imageIndex]}
-                className="w-full h-full object-cover"
-              />
+              <img src={images[imageIndex]} className="w-full h-full object-cover" />
             </div>
             <div className="w-150 grid grid-cols-4 gap-5">
               {images &&
                 images?.map((img, i) => (
-                  <div
-                    key={i}
-                    className="aspect-video rounded-md overflow-hidden bg-white"
-                  >
+                  <div key={i} className="aspect-video rounded-md overflow-hidden bg-white">
                     <img src={img} className="w-full h-full object-cover" />
                   </div>
                 ))}

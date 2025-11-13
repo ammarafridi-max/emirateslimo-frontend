@@ -1,23 +1,9 @@
-import {
-  FaStripe,
-  FaGooglePay,
-  FaApplePay,
-  FaPhoneAlt,
-  FaEnvelope,
-  FaMapPin,
-  FaWhatsapp,
-} from 'react-icons/fa';
+import { FaStripe, FaGooglePay, FaApplePay, FaPhoneAlt, FaEnvelope, FaMapPin, FaWhatsapp } from 'react-icons/fa';
 import { RiVisaLine, RiMastercardLine } from 'react-icons/ri';
 import { FaFacebook, FaInstagram } from 'react-icons/fa6';
 import Container from './Container';
 
-const icons = [
-  <FaStripe />,
-  <FaGooglePay />,
-  <FaApplePay />,
-  <RiVisaLine />,
-  <RiMastercardLine />,
-];
+const icons = [<FaStripe />, <FaGooglePay />, <FaApplePay />, <RiVisaLine />, <RiMastercardLine />];
 
 export default function Footer() {
   return (
@@ -25,15 +11,10 @@ export default function Footer() {
       <Container className="py-7.5 bg-transparent box-border font-outfit">
         <div className="grid grid-cols-6 lg:flex justify-between gap-8 mb-10 text-white">
           <div className="col-span-6 lg:w-[33%] flex flex-col gap-5">
-            <img
-              src="/logo-dark.webp"
-              className="w-40"
-              alt="Emirates Limo logo"
-            />
+            <img src="/logo-dark.webp" className="w-40" alt="Emirates Limo logo" />
             <p className="text-primary-300 text-md lg:text-[16px] font-extralight leading-7">
-              Emirates Limo provides premium chauffeured transfer services
-              across the UAE, ensuring every journey is smooth, safe, and on
-              time.
+              Emirates Limo provides premium chauffeured transfer services across the UAE, ensuring every journey is
+              smooth, safe, and on time.
             </p>
             <div className="flex gap-2">
               <IconCard icon={<FaFacebook />} href="tel:971506045355">
@@ -77,10 +58,7 @@ export default function Footer() {
               <IconCard icon={<FaEnvelope />} href="mailto:info@visawadi.com">
                 info@visawadi.com
               </IconCard>
-              <IconCard
-                icon={<FaMapPin />}
-                href="https://maps.google.com?q=A Block, Abraj Al Mamzar"
-              >
+              <IconCard icon={<FaMapPin />} href="https://maps.google.com?q=A Block, Abraj Al Mamzar">
                 A Block, Abraj Al Mamzar
               </IconCard>
             </div>
@@ -88,10 +66,7 @@ export default function Footer() {
         </div>
         <div className="w-full gap-3 lg:gap-5 mx-auto mb-3.5 pb-3.5 flex items-center justify-center border-b-1 border-solid border-gray-200 ">
           {icons.map((icon, i) => (
-            <div
-              key={i}
-              className="text-primary-200 text-[35px] lg:text-[40px]"
-            >
+            <div key={i} className="text-primary-200 text-[35px] lg:text-[40px]">
               {icon}
             </div>
           ))}
@@ -101,17 +76,11 @@ export default function Footer() {
             © 2025 TRAVL Technologies. All Rights Reserved.
           </p>
           <div className="flex items-center justify-center gap-2.5 text-[14px] font-light text-white">
-            <a
-              href="/terms-and-conditions"
-              className="text-primary-300 hover:text-primary-100"
-            >
+            <a href="/terms-and-conditions" className="text-primary-300 hover:text-primary-100">
               Terms & Conditions
             </a>
             <span>|</span>
-            <a
-              href="/privacy-policy"
-              className="text-primary-300 hover:text-primary-100"
-            >
+            <a href="/privacy-policy" className="text-primary-300 hover:text-primary-100">
               Privacy Policy
             </a>
           </div>
@@ -123,10 +92,7 @@ export default function Footer() {
 
 function FooterLink({ href = '#', children }) {
   return (
-    <a
-      href={href}
-      className="cursor-pointer group text-[16px] text-primary-300 hover:text-primary-100"
-    >
+    <a href={href} className="cursor-pointer group text-[16px] text-primary-300 hover:text-primary-100">
       {/* <span className="mr-4 font-bold duration-300 group-hover:text-primary-500">
         —
       </span> */}
@@ -137,11 +103,7 @@ function FooterLink({ href = '#', children }) {
 
 function IconCard({ icon, href, children, target = '_blank' }) {
   return (
-    <a
-      href={href}
-      className="flex items-center gap-3 leading-6 group"
-      target={target}
-    >
+    <a href={href} className="flex items-center gap-3 leading-6 group" target={target}>
       <span className="bg-white text-black w-[30px] h-[30px] rounded-full flex items-center justify-center text-sm duration-300 group-hover:bg-primary-200">
         {icon}
       </span>

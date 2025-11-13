@@ -37,17 +37,11 @@ export default function Navigation() {
   const { pathname } = useLocation();
 
   return (
-    <nav
-      className={`hidden lg:block w-full transition-all duration-500 bg-transparent shadow-lg shadow-gray-200`}
-    >
+    <nav className={`hidden lg:block w-full transition-all duration-500 bg-transparent shadow-lg shadow-gray-200`}>
       <Container>
         <div className="flex items-center justify-between py-5">
           <a href="/" className="flex items-center gap-2">
-            <img
-              src="/logo-light.webp"
-              alt="Emirates Limo"
-              className="w-40 object-contain"
-            />
+            <img src="/logo-light.webp" alt="Emirates Limo" className="w-40 object-contain" />
           </a>
 
           {/* Links */}

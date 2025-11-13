@@ -29,11 +29,7 @@ export default function Services() {
   return (
     <PrimarySection id="services" className="bg-white py-15 lg:py-25">
       <Container>
-        <SectionTitle
-          textAlign="center"
-          subtitle="Our Services"
-          className="text-center"
-        >
+        <SectionTitle textAlign="center" subtitle="Our Services" className="text-center">
           Premium Chauffeur Experiences
         </SectionTitle>
 
@@ -57,17 +53,13 @@ export default function Services() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
                 <div className="absolute bottom-4 left-4 flex items-center gap-3 text-white">
                   {/* <service.icon className="text-[22px] text-accent-500" /> */}
-                  <h3 className="text-[20px] font-light tracking-wide">
-                    {service.title}
-                  </h3>
+                  <h3 className="text-[20px] font-light tracking-wide">{service.title}</h3>
                 </div>
               </div>
 
               {/* Text */}
               <div className="p-4">
-                <p className="text-[15.5px] font-extralight text-gray-600 leading-relaxed">
-                  {service.text}
-                </p>
+                <p className="text-[15.5px] font-extralight text-gray-600 leading-relaxed">{service.text}</p>
               </div>
 
               {/* Accent line on hover */}

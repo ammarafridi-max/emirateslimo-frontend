@@ -27,11 +27,7 @@ export default function SelectHours({
       <div
         onClick={() => setShowOptions(!showOptions)}
         className={`flex items-center gap-3 bg-primary-100 border border-primary-100 rounded-xl px-4 py-3 cursor-pointer transition-all duration-300 
-          ${
-            showOptions
-              ? 'ring ring-primary-900'
-              : 'hover:ring hover:ring-primary-300'
-          }`}
+          ${showOptions ? 'ring ring-primary-900' : 'hover:ring hover:ring-primary-300'}`}
       >
         <span className="text-black text-[18px]">
           <FaRegClock />
@@ -46,11 +42,7 @@ export default function SelectHours({
             ref={inputRef}
             readOnly
             placeholder={placeholder}
-            value={
-              selectedHour
-                ? `${selectedHour} hour${selectedHour > 1 ? 's' : ''}`
-                : ''
-            }
+            value={selectedHour ? `${selectedHour} hour${selectedHour > 1 ? 's' : ''}` : ''}
             className="bg-transparent border-0 outline-none w-full text-[15.5px] font-light text-primary-900 placeholder:text-primary-300 cursor-pointer"
           />
         </div>
@@ -76,9 +68,7 @@ export default function SelectHours({
                     setShowOptions(false);
                   }}
                   className={`py-2 px-4 text-[15px] font-light text-primary-800 cursor-pointer transition-colors duration-200 hover:bg-primary-50 ${
-                    selectedHour === hour
-                      ? 'bg-accent-500/10 text-accent-600'
-                      : ''
+                    selectedHour === hour ? 'bg-accent-500/10 text-accent-600' : ''
                   }`}
                 >
                   {hour} {hour > 1 ? 'hours' : 'hour'}

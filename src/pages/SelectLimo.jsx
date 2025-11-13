@@ -13,26 +13,15 @@ export default function SelectLimo() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { bookingData } = useContext(BookingContext);
-  const { tripType, pickup, dropoff, pickupDate, pickupTime, hoursBooked } =
-    bookingData;
-  const { vehicles, isLoadingVehicles, isErrorVehicles, errorVehicles } =
-    useAvailableVehicles(bookingData);
+  const { tripType, pickup, dropoff, pickupDate, pickupTime, hoursBooked } = bookingData;
+  const { vehicles, isLoadingVehicles, isErrorVehicles, errorVehicles } = useAvailableVehicles(bookingData);
 
-  if (isErrorVehicles)
-    return <p>Error loading vehicles: {errorVehicles.message}</p>;
+  if (isErrorVehicles) return <p>Error loading vehicles: {errorVehicles.message}</p>;
 
   useEffect(() => {
-    if (
-      tripType === 'distance' &&
-      (!pickup?.name || !dropoff?.name || !pickupDate || !pickupTime)
-    )
-      navigate('/');
+    if (tripType === 'distance' && (!pickup?.name || !dropoff?.name || !pickupDate || !pickupTime)) navigate('/');
 
-    if (
-      tripType === 'hourly' &&
-      (!pickup?.name || !hoursBooked || !pickupDate || !pickupTime)
-    )
-      navigate('/');
+    if (tripType === 'hourly' && (!pickup?.name || !hoursBooked || !pickupDate || !pickupTime)) navigate('/');
   }, []);
 
   return (

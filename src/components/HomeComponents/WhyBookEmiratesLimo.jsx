@@ -29,16 +29,9 @@ const reasons = [
 
 export default function WhyBookEmiratesLimo() {
   return (
-    <PrimarySection
-      id="why-book"
-      className="bg-primary-800 py-15 lg:py-25 text-white"
-    >
+    <PrimarySection id="why-book" className="bg-primary-800 py-15 lg:py-25 text-white">
       <Container>
-        <SectionTitle
-          textAlign="center"
-          subtitle="Why Choose Us"
-          type="secondary"
-        >
+        <SectionTitle textAlign="center" subtitle="Why Choose Us" type="secondary">
           Why Book Emirates Limo?
         </SectionTitle>
 
@@ -59,9 +52,7 @@ export default function WhyBookEmiratesLimo() {
                 {item.title}
               </h3>
 
-              <p className="text-[15.5px] font-extralight text-white/70 leading-relaxed">
-                {item.text}
-              </p>
+              <p className="text-[15.5px] font-extralight text-white/70 leading-relaxed">{item.text}</p>
             </motion.div>
           ))}
         </div>

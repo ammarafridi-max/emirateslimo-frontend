@@ -29,11 +29,7 @@ export default function Testimonials() {
   return (
     <PrimarySection id="testimonials" className="bg-primary-900 py-15 lg:py-25">
       <Container>
-        <SectionTitle
-          type="secondary"
-          textAlign="center"
-          subtitle="Client Testimonials"
-        >
+        <SectionTitle type="secondary" textAlign="center" subtitle="Client Testimonials">
           What Our Clients Say
         </SectionTitle>
 
@@ -50,24 +46,14 @@ export default function Testimonials() {
               <LuQuote className="text-accent-500 text-3xl mb-5 opacity-70" />
 
               {/* Review text */}
-              <p className="text-[16px] font-extralight text-primary-600 leading-relaxed mb-6">
-                “{t.text}”
-              </p>
+              <p className="text-[16px] font-extralight text-primary-600 leading-relaxed mb-6">“{t.text}”</p>
 
               {/* Client info */}
               <div className="flex items-center gap-4 mt-auto">
-                <img
-                  src={t.image}
-                  alt={t.name}
-                  className="w-12 h-12 rounded-full object-cover"
-                />
+                <img src={t.image} alt={t.name} className="w-12 h-12 rounded-full object-cover" />
                 <div>
-                  <p className="text-[16px] font-medium text-primary-900 font-merriweather leading-tight">
-                    {t.name}
-                  </p>
-                  <p className="text-[14px] text-primary-400 font-outfit">
-                    {t.position}
-                  </p>
+                  <p className="text-[16px] font-medium text-primary-900 font-merriweather leading-tight">{t.name}</p>
+                  <p className="text-[14px] text-primary-400 font-outfit">{t.position}</p>
                 </div>
               </div>
 

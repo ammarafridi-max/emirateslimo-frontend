@@ -23,15 +23,11 @@ export default function FleetCard({ index, vehicle }) {
         <div className="flex items-center justify-between mb-4 text-primary-500">
           <div className="flex items-center gap-2">
             <LuUsers className="text-[18px]" />
-            <span className="text-[15px] font-light">
-              {vehicle?.passengers || 4} Passengers
-            </span>
+            <span className="text-[15px] font-light">{vehicle?.passengers || 4} Passengers</span>
           </div>
           <div className="flex items-center gap-2">
             <LuLuggage className="text-[18px]" />
-            <span className="text-[15px] font-light">
-              {vehicle?.luggage || 2} Bags
-            </span>
+            <span className="text-[15px] font-light">{vehicle?.luggage || 2} Bags</span>
           </div>
         </div>
 
@@ -42,10 +38,7 @@ export default function FleetCard({ index, vehicle }) {
 
         <div className="flex items-center justify-between">
           <p className="text-[16px] font-medium text-primary-900">
-            AED {vehicle?.pricing?.pricePerHour}{' '}
-            <span className="text-[13px] font-light text-primary-400">
-              /hour
-            </span>
+            AED {vehicle?.pricing?.pricePerHour} <span className="text-[13px] font-light text-primary-400">/hour</span>
           </p>
 
           <button className="bg-accent-500 text-white text-[14px] px-5 py-2 rounded-full transition-all duration-300 hover:bg-accent-600">
