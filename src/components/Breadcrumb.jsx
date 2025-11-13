@@ -3,24 +3,24 @@ import { ChevronRight } from 'lucide-react';
 
 export default function Breadcrumb({ paths = [] }) {
   return (
-    <nav className="flex items-center text-sm text-gray-600 space-x-1">
+    <div className="hidden lg:flex items-center gap-2 text-[13px] lg:text-[14.5px] font-light text-primary-500 mb-4 lg:mb-6">
       {paths.map((path, index) => (
         <div key={index} className="flex items-center">
           {index !== 0 && (
-            <ChevronRight className="w-4 h-4 text-gray-400 mx-1" />
+            <ChevronRight size={15} className="text-primary-300" />
           )}
           {index === paths.length - 1 ? (
-            <span className="font-medium text-gray-900">{path.label}</span>
+            <span className="text-primary-900 font-normal">{path.label}</span>
           ) : (
             <Link
               to={path.href}
-              className="hover:text-primary-600 transition-colors"
+              className="text-primary-400 hover:text-accent-500 transition-colors duration-200"
             >
               {path.label}
             </Link>
           )}
         </div>
       ))}
-    </nav>
+    </div>
   );
 }

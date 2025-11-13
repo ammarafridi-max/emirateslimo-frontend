@@ -27,7 +27,7 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <PrimarySection id="testimonials" className="bg-primary-900 py-15 md:py-20">
+    <PrimarySection id="testimonials" className="bg-primary-900 py-15 lg:py-25">
       <Container>
         <SectionTitle
           type="secondary"
@@ -37,7 +37,7 @@ export default function Testimonials() {
           What Our Clients Say
         </SectionTitle>
 
-        <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="mt-14 grid grid-cols-1 lg:grid-cols-3 gap-6">
           {testimonials.map((t, i) => (
             <motion.div
               key={i}

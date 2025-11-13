@@ -10,10 +10,10 @@ export default function PrimaryButtonOutline({
 
   const sizeClasses =
     size === 'large'
-      ? 'text-[15px] md:text-[18px] py-3 px-6'
+      ? 'text-[15px] lg:text-[18px] py-3 px-6'
       : size === 'small'
-        ? 'text-[13px] md:text-[14px] py-2 px-4'
-        : 'text-[14px] md:text-[15px] py-2.5 px-5';
+        ? 'text-[13px] lg:text-[14px] py-2 px-4'
+        : 'text-[14px] lg:text-[15px] py-2.5 px-5';
 
   const colorClasses = selected
     ? 'bg-accent-500 text-white border-accent-500 hover:cursor-default'

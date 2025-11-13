@@ -27,7 +27,7 @@ const services = [
 
 export default function Services() {
   return (
-    <PrimarySection id="services" className="bg-white py-15 md:py-20">
+    <PrimarySection id="services" className="bg-white py-15 lg:py-25">
       <Container>
         <SectionTitle
           textAlign="center"
@@ -37,7 +37,7 @@ export default function Services() {
           Premium Chauffeur Experiences
         </SectionTitle>
 
-        <div className="mt-14 grid grid-cols-1 gap-10 md:grid-cols-3">
+        <div className="mt-14 grid grid-cols-1 gap-10 lg:grid-cols-3">
           {services.map((service, i) => (
             <motion.div
               key={i}

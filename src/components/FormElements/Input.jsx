@@ -12,7 +12,7 @@ const Input = forwardRef(function Input(
       </label>
       <input
         ref={ref}
-        className={`w-full bg-transparent text-[14px] font-light px-3 md:px-3 py-2 rounded-md border border-gray-300 focus:border-primary-900 outline-0 ${className}`}
+        className={`w-full bg-transparent text-[14px] font-light px-3 lg:px-3 py-2 rounded-md border border-gray-300 focus:border-primary-900 outline-0 ${className}`}
         {...props}
       />
     </div>

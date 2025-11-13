@@ -20,7 +20,7 @@ export default function Payment() {
   const paymentStatus = booking?.bookingDetails?.payment?.status?.toUpperCase();
 
   return (
-    <PrimarySection className="py-10 md:py-15">
+    <PrimarySection className="py-10 lg:py-15">
       <Container>
         {paymentStatus === 'PAID' ? <Success booking={booking} /> : <Failure />}
         {/* <Success booking={booking} /> */}
@@ -50,13 +50,13 @@ function Success({ booking }) {
       <Helmet>
         <title>Payment Successfully Processed</title>
       </Helmet>
-      <div className="flex items-center justify-center bg-green-700 w-20 h-20 md:w-25 md:h-25 rounded-full mx-auto mb-5">
+      <div className="flex items-center justify-center bg-green-700 w-20 h-20 lg:w-25 lg:h-25 rounded-full mx-auto mb-5">
         <FaCheck size={40} className="text-white" />
       </div>
-      <PageHeading className="text-2xl md:text-4xl text-center">
+      <PageHeading className="text-2xl lg:text-4xl text-center">
         Payment Successfully Processed
       </PageHeading>
-      <p className="text-center text-md md:text-lg mt-4 font-extralight">
+      <p className="text-center text-md lg:text-lg mt-4 font-extralight">
         Thank you for your booking {customerName}. Your limo has been reserved
         on {format(new Date(pickupDate), 'dd LLLL yyyy')} at {pickupTime}. Your
         driver will be assigned a day before your trip and their contact details
@@ -65,14 +65,14 @@ function Success({ booking }) {
 
       <div className="bg-primary-100 shadow-md rounded-xl p-6 mt-6 text-gray-700">
         <div>
-          <h2 className="text-2xl md:text-[27px] font-medium">
+          <h2 className="text-2xl lg:text-[27px] font-medium">
             Booking Reference: <span className="">{bookingRef}</span>
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 md:gap-10 md:divide-x divide-primary-300">
+        <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-10 lg:divide-x divide-primary-300">
           <div className="mt-5">
-            <h3 className="text-lg md:text-xl mb-4 font-medium">
+            <h3 className="text-lg lg:text-xl mb-4 font-medium">
               Trip Details
             </h3>
             <p className="font-normal mb-2">
@@ -116,7 +116,7 @@ function Success({ booking }) {
           </div>
 
           <div className="mt-5">
-            <h3 className="text-lg md:text-xl mb-4 font-medium">
+            <h3 className="text-lg lg:text-xl mb-4 font-medium">
               Passenger Details
             </h3>
             <p className="font-normal mb-2">
@@ -158,13 +158,13 @@ function Failure() {
       <Helmet>
         <title>Payment Not Found</title>
       </Helmet>
-      <div className="flex items-center justify-center bg-red-700 w-20 h-20 md:w-25 md:h-25 rounded-full mx-auto mb-5">
+      <div className="flex items-center justify-center bg-red-700 w-20 h-20 lg:w-25 lg:h-25 rounded-full mx-auto mb-5">
         <FaX size={40} className="text-white" />
       </div>
-      <PageHeading className="text-2xl md:text-4xl text-center">
+      <PageHeading className="text-2xl lg:text-4xl text-center">
         Payment Not Found
       </PageHeading>
-      {/* <p className="text-center text-md md:text-lg mt-4 font-extralight">
+      {/* <p className="text-center text-md lg:text-lg mt-4 font-extralight">
         Thank you for your booking {customerName}. Your limo has been reserved
         on {format(new Date(pickupDate), 'dd LLLL yyyy')} at {pickupTime}. Your
         driver will be assigned a day before your trip and their contact details

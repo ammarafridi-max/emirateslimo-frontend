@@ -2,8 +2,8 @@ import { useRef, useState } from 'react';
 import { FaLocationDot } from 'react-icons/fa6';
 import { useGetLocations } from '../../hooks/useGetLocations';
 import { useOutsideClick } from '../../hooks/useOutsideClick';
-import LoadingLocation from '../LoadingLocation';
 import { motion, AnimatePresence } from 'framer-motion';
+import LoadingLocation from '../LoadingLocation';
 
 export default function SearchLocations({
   label = 'Pick up location',

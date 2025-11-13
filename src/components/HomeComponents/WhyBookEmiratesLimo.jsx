@@ -31,7 +31,7 @@ export default function WhyBookEmiratesLimo() {
   return (
     <PrimarySection
       id="why-book"
-      className="bg-primary-800 py-15 md:py-25 text-white"
+      className="bg-primary-800 py-15 lg:py-25 text-white"
     >
       <Container>
         <SectionTitle

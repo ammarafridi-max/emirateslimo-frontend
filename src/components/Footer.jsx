@@ -23,14 +23,14 @@ export default function Footer() {
   return (
     <footer className="py-5 bg-primary-900">
       <Container className="py-7.5 bg-transparent box-border font-outfit">
-        <div className="grid grid-cols-6 md:flex justify-between gap-8 mb-10 text-white">
-          <div className="col-span-6 md:w-[33%] flex flex-col gap-5">
+        <div className="grid grid-cols-6 lg:flex justify-between gap-8 mb-10 text-white">
+          <div className="col-span-6 lg:w-[33%] flex flex-col gap-5">
             <img
               src="/logo-dark.webp"
               className="w-40"
               alt="Emirates Limo logo"
             />
-            <p className="text-primary-300 text-md md:text-[16px] font-extralight leading-7">
+            <p className="text-primary-300 text-md lg:text-[16px] font-extralight leading-7">
               Emirates Limo provides premium chauffeured transfer services
               across the UAE, ensuring every journey is smooth, safe, and on
               time.
@@ -44,27 +44,27 @@ export default function Footer() {
               </IconCard>
             </div>
           </div>
-          <div className="col-span-3 md:w-fit">
+          <div className="col-span-3 lg:w-fit">
             <p className="text-lg text-white font-light">Site Links</p>
-            <div className="flex flex-col mt-4 text-white text-md md:text-lg font-extralight gap-2">
+            <div className="flex flex-col mt-4 text-white text-md lg:text-lg font-extralight gap-2">
               <FooterLink>Home</FooterLink>
               <FooterLink>About</FooterLink>
               <FooterLink>Services</FooterLink>
               <FooterLink href="/fleet">Fleet</FooterLink>
             </div>
           </div>
-          <div className="col-span-3 md:w-fit">
+          <div className="col-span-3 lg:w-fit">
             <p className="text-lg text-white font-light">Services</p>
-            <div className="flex flex-col mt-4 text-white text-md md:text-lg font-extralight gap-2">
+            <div className="flex flex-col mt-4 text-white text-md lg:text-lg font-extralight gap-2">
               <FooterLink>Airport Transfer</FooterLink>
               <FooterLink>Chauffeur Service</FooterLink>
               <FooterLink>City-To-City Rides</FooterLink>
               <FooterLink>City Tours</FooterLink>
             </div>
           </div>
-          <div className="col-span-6 md:w-fit">
+          <div className="col-span-6 lg:w-fit">
             <p className="text-lg text-white font-light">Contact Us</p>
-            <div className="flex flex-col mt-4 text-white text-md md:text-lg font-extralight gap-3">
+            <div className="flex flex-col mt-4 text-white text-md lg:text-lg font-extralight gap-3">
               <IconCard icon={<FaPhoneAlt />} href="tel:971506045355">
                 +971 50 604 5355
               </IconCard>
@@ -86,18 +86,18 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <div className="w-full gap-3 md:gap-5 mx-auto mb-3.5 pb-3.5 flex items-center justify-center border-b-1 border-solid border-gray-200 ">
+        <div className="w-full gap-3 lg:gap-5 mx-auto mb-3.5 pb-3.5 flex items-center justify-center border-b-1 border-solid border-gray-200 ">
           {icons.map((icon, i) => (
             <div
               key={i}
-              className="text-primary-200 text-[35px] md:text-[40px]"
+              className="text-primary-200 text-[35px] lg:text-[40px]"
             >
               {icon}
             </div>
           ))}
         </div>
         <div>
-          <p className="text-center text-primary-300 font-light text-[14px] md:text-[16px]">
+          <p className="text-center text-primary-300 font-light text-[14px] lg:text-[16px]">
             © 2025 TRAVL Technologies. All Rights Reserved.
           </p>
           <div className="flex items-center justify-center gap-2.5 text-[14px] font-light text-white">

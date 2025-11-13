@@ -14,7 +14,7 @@ export default function Currency() {
   return (
     <>
       {showCurrencies && (
-        <div className="block md:hidden fixed top-0 left-0 h-dvh w-dvw bg-primary-900/40 z-49"></div>
+        <div className="block lg:hidden fixed top-0 left-0 h-dvh w-dvw bg-primary-900/40 z-49"></div>
       )}
       <div className="relative" ref={wrapperRef}>
         <button
@@ -23,7 +23,9 @@ export default function Currency() {
           onClick={() => setShowCurrencies((val) => !val)}
         >
           <span>{currency?.code}</span>
-          <HiChevronDown />
+          <span className="hidden lg:block">
+            <HiChevronDown />
+          </span>
         </button>
         {showCurrencies && (
           <div className="min-w-25 absolute top-10 right-0 h-50 bg-white mx-auto rounded-sm border border-primary-200 z-50">

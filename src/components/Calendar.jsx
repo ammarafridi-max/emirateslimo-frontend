@@ -29,7 +29,7 @@ export default function Calendar({
 
   const renderHeader = () => (
     <div className="flex justify-between items-center gap-3 w-full p-4 bg-black font-medium font-nunito text-sm sm:text-base">
-      <p className="flex-1 text-left text-lg md:text-[16px] text-white font-normal">
+      <p className="flex-1 text-left text-lg lg:text-[16px] text-white font-normal">
         {currentDate.toLocaleDateString('en-US', {
           month: 'long',
           year: 'numeric',
@@ -95,7 +95,7 @@ export default function Calendar({
             className="flex-1 min-h-[40px] flex items-center justify-center text-sm sm:text-xs transition m-1"
           >
             <span
-              className={`flex items-center justify-center w-8 h-8 md:w-9 md:h-9 rounded-full  transition
+              className={`flex items-center justify-center w-8 h-8 lg:w-9 lg:h-9 rounded-full  transition
                 ${isDisabled || isOutOfMonth ? 'text-gray-300 bg-white cursor-not-allowed' : 'bg-gray-100 border-gray-300 hover:bg-primary-900 hover:text-white hover:border-primary-500 cursor-pointer'}
                  `}
             >
@@ -119,11 +119,11 @@ export default function Calendar({
 
   return (
     <div
-      className="fixed inset-0 md:absolute md:top-3 md:inset-auto z-[1000] bg-black/50 md:bg-transparent flex items-center justify-center font-nunito"
+      className="fixed inset-0 lg:absolute lg:top-3 lg:inset-auto z-[1000] bg-black/50 lg:bg-transparent flex items-center justify-center font-nunito"
       onClick={() => setShowCalendar(false)}
     >
       <div
-        className="w-[85%] md:min-w-[380px] bg-white rounded-lg shadow-lg overflow-hidden"
+        className="w-[85%] lg:min-w-[380px] bg-white rounded-lg shadow-lg overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {renderHeader()}

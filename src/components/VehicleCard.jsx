@@ -7,7 +7,7 @@ import { Tooltip } from 'react-tooltip';
 import { CurrencyContext } from '../context/CurrencyContext';
 import VehicleGallery from './VehicleGallery';
 
-export default function VehicleCard({ vehicle, disabled }) {
+export default function VehicleCard({ vehicle }) {
   const { currency } = useContext(CurrencyContext);
   const { bookingData, handleSelectVehicle } = useContext(BookingContext);
   const { tripType, hoursBooked } = bookingData;
@@ -21,18 +21,16 @@ export default function VehicleCard({ vehicle, disabled }) {
     <>
       <div
         onClick={() => handleSelectVehicle(vehicle)}
-        className={`group relative grid sm:grid-cols-[4.5fr_7.5fr] items-start gap-5 rounded-2xl bg-white/90 border border-primary-100 p-5 md:p-6 shadow-[0_4px_25px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:bg-primary-50 transition-all duration-300 backdrop-blur-sm cursor-pointer ${
+        className={`group relative grid sm:grid-cols-[3.5fr_8.5fr] items-start gap-5 rounded-2xl bg-white/90 border border-primary-100 p-5 lg:p-5 shadow-[0_4px_25px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:bg-primary-50 transition-all duration-300 backdrop-blur-sm cursor-pointer ${
           vehicleSelected
             ? 'ring-3 ring-primary-500/100'
             : 'ring-2 ring-primary-200/100'
         }`}
       >
-        {/* Vehicle Image */}
-        <div className="relative hidden md:block w-full aspect-video rounded-xl overflow-hidden">
+        <div className="relative hidden lg:block w-full aspect-video rounded-xl overflow-hidden">
           <VehicleImage vehicle={vehicle} setShowGallery={setShowGallery} />
         </div>
 
-        {/* Details */}
         <div className="flex flex-col justify-between h-full">
           <VehicleTitlePrice
             currency={currency}
@@ -81,9 +79,9 @@ function VehicleTitlePrice({
   hoursBooked,
 }) {
   return (
-    <div className="grid grid-cols-[3fr_9fr] items-center gap-3 md:block">
+    <div className="grid grid-cols-[3fr_9fr] items-center gap-3 lg:block">
       {/* Mobile image */}
-      <div className="block md:hidden bg-primary-100 rounded-lg overflow-hidden aspect-video">
+      <div className="block lg:hidden bg-primary-100 rounded-lg overflow-hidden aspect-video">
         <img
           src={vehicle?.featuredImage}
           className="w-full h-full object-cover"
@@ -92,7 +90,7 @@ function VehicleTitlePrice({
       </div>
 
       <div>
-        <h3 className="flex items-center text-[18px] md:text-[20px] font-light text-primary-900 mb-0.5">
+        <h3 className="flex items-center text-[18px] lg:text-[20px] font-light text-primary-900 mb-0.5">
           <span>
             {vehicle?.brand} {vehicle?.model}
           </span>
@@ -137,7 +135,7 @@ function VehicleImage({ vehicle, setShowGallery }) {
 
 function Description({ vehicle }) {
   return (
-    <p className="text-[15px] md:text-[14px] font-extralight text-primary-600 leading-relaxed mt-3 mb-4">
+    <p className="text-[15px] lg:text-[14px] font-extralight text-primary-600 leading-relaxed mt-3 mb-4">
       {vehicle?.description?.slice(0, 130) ||
         'Travel in comfort and elegance with our luxury chauffeur-driven vehicles, perfect for any occasion.'}
     </p>

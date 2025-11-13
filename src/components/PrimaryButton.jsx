@@ -9,10 +9,10 @@ export default function PrimaryButton({
 
   const sizeClasses =
     size === 'large'
-      ? 'text-[15px] md:text-[18px] py-3 px-6'
+      ? 'text-[15px] lg:text-[18px] py-3 px-6'
       : size === 'small'
-        ? 'text-[13px] md:text-[14px] py-2 px-4'
-        : 'text-[14px] md:text-[15px] py-2.5 px-5';
+        ? 'text-[13px] lg:text-[14px] py-2 px-4'
+        : 'text-[14px] lg:text-[15px] py-2.5 px-5';
 
   const colorClasses =
     'text-white bg-accent-500 border-accent-500 hover:bg-accent-600 hover:border-accent-600 active:scale-[0.98]';

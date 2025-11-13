@@ -2,7 +2,7 @@ export default function SectionTitle({
   textAlign = 'left',
   children,
   subtitle,
-  className = 'mb-10 md:mb-15',
+  className = 'mb-10 lg:mb-15',
   type = 'primary', // primary = light bg sections, secondary = dark bg sections
 }) {
   const isCenter = textAlign === 'center';
@@ -10,19 +10,19 @@ export default function SectionTitle({
   // Subtitle (small label above title)
   let pClassName = `
     w-fit 
-    text-[11px] md:text-[13px] 
+    text-[11px] lg:text-[13px] 
     tracking-widest 
     font-medium font-outfit 
     uppercase 
     py-1.5 px-4 
     rounded-md 
-    mb-2 md:mb-1
+    mb-2 lg:mb-1
     ${isCenter ? 'mx-auto text-center' : 'text-left'}
   `;
 
   // Main title
   let h2ClassName = `
-    text-[28px] md:text-[32px] 
+    text-[28px] lg:text-[32px] 
     font-light font-outfit 
     leading-snug 
     capitalize 

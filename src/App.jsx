@@ -59,13 +59,11 @@ export default function App() {
                     <Route path="fleet" element={<Fleet />} />
                     <Route path="payment" element={<Payment />} />
                   </Route>
-                  <Route path="book" element={<BookingLayout />}>
-                    <Route path="select-limo" element={<SelectLimo />} />
-                    <Route
-                      path="booking-details"
-                      element={<BookingDetails />}
-                    />
-                  </Route>
+                  <Route path="book/select-limo" element={<SelectLimo />} />
+                  <Route
+                    path="book/booking-details"
+                    element={<BookingDetails />}
+                  />
                 </Routes>
               </BookingProvider>
             </CurrencyProvider>
