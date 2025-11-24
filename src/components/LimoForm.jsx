@@ -47,8 +47,8 @@ export default function LimoForm() {
             key={type}
             type="button"
             onClick={() => setBookingData((p) => ({ ...p, tripType: type }))}
-            className={`w-1/2 text-center py-3 text-[15px] font-medium transition-all rounded-2xl ${
-              tripType === type ? 'bg-primary-100 text-black' : 'bg-white text-primary-400 hover:text-accent-500'
+            className={`w-1/2 text-center py-3 text-[15px] font-normal transition-all rounded-lg cursor-pointer ${
+              tripType === type ? 'bg-primary-100 text-black' : 'bg-white text-primary-300 hover:text-primary-600'
             }`}
           >
             {type === 'distance' ? 'Point-to-Point' : 'Hourly'}
@@ -57,7 +57,7 @@ export default function LimoForm() {
       </div>
 
       {/* Form */}
-      <form className="flex flex-col gap-4 p-6 md:p-7" onSubmit={handleSubmit(onSubmit)}>
+      <form className="flex flex-col gap-3 p-5 md:p-5" onSubmit={handleSubmit(onSubmit)}>
         <SearchLocations register={register} setValue={setValue} watch={watch} name="pickup" />
         {tripType === 'distance' && (
           <SearchLocations
@@ -78,7 +78,7 @@ export default function LimoForm() {
           />
         )}
 
-        <div className="flex flex-col xl:flex-row xl:items-center gap-4">
+        <div className="flex flex-col xl:flex-row xl:items-center gap-3">
           <SelectDate
             label="Pick-up date"
             name="pickupDate"
@@ -98,7 +98,7 @@ export default function LimoForm() {
         <PrimaryButton
           type="submit"
           size="large"
-          className="mt-2 font-medium tracking-wide"
+          className="mt-1 font-medium tracking-wide"
           disabled={isLoadingLimoForm}
         >
           Search

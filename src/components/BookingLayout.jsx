@@ -1,7 +1,9 @@
 import { BookingStepsLg, BookingStepsSm } from './BookingSteps';
 import PrimarySection from './PrimarySection';
 import Container from './Container';
+import MobileNavigation from './MobileNavigation';
 import Currency from './Currency';
+import Footer from './Footer';
 
 export default function BookingLayout({ children }) {
   return (
@@ -20,6 +22,7 @@ export default function BookingLayout({ children }) {
       </PrimarySection>
 
       {/* Navigation for smaller devices */}
+      <MobileNavigation />
       <PrimarySection className="block lg:hidden bg-gray-100 relative pt-4 lg:py-5">
         <Container className="grid grid-cols-[1fr_auto] lg:grid-cols-[2fr_8fr_2fr] items-center h-fit">
           <BookingStepsSm />
@@ -33,6 +36,8 @@ export default function BookingLayout({ children }) {
           <div className="sm:grid sm:grid-cols-[8fr_4fr] gap-6">{children}</div>
         </Container>
       </PrimarySection>
+
+      <Footer />
     </>
   );
 }

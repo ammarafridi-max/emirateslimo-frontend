@@ -17,7 +17,7 @@ function SidebarLink({ name, href }) {
     <NavLink
       to={href}
       className={({ isActive }) =>
-        `relative font-light tracking-wide px-3 py-1 text-[16px] transition-colors duration-200
+        `relative font-light tracking-normal px-3 py-1 text-[17px] transition-colors duration-200
          ${isActive ? 'text-primary-600' : 'text-black/70 hover:text-black/90'}`
       }
     >
@@ -39,20 +39,22 @@ export default function Navigation() {
   return (
     <nav className={`hidden lg:block w-full transition-all duration-500 bg-transparent shadow-lg shadow-gray-200`}>
       <Container>
-        <div className="flex items-center justify-between py-5">
-          <a href="/" className="flex items-center gap-2">
-            <img src="/logo-light.webp" alt="Emirates Limo" className="w-40 object-contain" />
-          </a>
+        <div className="grid grid-cols-[1fr_auto_1fr] items-center justify-between py-6">
+          <div>
+            <a href="/" className="flex items-center gap-2">
+              <img src="/logo-light.webp" alt="Emirates Limo" className="w-45 object-contain" />
+            </a>
+          </div>
 
-          {/* Links */}
-          <div className="hidden lg:flex items-center gap-4">
+          <div className="flex items-center gap-4">
             {links.map((link, i) => (
               <SidebarLink key={i} name={link.name} href={link.href} />
             ))}
           </div>
 
-          {/* CTA button */}
-          <Currency />
+          <div className="flex justify-end">
+            <Currency />
+          </div>
           {/* <motion.a
             href="/#book"
             whileHover={{ scale: 1.04 }}
