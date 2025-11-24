@@ -8,6 +8,7 @@ import SectionTitle from '../components/SectionTitle';
 import Input from '../components/FormElements/Input';
 import BookingLayout from '../components/BookingLayout';
 import BookingSummary from '../components/BookingSummary';
+import PhoneNumber from '../components/FormElements/PhoneNumber';
 
 const paymentMethods = [
   {
@@ -98,30 +99,32 @@ function PassengerInformation({ onChange, bookingData }) {
           defaultValue={bookingData.bookingDetails.email}
           onChange={(e) => onChange('email', e.target.value)}
         />
-        <Input
+        <PhoneNumber />
+        {/* <Input
           label="Phone Number"
           defaultValue={bookingData.bookingDetails.phoneNumber}
           onChange={(e) => onChange('phoneNumber', e.target.value)}
-        />
+        /> */}
       </div>
 
-      {bookingData?.pickup?.type === 'airport' && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mt-3">
-          <Input
-            label="Flight Number"
-            optional
-            placeholder="eg. AC057"
-            defaultValue={bookingData.bookingDetails.flightNumber}
-            onChange={(e) => onChange('flightNumber', e.target.value)}
-          />
-          <Input
-            label="Expected Arrival Time"
-            optional
-            defaultValue={bookingData.bookingDetails.arrivalTime}
-            onChange={(e) => onChange('arrivalTime', e.target.value)}
-          />
-        </div>
-      )}
+      {bookingData?.pickup?.type === 'airport' ||
+        (bookingData?.dropoff?.type && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mt-3">
+            <Input
+              label="Flight Number"
+              optional
+              placeholder="eg. AC057"
+              defaultValue={bookingData.bookingDetails.flightNumber}
+              onChange={(e) => onChange('flightNumber', e.target.value)}
+            />
+            <Input
+              label="Expected Arrival Time"
+              optional
+              defaultValue={bookingData.bookingDetails.arrivalTime}
+              onChange={(e) => onChange('arrivalTime', e.target.value)}
+            />
+          </div>
+        ))}
 
       <div className="flex flex-col gap-1 mt-3">
         <label className="font-light text-[14px]">

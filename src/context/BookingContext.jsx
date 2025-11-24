@@ -43,7 +43,7 @@ export default function BookingProvider({ children }) {
       firstName: '',
       lastName: '',
       email: '',
-      phoneNumber: '',
+      phoneNumber: { code: '+92', number: '' },
       flightNumber: '',
       arrivalTime: '',
       message: '',
@@ -142,6 +142,19 @@ export default function BookingProvider({ children }) {
     }));
   }
 
+  function handleNumberChange(field, value) {
+    setBookingData((prev) => ({
+      ...prev,
+      bookingDetails: {
+        ...prev.bookingDetails,
+        phoneNumber: {
+          ...prev.phoneNumber,
+          [field]: value,
+        },
+      },
+    }));
+  }
+
   function handleSelectVehicle(vehicle) {
     setBookingData((prev) => ({
       ...prev,
@@ -209,6 +222,7 @@ export default function BookingProvider({ children }) {
         setBookingData,
         isLoadingLimoForm,
         handleChange,
+        handleNumberChange,
         handleSelectVehicle,
         handleSelectPaymentMethod,
         submitLimoForm,
