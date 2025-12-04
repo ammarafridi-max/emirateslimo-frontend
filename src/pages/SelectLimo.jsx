@@ -6,7 +6,6 @@ import { Helmet } from 'react-helmet-async';
 import VehicleCard from '../components/VehicleCard';
 import VehicleLoadingCard from '../components/VehicleLoadingCard';
 import BookingLayout from '../components/BookingLayout';
-import Breadcrumb from '../components/Breadcrumb';
 import BookingSummary from '../components/BookingSummary';
 
 export default function SelectLimo() {
@@ -31,14 +30,7 @@ export default function SelectLimo() {
       </Helmet>
       <BookingLayout>
         <div>
-          <Breadcrumb
-            paths={[
-              { label: 'Home', href: '/' },
-              { label: 'Book', href: '/' },
-              { label: 'Choose Your Limo', href: '/book/select-limo' },
-            ]}
-          />
-          <div className="flex flex-col gap-5 lg:gap-3">
+          <div className="flex flex-col gap-4 lg:gap-3">
             {tripType === 'hourly' && <p>For hourly rides...</p>}
             {isLoadingVehicles && (
               <>
