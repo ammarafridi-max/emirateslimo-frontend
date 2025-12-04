@@ -4,6 +4,7 @@ import { useGetZoneByAddress } from '../hooks/useGetZoneByAddress';
 import { useGetDistance } from '../hooks/useGetDistance';
 import { CurrencyContext } from './CurrencyContext';
 import toast from 'react-hot-toast';
+import { useLocalStorage } from '../hooks/useLocalStorage';
 
 export const BookingContext = createContext();
 
@@ -12,10 +13,11 @@ export default function BookingProvider({ children }) {
   const [isLoadingLimoForm, setIsLoadingLimoForm] = useState(false);
   const { getZoneByAddress } = useGetZoneByAddress();
   const { getDistance } = useGetDistance();
+  const { updateLocalStorage, deleteLocalStorage } = useLocalStorage();
   const { currency } = useContext(CurrencyContext);
 
   const initialBookingData = {
-    tripType: '',
+    tripType: 'distance',
     bookingRef: '',
     pickup: {
       id: '',
@@ -43,17 +45,17 @@ export default function BookingProvider({ children }) {
       firstName: '',
       lastName: '',
       email: '',
-      phoneNumber: { code: '+92', number: '' },
+      phoneNumber: { code: '+971', number: '' },
       flightNumber: '',
       arrivalTime: '',
       message: '',
-      payment: {
-        method: 'stripe',
-        status: 'UNPAID',
-        amount: 0,
-        currency: currency?.code?.toLowerCase(),
-        transactionId: '',
-      },
+    },
+    payment: {
+      method: 'stripe',
+      status: 'unpaid',
+      amount: 0,
+      currency: currency?.code?.toLowerCase(),
+      transactionId: '',
     },
     orderSummary: {
       baseFare: 0,
@@ -67,7 +69,9 @@ export default function BookingProvider({ children }) {
     },
   };
 
-  const [bookingData, setBookingData] = useState(JSON.parse(localStorage.getItem('bookingData')) || initialBookingData);
+  const [bookingData, setBookingData] = useState(
+    { ...initialBookingData, ...JSON.parse(localStorage.getItem('bookingData')) } || initialBookingData,
+  );
 
   async function submitLimoForm(data) {
     try {
@@ -101,28 +105,29 @@ export default function BookingProvider({ children }) {
         destLng: data?.dropoff?.lng,
       });
 
-      setBookingData((prev) => ({
-        ...prev,
-        pickup: {
-          ...data.pickup,
-          zone: pickupZone?._id || null,
-        },
-        dropoff:
-          {
-            ...data.dropoff,
-            zone: dropoffZone?._id || null,
-          } || null,
-        pickupDate: data.pickupDate,
-        pickupTime: data.pickupTime,
-        hoursBooked: bookingData?.tripType === 'hourly' ? data?.hoursBooked : null,
-        distance: distance?.distanceKm,
-        tripDuration: distance?.durationMin,
-      }));
+      setBookingData((prev) => {
+        const updated = {
+          ...prev,
+          pickup: {
+            ...data.pickup,
+            zone: pickupZone?._id || null,
+          },
+          dropoff:
+            {
+              ...data.dropoff,
+              zone: dropoffZone?._id || null,
+            } || null,
+          pickupDate: data.pickupDate,
+          pickupTime: data.pickupTime,
+          hoursBooked: bookingData?.tripType === 'hourly' ? data?.hoursBooked : null,
+          distance: distance?.distanceKm,
+          tripDuration: distance?.durationMin,
+        };
+        updateLocalStorage('bookingData', updated);
+        return updated;
+      });
 
       navigate('/book/select-limo');
-
-      localStorage.removeItem('bookingData');
-      localStorage.setItem('bookingData', JSON.stringify(bookingData));
     } catch (err) {
       toast.dismiss();
       console.error(err);
@@ -148,7 +153,7 @@ export default function BookingProvider({ children }) {
       bookingDetails: {
         ...prev.bookingDetails,
         phoneNumber: {
-          ...prev.phoneNumber,
+          ...prev.bookingDetails.phoneNumber,
           [field]: value,
         },
       },
@@ -156,32 +161,36 @@ export default function BookingProvider({ children }) {
   }
 
   function handleSelectVehicle(vehicle) {
-    setBookingData((prev) => ({
-      ...prev,
-      vehicle: vehicle?.id,
-      orderSummary: {
-        ...prev.orderSummary,
-        baseFare: currency?.conversionRate * vehicle?.totalPrice,
-        currency: currency?.code?.toLowerCase(),
-        conversionRate: currency?.conversionRate,
-      },
-    }));
+    setBookingData((prev) => {
+      const updated = {
+        ...prev,
+        vehicle: vehicle?.id,
+        orderSummary: {
+          ...prev.orderSummary,
+          baseFare: currency?.conversionRate * vehicle?.totalPrice,
+          currency: currency?.code?.toLowerCase(),
+          conversionRate: currency?.conversionRate,
+        },
+      };
+      updateLocalStorage('bookingData', updated);
+      return updated;
+    });
   }
 
   function handleSelectPaymentMethod(method) {
-    setBookingData((prev) => ({
-      ...prev,
-      bookingDetails: {
-        ...prev.bookingDetails,
+    setBookingData((prev) => {
+      const updated = {
+        ...prev,
         payment: {
-          ...prev.bookingDetails.payment,
+          ...prev.payment,
           method,
         },
-      },
-    }));
+      };
+      updateLocalStorage('bookingData', updated);
+      return updated;
+    });
   }
 
-  // Update the total whenever a value changes in orderSummary
   useEffect(() => {
     setBookingData((prev) => {
       const { baseFare = 0, addOns = 0, taxes = 0 } = prev.orderSummary;
@@ -197,10 +206,10 @@ export default function BookingProvider({ children }) {
     });
   }, [bookingData.orderSummary.baseFare, bookingData.orderSummary.addOns, bookingData.orderSummary.taxes]);
 
-  // Update currency whenever changed
   useEffect(() => {
     setBookingData((prev) => {
       if (!prev?.orderSummary?.baseFare) return prev;
+      if (prev.orderSummary.conversionRate === currency.conversionRate) return prev;
       const oldRate = prev.orderSummary.conversionRate || 1;
 
       return {
