@@ -24,15 +24,16 @@ export default function BookingDetails() {
   const navigate = useNavigate();
   const { createBooking, isCreatingBooking } = useCreateBooking();
   const { bookingData, handleChange, handleSelectPaymentMethod } = useContext(BookingContext);
-  const { tripType, pickup, dropoff, pickupDate, pickupTime, hoursBooked, vehicle, bookingDetails } = bookingData;
+  const { tripType, pickup, dropoff, pickupDate, pickupTime, hoursBooked, vehicle, bookingDetails, payment } =
+    bookingData;
 
-  const { firstName, lastName, email, phoneNumber, payment } = bookingDetails;
+  const { firstName, lastName, email, phoneNumber } = bookingDetails;
 
   function validateBookingForm() {
     if (!firstName) return "Please enter the passenger's first name.";
     if (!lastName) return "Please enter the passenger's last name.";
     if (!email) return "Please enter the passenger's email address.";
-    if (!phoneNumber) return "Please enter the passenger's phone number.";
+    if (!phoneNumber?.number?.trim()) return "Please enter the passenger's phone number.";
     if (!payment?.method) return 'Please select a payment method to proceed.';
     return null;
   }
@@ -40,14 +41,16 @@ export default function BookingDetails() {
   const error = validateBookingForm(bookingData);
 
   useEffect(() => {
-    if (tripType === 'distance' && (!pickup?.name || !dropoff?.name || !pickupDate || !pickupTime)) navigate('/');
-
-    if (tripType === 'hourly' && (!pickup?.name || !hoursBooked || !pickupDate || !pickupTime)) navigate('/');
-
-    if (!vehicle) {
-      navigate('/book/select-limo');
+    if (tripType === 'distance') {
+      if (!pickup?.name || !dropoff?.name || !pickupDate || !pickupTime) navigate('/');
     }
-  }, [bookingData, navigate]);
+
+    if (tripType === 'hourly') {
+      if (!pickup?.name || !hoursBooked || !pickupDate || !pickupTime) navigate('/');
+    }
+
+    if (!vehicle) navigate('/book/select-limo');
+  }, [tripType, pickup, dropoff, pickupDate, pickupTime, hoursBooked, vehicle, navigate]);
 
   return (
     <>
@@ -57,14 +60,14 @@ export default function BookingDetails() {
       <BookingLayout>
         <div className="flex flex-col gap-8 lg:gap-12 w-full p-5 lg:p-7 bg-white rounded-xl shadow-xl shadow-gray-300">
           <PassengerInformation onChange={handleChange} bookingData={bookingData} />
-          <PaymentOptions selected={bookingData.bookingDetails.payment.method} onSelect={handleSelectPaymentMethod} />
+          <PaymentOptions selected={payment.method} onSelect={handleSelectPaymentMethod} />
         </div>
         <div>
           <BookingSummary
             btnText="Proceed to Payment"
             btnDisabled={error || isCreatingBooking}
             btnOnClick={() => {
-              createBooking(bookingData);
+              createBooking({ ...bookingData });
               console.log(bookingData);
             }}
           />
@@ -84,47 +87,45 @@ function PassengerInformation({ onChange, bookingData }) {
       <div className="grid grid-cols-2 lg:grid-cols-2 gap-3 mt-3">
         <Input
           label="First Name"
-          defaultValue={bookingData.bookingDetails.firstName}
+          value={bookingData.bookingDetails.firstName}
           onChange={(e) => onChange('firstName', e.target.value)}
         />
         <Input
           label="Last Name"
-          defaultValue={bookingData.bookingDetails.lastName}
+          value={bookingData.bookingDetails.lastName}
           onChange={(e) => onChange('lastName', e.target.value)}
         />
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mt-3">
         <Input
           label="Email Address"
-          defaultValue={bookingData.bookingDetails.email}
+          value={bookingData.bookingDetails.email}
           onChange={(e) => onChange('email', e.target.value)}
         />
         <PhoneNumber />
         {/* <Input
           label="Phone Number"
-          defaultValue={bookingData.bookingDetails.phoneNumber}
+          value={bookingData.bookingDetails.phoneNumber}
           onChange={(e) => onChange('phoneNumber', e.target.value)}
         /> */}
       </div>
-
-      {bookingData?.pickup?.type === 'airport' ||
-        (bookingData?.dropoff?.type && (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mt-3">
-            <Input
-              label="Flight Number"
-              optional
-              placeholder="eg. AC057"
-              defaultValue={bookingData.bookingDetails.flightNumber}
-              onChange={(e) => onChange('flightNumber', e.target.value)}
-            />
-            <Input
-              label="Expected Arrival Time"
-              optional
-              defaultValue={bookingData.bookingDetails.arrivalTime}
-              onChange={(e) => onChange('arrivalTime', e.target.value)}
-            />
-          </div>
-        ))}
+      {(bookingData?.pickup?.type === 'airport' || bookingData?.dropoff?.type === 'airport') && (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mt-3">
+          <Input
+            label="Flight Number"
+            optional
+            placeholder="eg. AC057"
+            value={bookingData.bookingDetails.flightNumber}
+            onChange={(e) => onChange('flightNumber', e.target.value)}
+          />
+          <Input
+            label="Expected Arrival Time"
+            optional
+            value={bookingData.bookingDetails.arrivalTime}
+            onChange={(e) => onChange('arrivalTime', e.target.value)}
+          />
+        </div>
+      )}
 
       <div className="flex flex-col gap-1 mt-3">
         <label className="font-light text-[14px]">
@@ -134,7 +135,7 @@ function PassengerInformation({ onChange, bookingData }) {
           rows={5}
           placeholder="e.g., “Need a baby seat”"
           className="w-full bg-transparent text-[14px] font-light px-4 py-2 rounded-md border border-gray-300 focus:border-primary-900 outline-0"
-          defaultValue={bookingData.bookingDetails.message}
+          value={bookingData.bookingDetails.message}
           onChange={(e) => onChange('message', e.target.value)}
         />
       </div>
