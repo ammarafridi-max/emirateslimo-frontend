@@ -4,6 +4,7 @@ import { useOutsideClick } from '../../hooks/useOutsideClick';
 import { format } from 'date-fns';
 import Calendar from '../Calendar';
 import { motion, AnimatePresence } from 'framer-motion';
+import { HiCalendarDays } from 'react-icons/hi2';
 
 export default function SelectDate({
   register,
@@ -26,16 +27,19 @@ export default function SelectDate({
       {/* Input Field */}
       <div
         onClick={() => setShowCalendar(true)}
-        className={`flex items-center gap-3 bg-primary-100 border border-primary-100 rounded-xl px-4 py-3 cursor-pointer transition-all duration-300 
-          ${showCalendar ? 'ring ring-primary-900' : 'hover:ring hover:ring-primary-300'}`}
+        className={`flex items-center gap-3 bg-white border rounded-xl px-4 py-2.5 cursor-pointer transition-all duration-300 
+          ${showCalendar ? 'border-gray-900 shadow-sm' : 'border-gray-300 hover:border-gray-400'}`}
       >
-        <span className="text-primary-900 text-[18px]">
-          <FaCalendarDays />
+        <span
+          className={`text-[18px] ${showCalendar ? 'text-gray-800' : 'text-gray-500'} ${date ? 'text-gray-800' : ''}`}
+        >
+          <HiCalendarDays />
         </span>
 
         <div className="flex flex-col w-full">
           <label
-            className={`text-[11.5px] uppercase font-light tracking-wider cursor-pointer ${showCalendar ? 'text-primary-900' : 'text-primary-500'}`}
+            className={`w-fit text-[11px] uppercase tracking-wide font-light cursor-pointer
+              ${showCalendar ? 'text-gray-800' : 'text-gray-500'}`}
           >
             {label}
           </label>
@@ -56,7 +60,7 @@ export default function SelectDate({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
             transition={{ duration: 0.25 }}
-            className="absolute left-0 top-[calc(100%+6px)] z-[100]"
+            className="absolute left-0 top-[calc(100%+6px)] z-[1000]"
           >
             <Calendar
               onDateClick={(selectedDate) => {

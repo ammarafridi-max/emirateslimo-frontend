@@ -18,7 +18,6 @@ export default function BookingSummary({ btnText, btnOnClick, btnDisabled }) {
 
   return (
     <div>
-      {/* Booking Details */}
       <TripSummary
         tripType={tripType}
         hoursBooked={hoursBooked}
@@ -32,7 +31,6 @@ export default function BookingSummary({ btnText, btnOnClick, btnDisabled }) {
 
       <OrderSummary currency={currency} orderSummary={orderSummary} />
 
-      {/* CTA Button */}
       <div className="hidden lg:block">
         <PrimaryButton className="w-full" disabled={btnDisabled} onClick={btnOnClick}>
           {btnText}
@@ -189,7 +187,7 @@ function Benefits({}) {
 function Detail({ label, value }) {
   return (
     <div className="flex items-center justify-between lg:block py-2.5 px-3">
-      <label className="text-[12px] text-gray-500 uppercase font-extralight tracking-wide block mb-0.5 leading-6">
+      <label className="text-[12px] text-gray-500 uppercase font-extralight tracking-wide block mb-0.5 leading-6 md:leading-4">
         {label}
       </label>
       <p className="text-[15px] font-light text-right lg:text-left text-primary-900">{value || '—'}</p>

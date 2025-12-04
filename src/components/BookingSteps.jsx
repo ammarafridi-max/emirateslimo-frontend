@@ -67,10 +67,6 @@ export function BookingStepsSm() {
         <HiArrowLeft size={20} />
       </button>
 
-      <a href="/" type="button" onClick={() => navigate(previousStep?.page)}>
-        <HiOutlineHome size={20} />
-      </a>
-
       <span className="text-md font-light">
         {currentStepIndex + 1} of 3 - {currentStep?.name}
       </span>

@@ -13,36 +13,36 @@ export default function SelectTime({
 }) {
   const wrapperRef = useRef(null);
   const [time, setTime] = useState(defaultValue || '');
-  const [showTimeOptions, setShowTimeOptions] = useState(false);
+  const [showOptions, setShowOptions] = useState(false);
   const [hour, setHour] = useState('');
   const [minute, setMinute] = useState('');
   const [period, setPeriod] = useState('AM');
 
-  useOutsideClick(wrapperRef, () => setShowTimeOptions(false));
+  useOutsideClick(wrapperRef, () => setShowOptions(false));
 
   function handleTimeSelect(h, m, p) {
     const formatted = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')} ${p}`;
     setTime(formatted);
     setValue && setValue(name, formatted);
-    setShowTimeOptions(false);
+    setShowOptions(false);
   }
 
   return (
     <div className="w-full" ref={wrapperRef}>
       <input type="hidden" {...register(name)} />
-
-      {/* Input field */}
       <div
-        onClick={() => setShowTimeOptions(true)}
-        className={`flex items-center gap-3 bg-primary-100 border border-primary-100 rounded-xl px-4 py-3 cursor-pointer transition-all duration-300 
-        ${showTimeOptions ? 'ring ring-primary-900' : 'hover:ring hover:ring-primary-300'}`}
+        onClick={() => setShowOptions(true)}
+        className={`flex items-center gap-3 bg-white border rounded-xl px-4 py-2.5 cursor-pointer transition-all duration-300 
+        ${showOptions ? 'border-gray-700 shadow-sm' : 'border-gray-300 hover:border-gray-500'}`}
       >
-        <span className="text-primary-700 text-[18px]">
+        <span
+          className={`text-[18px] ${showOptions ? 'text-gray-800' : 'text-gray-500'} ${time ? 'text-gray-800' : ''}`}
+        >
           <FaClock />
         </span>
         <div className="flex flex-col w-full">
           <label
-            className={`text-[11.5px] uppercase font-light tracking-wider cursor-pointer ${showTimeOptions ? 'text-primary-900' : 'text-primary-500'}`}
+            className={`text-[11.5px] uppercase font-light tracking-wider cursor-pointer ${showOptions ? 'text-primary-900' : 'text-primary-500'}`}
           >
             {label}
           </label>
@@ -57,7 +57,7 @@ export default function SelectTime({
 
       {/* Dropdown */}
       <AnimatePresence>
-        {showTimeOptions && (
+        {showOptions && (
           <motion.div
             initial={{ opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}

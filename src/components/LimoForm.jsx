@@ -39,26 +39,30 @@ export default function LimoForm() {
   }
 
   return (
-    <div className="w-full bg-white rounded-2xl shadow-lg shadow-primary-300 md:shadow-none">
-      {/* Trip Type Switch */}
-      <div className="flex">
-        {['distance', 'hourly'].map((type) => (
-          <button
-            key={type}
-            type="button"
-            onClick={() => setBookingData((p) => ({ ...p, tripType: type }))}
-            className={`w-1/2 text-center py-3 text-[15px] font-normal transition-all rounded-lg cursor-pointer ${
-              tripType === type ? 'bg-primary-100 text-black' : 'bg-white text-primary-300 hover:text-primary-600'
-            }`}
-          >
-            {type === 'distance' ? 'Point-to-Point' : 'Hourly'}
-          </button>
-        ))}
+    <div className="w-full bg-white rounded-2xl border border-gray-200 shadow-sm">
+      <div className="flex p-1 rounded-t-2xl">
+        {['distance', 'hourly'].map((type) => {
+          const active = tripType === type;
+          return (
+            <button
+              key={type}
+              type="button"
+              onClick={() => setBookingData((prev) => ({ ...prev, tripType: type }))}
+              className={`
+                w-1/2 text-center py-2.5 text-[15px] rounded-xl transition-all cursor-pointer
+                ${active ? 'bg-primary-900/7 shadow-sm font-medium text-black' : 'text-gray-500 hover:text-black'}
+              `}
+            >
+              {type === 'distance' ? 'Point-to-Point' : 'Hourly'}
+            </button>
+          );
+        })}
       </div>
 
       {/* Form */}
-      <form className="flex flex-col gap-3 p-5 md:p-5" onSubmit={handleSubmit(onSubmit)}>
-        <SearchLocations register={register} setValue={setValue} watch={watch} name="pickup" />
+      <form className="flex flex-col gap-4 p-5 md:p-6" onSubmit={handleSubmit(onSubmit)}>
+        <SearchLocations label="Pick-up location" register={register} setValue={setValue} watch={watch} name="pickup" />
+
         {tripType === 'distance' && (
           <SearchLocations
             label="Drop-off location"
@@ -68,6 +72,7 @@ export default function LimoForm() {
             name="dropoff"
           />
         )}
+
         {tripType === 'hourly' && (
           <SelectHours
             label="Duration"
@@ -78,7 +83,7 @@ export default function LimoForm() {
           />
         )}
 
-        <div className="flex flex-col xl:flex-row xl:items-center gap-3">
+        <div className="flex flex-col xl:flex-row xl:items-center gap-4">
           <SelectDate
             label="Pick-up date"
             name="pickupDate"

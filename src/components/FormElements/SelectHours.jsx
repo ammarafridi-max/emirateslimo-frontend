@@ -22,14 +22,14 @@ export default function SelectHours({
   return (
     <div className="relative w-full" ref={wrapperRef}>
       <input type="hidden" {...register(name)} />
-
-      {/* Input field */}
       <div
         onClick={() => setShowOptions(!showOptions)}
-        className={`flex items-center gap-3 bg-primary-100 border border-primary-100 rounded-xl px-4 py-3 cursor-pointer transition-all duration-300 
-          ${showOptions ? 'ring ring-primary-900' : 'hover:ring hover:ring-primary-300'}`}
+        className={`flex items-center gap-3 bg-white border rounded-xl px-4 py-2.5 cursor-pointer transition-all duration-300 
+          ${showOptions ? 'border-gray-700 shadow-sm' : 'border-gray-300 hover:border-gray-500'}`}
       >
-        <span className="text-black text-[18px]">
+        <span
+          className={`text-[18px] ${showOptions ? 'text-gray-800' : 'text-gray-500'} ${selectedHour ? 'text-gray-800' : ''}`}
+        >
           <FaRegClock />
         </span>
         <div className="flex flex-col w-full">
