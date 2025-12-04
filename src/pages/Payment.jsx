@@ -11,13 +11,16 @@ import PageHeading from '../components/PageHeading';
 export default function Payment() {
   const [searchParams] = useSearchParams();
   const id = searchParams.get('id');
+  console.log(id);
   const { booking, isLoadingBooking } = useBooking(id);
 
   if (isLoadingBooking) return <Loading />;
 
   if (!booking) return <Failure />;
 
-  const paymentStatus = booking?.bookingDetails?.payment?.status?.toUpperCase();
+  console.log(booking);
+
+  const paymentStatus = booking?.payment?.status?.toUpperCase();
 
   return (
     <PrimarySection className="py-10 lg:py-15">
@@ -40,8 +43,8 @@ function Success({ booking }) {
     pickupDate,
     pickupTime,
     vehicle,
-    orderSummary,
     bookingDetails,
+    payment,
   } = booking;
   const customerName = `${bookingDetails?.firstName}`;
 
@@ -124,10 +127,10 @@ function Success({ booking }) {
         <div className="border-t mt-5 pt-4">
           <h3 className="font-semibold text-gray-800 mb-1">Payment Summary</h3>
           <p>
-            <strong>Amount Paid:</strong> {orderSummary?.currency?.toUpperCase()} {orderSummary?.total}
+            <strong>Amount Paid:</strong> {payment?.currency?.toUpperCase()} {payment?.amount}
           </p>
           <p>
-            <strong>Transaction ID:</strong> {bookingDetails?.payment?.transactionId}
+            <strong>Transaction ID:</strong> {payment?.transactionId}
           </p>
         </div>
       </div>
