@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useGetLocations } from '../../hooks/useGetLocations';
 import { useOutsideClick } from '../../hooks/useOutsideClick';
 import LoadingLocation from '../LoadingLocation';
+import { useGetLatLng } from '../../hooks/useGetLatLng';
 
 export default function SearchLocations({
   label = 'Pick-up location',
@@ -20,6 +21,7 @@ export default function SearchLocations({
   const wrapperRef = useRef(null);
   const inputRef = useRef(null);
 
+  const { getCoordinates, isLoadingCoordinates } = useGetLatLng();
   const { locations, isLoadingLocations, isErrorLocations } = useGetLocations(query);
 
   useOutsideClick(wrapperRef, () => setShow(false));
@@ -93,10 +95,17 @@ export default function SearchLocations({
               {locations?.map((loc, i) => (
                 <div
                   key={loc.id}
-                  onClick={() => {
-                    setQuery(loc.name);
-                    setValue(name, loc);
+                  onClick={async () => {
                     setShow(false);
+                    setQuery(loc.name);
+                    const { lat, lng } = await getCoordinates(loc.name);
+                    const data = {
+                      ...loc,
+                      lat,
+                      lng,
+                    };
+                    setValue(name, data);
+                    console.log(data);
                   }}
                   className="px-4 py-2.5 cursor-pointer transition-all hover:bg-gray-100"
                 >

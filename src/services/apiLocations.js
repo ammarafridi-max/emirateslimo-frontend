@@ -10,6 +10,14 @@ export async function getLocationsApi(query) {
   return data?.data;
 }
 
+export async function getLatLngApi(query) {
+  const res = await fetch(`${URL}/coordinates?query=${query}`);
+  if (!res.ok) throw new Error('Could not fetch locations');
+  const data = await res.json();
+  const { lat, lng } = data.data;
+  return { lat, lng };
+}
+
 export async function getDistanceApi({ originLat, originLng, destLat, destLng }) {
   const res = await fetch(
     `${URL}/distance?originLat=${originLat}&originLng=${originLng}&destLat=${destLat}&destLng=${destLng}`,
