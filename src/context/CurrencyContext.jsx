@@ -8,14 +8,14 @@ export const CurrencyContext = createContext();
 export default function CurrencyProvider({ children }) {
   const currencies = [
     {
-      code: 'USD',
-      sign: '$',
-      conversionRate: 0.27,
-    },
-    {
       code: 'AED',
       sign: 'AED',
       conversionRate: 1,
+    },
+    {
+      code: 'USD',
+      sign: '$',
+      conversionRate: 0.27,
     },
     {
       code: 'EUR',
@@ -28,14 +28,18 @@ export default function CurrencyProvider({ children }) {
       conversionRate: 0.21,
     },
   ];
-  const [currency, setCurrency] = useState({
-    code: currencies[0].code,
-    sign: currencies[0].sign,
-    conversionRate: currencies[0].conversionRate,
-  });
+  const [currency, setCurrency] = useState(
+    JSON.parse(localStorage.getItem('currency')) || {
+      code: currencies[0].code,
+      sign: currencies[0].sign,
+      conversionRate: currencies[0].conversionRate,
+    },
+  );
 
   function handleSetCurrency(code, sign, conversionRate) {
-    setCurrency({ code, sign, conversionRate });
+    const newCurrency = { code, sign, conversionRate };
+    setCurrency(newCurrency);
+    localStorage.setItem('currency', JSON.stringify(newCurrency));
   }
 
   return (

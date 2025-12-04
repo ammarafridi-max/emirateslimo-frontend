@@ -25,7 +25,7 @@ export default function Currency() {
           </span>
         </button>
         {showCurrencies && (
-          <div className="min-w-25 h-fit absolute top-10 right-0 bg-white mx-auto rounded-sm border border-primary-200 z-15">
+          <div className="min-w-35 grid grid-cols-2 h-fit absolute top-10 right-0 p-2 bg-white mx-auto rounded-sm shadow-[0px_0px_8px_rgba(0,0,0,0.2)] z-15">
             {currencies?.map((cur, i) => (
               <button
                 key={cur.code}
@@ -34,9 +34,9 @@ export default function Currency() {
                   handleSetCurrency(cur?.code, cur?.sign, cur?.conversionRate);
                 }}
                 type="button"
-                className="w-full text-left text-[12px] px-3 py-1.5 border-b border-primary-100 hover:bg-primary-100 duration-300 cursor-pointer"
+                className="rounded-md text-center text-[12px] py-1.5 hover:bg-primary-100 duration-300 cursor-pointer"
               >
-                {cur.code} ({cur.sign})
+                {cur.code}
               </button>
             ))}
           </div>
