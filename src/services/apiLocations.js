@@ -10,8 +10,8 @@ export async function getLocationsApi(query) {
   return data?.data;
 }
 
-export async function getLatLngApi(query) {
-  const res = await fetch(`${URL}/coordinates?query=${query}`);
+export async function getLatLngApi(query, id) {
+  const res = await fetch(`${URL}/coordinates?query=${query}&id=${id}`);
   if (!res.ok) throw new Error('Could not fetch locations');
   const data = await res.json();
   const { lat, lng } = data.data;

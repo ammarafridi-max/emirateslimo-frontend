@@ -3,7 +3,7 @@ import { getLatLngApi } from '../services/apiLocations';
 
 export function useGetLatLng() {
   const { mutateAsync: getCoordinates, isLoading: isLoadingCoordinates } = useMutation({
-    mutationFn: (query) => getLatLngApi(query),
+    mutationFn: ({ query, id }) => getLatLngApi(query, id),
   });
 
   return { getCoordinates, isLoadingCoordinates };
