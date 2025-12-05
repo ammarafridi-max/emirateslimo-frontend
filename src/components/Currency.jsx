@@ -16,7 +16,7 @@ export default function Currency() {
       <div className="relative" ref={wrapperRef}>
         <button
           type="button"
-          className="relative flex items-center justify-between text-[12px] gap-2 border border-primary-200 bg-white hover:bg-primary-100 rounded-sm px-3 py-1.5 cursor-pointer duration-300 z-15"
+          className="relative flex items-center justify-between text-[12px] gap-2 border border-primary-200 bg-white hover:bg-primary-100 rounded-md px-3 py-1.5 cursor-pointer duration-300 z-15"
           onClick={() => setShowCurrencies((val) => !val)}
         >
           <span>{currency?.code}</span>
@@ -25,7 +25,7 @@ export default function Currency() {
           </span>
         </button>
         {showCurrencies && (
-          <div className="min-w-35 grid grid-cols-2 h-fit absolute top-10 right-0 p-2 bg-white mx-auto rounded-sm shadow-[0px_0px_8px_rgba(0,0,0,0.2)] z-15">
+          <div className="min-w-40 grid grid-cols-2 max-h-fit absolute top-10 right-0 p-2 bg-white mx-auto rounded-md shadow-[0px_0px_8px_rgba(0,0,0,0.2)] z-15">
             {currencies?.map((cur, i) => (
               <button
                 key={cur.code}
@@ -34,7 +34,7 @@ export default function Currency() {
                   handleSetCurrency(cur?.code, cur?.sign, cur?.conversionRate);
                 }}
                 type="button"
-                className="rounded-md text-center text-[12px] py-1.5 hover:bg-primary-100 duration-300 cursor-pointer"
+                className={`h-fit rounded-sm text-center text-[12px] py-1.5 duration-300 cursor-pointer ${currency?.code === cur?.code ? 'bg-primary-900 text-white' : 'bg-transparent hover:bg-primary-100'}`}
               >
                 {cur.code}
               </button>

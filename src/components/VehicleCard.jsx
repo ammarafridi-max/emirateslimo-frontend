@@ -67,16 +67,7 @@ export default function VehicleCard({ vehicle }) {
 
 function VehicleTitlePrice({ currency, vehicle, vehiclePrice, tripType, hoursBooked }) {
   return (
-    <div className="grid grid-cols-[3.5fr_8.5fr] items-center gap-3 lg:block">
-      {/* Mobile image */}
-      <div className="block lg:hidden bg-primary-100 rounded-lg overflow-hidden aspect-video">
-        <img
-          src={vehicle?.featuredImage}
-          className="w-full h-full object-cover"
-          alt={`${vehicle?.brand} ${vehicle?.model}`}
-        />
-      </div>
-
+    <div className="grid grid-cols-[8.5fr_3.5fr] items-center gap-3 lg:block">
       <div>
         <h3 className="flex items-center text-[18px] lg:text-[20px] font-extralight text-primary-900 mb-0.5">
           <span>
@@ -89,6 +80,13 @@ function VehicleTitlePrice({ currency, vehicle, vehiclePrice, tripType, hoursBoo
             / {tripType === 'distance' ? 'ride' : `${hoursBooked} hours`}
           </span>
         </p>
+      </div>
+      <div className="block lg:hidden bg-primary-100 rounded-lg overflow-hidden aspect-video">
+        <img
+          src={vehicle?.featuredImage}
+          className="w-full h-full object-cover"
+          alt={`${vehicle?.brand} ${vehicle?.model}`}
+        />
       </div>
     </div>
   );

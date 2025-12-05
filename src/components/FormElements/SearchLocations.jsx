@@ -1,11 +1,11 @@
 import { useRef, useState } from 'react';
 import { HiMapPin } from 'react-icons/hi2';
 import { motion, AnimatePresence } from 'framer-motion';
-
 import { useGetLocations } from '../../hooks/useGetLocations';
 import { useOutsideClick } from '../../hooks/useOutsideClick';
-import LoadingLocation from '../LoadingLocation';
 import { useGetLatLng } from '../../hooks/useGetLatLng';
+import { RiFlightTakeoffFill, RiMapPin2Line, RiHotelLine } from 'react-icons/ri';
+import LoadingLocation from '../LoadingLocation';
 
 export default function SearchLocations({
   label = 'Pick-up location',
@@ -98,19 +98,25 @@ export default function SearchLocations({
                   onClick={async () => {
                     setShow(false);
                     setQuery(loc.name);
-                    const { lat, lng } = await getCoordinates(loc.name);
+                    const { lat, lng } = await getCoordinates({ query: loc?.name, id: loc?.id });
                     const data = {
                       ...loc,
                       lat,
                       lng,
                     };
                     setValue(name, data);
-                    console.log(data);
                   }}
-                  className="px-4 py-2.5 cursor-pointer transition-all hover:bg-gray-100"
+                  className="grid grid-cols-[auto_1fr] items-center gap-4 px-4 py-2.5 cursor-pointer transition-all hover:bg-gray-100"
                 >
-                  <p className="text-[14px] text-gray-900">{loc.name}</p>
-                  {loc.address && <p className="text-[12px] text-gray-400">{loc.address}</p>}
+                  <div className="flex items-center justify-center bg-gray-200 w-8 h-8 rounded-md">
+                    {loc?.type === 'airport' && <RiFlightTakeoffFill />}
+                    {loc?.type === 'location' && <RiMapPin2Line />}
+                    {loc?.type === 'hotel' && <RiHotelLine />}
+                  </div>
+                  <div>
+                    <p className="text-[14px] text-gray-900">{loc.name}</p>
+                    {loc.address && <p className="text-[12px] text-gray-400">{loc.address}</p>}
+                  </div>
                 </div>
               ))}
 

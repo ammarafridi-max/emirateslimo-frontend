@@ -31,7 +31,7 @@ export default function FleetCard({ index, vehicle }) {
           </div>
         </div>
 
-        <p className="text-[15.5px] font-extralight text-primary-600 leading-relaxed mb-6">
+        <p className="text-[15.5px] font-extralight text-primary-600 leading-relaxed mb-4">
           {vehicle?.description ||
             'Travel in comfort and style with our chauffeur-driven vehicles designed for ultimate convenience.'}
         </p>
@@ -41,9 +41,9 @@ export default function FleetCard({ index, vehicle }) {
             AED {vehicle?.pricing?.pricePerHour} <span className="text-[13px] font-light text-primary-400">/hour</span>
           </p>
 
-          <button className="bg-accent-500 text-white text-[14px] px-5 py-2 rounded-full transition-all duration-300 hover:bg-accent-600">
+          {/* <button className="bg-accent-500 text-white text-[14px] px-5 py-2 rounded-full transition-all duration-300 hover:bg-accent-600">
             Book Now
-          </button>
+          </button> */}
         </div>
       </div>
     </motion.div>
