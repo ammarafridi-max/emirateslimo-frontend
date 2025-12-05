@@ -9,6 +9,8 @@ import Input from '../components/FormElements/Input';
 import BookingLayout from '../components/BookingLayout';
 import BookingSummary from '../components/BookingSummary';
 import PhoneNumber from '../components/FormElements/PhoneNumber';
+import { trackBeginCheckout, trackBookingDetailsEntered } from '../lib/analytics';
+import { CurrencyContext } from '../context/CurrencyContext';
 
 const paymentMethods = [
   {
@@ -24,8 +26,18 @@ export default function BookingDetails() {
   const navigate = useNavigate();
   const { createBooking, isCreatingBooking } = useCreateBooking();
   const { bookingData, handleChange, handleSelectPaymentMethod } = useContext(BookingContext);
-  const { tripType, pickup, dropoff, pickupDate, pickupTime, hoursBooked, vehicle, bookingDetails, payment } =
-    bookingData;
+  const {
+    tripType,
+    pickup,
+    dropoff,
+    pickupDate,
+    pickupTime,
+    hoursBooked,
+    vehicle,
+    bookingDetails,
+    payment,
+    orderSummary,
+  } = bookingData;
 
   const { firstName, lastName, email, phoneNumber } = bookingDetails;
 
@@ -52,6 +64,32 @@ export default function BookingDetails() {
     if (!vehicle) navigate('/book/select-limo');
   }, [tripType, pickup, dropoff, pickupDate, pickupTime, hoursBooked, vehicle, navigate]);
 
+  function handleSubmit() {
+    const items = [];
+
+    if (pickup?.type === 'airport' || dropoff?.type === 'airport') {
+      items[0] = { item_name: 'Airport Transfer', quantity: 1 };
+    } else {
+      items[0] = { item_name: 'Chauffeur Service', quantity: 1 };
+    }
+
+    trackBookingDetailsEntered({
+      firstName: bookingDetails?.firstName,
+      lastName: bookingDetails?.lastName,
+      email: bookingDetails?.email,
+      phoneNumber: `${bookingDetails?.phoneNumber?.code}-${bookingDetails?.phoneNumber?.number}`,
+      flightNumber: bookingDetails?.flightNumber || null,
+      arrivalTime: bookingDetails?.arrivalTime || null,
+      message: bookingDetails?.message || null,
+    });
+    trackBeginCheckout({
+      currency: orderSummary?.currency?.toUpperCase(),
+      amount: orderSummary?.total,
+      items,
+    });
+    createBooking({ ...bookingData });
+  }
+
   return (
     <>
       <Helmet>
@@ -66,10 +104,7 @@ export default function BookingDetails() {
           <BookingSummary
             btnText="Proceed to Payment"
             btnDisabled={error || isCreatingBooking}
-            btnOnClick={() => {
-              createBooking({ ...bookingData });
-              console.log(bookingData);
-            }}
+            btnOnClick={handleSubmit}
           />
         </div>
       </BookingLayout>
@@ -103,11 +138,6 @@ function PassengerInformation({ onChange, bookingData }) {
           onChange={(e) => onChange('email', e.target.value)}
         />
         <PhoneNumber />
-        {/* <Input
-          label="Phone Number"
-          value={bookingData.bookingDetails.phoneNumber}
-          onChange={(e) => onChange('phoneNumber', e.target.value)}
-        /> */}
       </div>
       {(bookingData?.pickup?.type === 'airport' || bookingData?.dropoff?.type === 'airport') && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mt-3">

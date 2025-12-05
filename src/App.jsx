@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { HelmetProvider } from 'react-helmet-async';
 import { Toaster } from 'react-hot-toast';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import ScrollToTop from './components/ScrollToTop';
 
 // Layout
@@ -24,6 +24,9 @@ import Fleet from './pages/Fleet';
 import SelectLimo from './pages/SelectLimo';
 import BookingDetails from './pages/BookingDetails';
 import Payment from './pages/Payment';
+import { useEffect } from 'react';
+import { initializeGA, trackPageView } from './lib/analytics';
+import AnalyticsTracker from './lib/AnalyticsTracker';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -34,6 +37,10 @@ const queryClient = new QueryClient({
 });
 
 export default function App() {
+  useEffect(() => {
+    initializeGA();
+  }, []);
+
   return (
     <>
       <Toaster />
@@ -41,6 +48,7 @@ export default function App() {
         <ReactQueryDevtools initialIsOpen={false} />
         <HelmetProvider>
           <BrowserRouter>
+            <AnalyticsTracker />
             <CurrencyProvider>
               <BookingProvider>
                 <ScrollToTop />

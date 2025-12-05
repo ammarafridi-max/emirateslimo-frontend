@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { useContext, useEffect } from 'react';
 import { BookingContext } from '../context/BookingContext';
+import { trackLimoFormSubmission } from '../lib/analytics';
 import SearchLocations from './FormElements/SearchLocations';
 import SelectDate from './FormElements/SelectDate';
 import SelectTime from './FormElements/SelectTime';
@@ -9,7 +10,8 @@ import SelectHours from './FormElements/SelectHours';
 import toast from 'react-hot-toast';
 
 export default function LimoForm() {
-  const { bookingData, setBookingData, submitLimoForm, isLoadingLimoForm } = useContext(BookingContext);
+  const { bookingData, setBookingData, submitLimoForm, isLoadingLimoForm, isAirportTransfer } =
+    useContext(BookingContext);
   const { tripType } = bookingData;
   const { register, handleSubmit, setValue, watch, reset } = useForm();
 
@@ -23,18 +25,20 @@ export default function LimoForm() {
   }
 
   useEffect(() => {
-    reset({
-      pickup: bookingData?.pickup,
-      dropoff: bookingData?.dropoff,
-      pickupDate: bookingData?.pickupDate,
-      pickupTime: bookingData?.pickupTime,
-      hoursBooked: bookingData?.hoursBooked,
-    });
-  }, [bookingData, reset]);
+    reset(bookingData);
+  }, []);
 
   function onSubmit(data) {
     const error = validateLimoForm(data);
     if (error) return toast.error(error);
+    trackLimoFormSubmission({
+      tripType,
+      pickup: `${data?.pickup?.name} - ${data?.pickup?.address}`,
+      dropoff: tripType === 'distance' ? `${data?.dropoff?.name} - ${data?.dropoff?.address}` : null,
+      pickupDate: data?.pickupDate,
+      pickupTime: data?.pickupTime,
+      hoursBooked: tripType === 'hourly' ? data?.hoursBooked : null,
+    });
     submitLimoForm(data);
   }
 
@@ -60,7 +64,7 @@ export default function LimoForm() {
       </div>
 
       {/* Form */}
-      <form className="flex flex-col gap-4 p-5 md:p-6" onSubmit={handleSubmit(onSubmit)}>
+      <form className="flex flex-col gap-3 p-5 md:p-6" onSubmit={handleSubmit(onSubmit)}>
         <SearchLocations label="Pick-up location" register={register} setValue={setValue} watch={watch} name="pickup" />
 
         {tripType === 'distance' && (
@@ -83,7 +87,7 @@ export default function LimoForm() {
           />
         )}
 
-        <div className="flex flex-col xl:flex-row xl:items-center gap-4">
+        <div className="flex flex-col xl:flex-row xl:items-center gap-3">
           <SelectDate
             label="Pick-up date"
             name="pickupDate"

@@ -105,12 +105,8 @@ function TripSummary({ tripType, hoursBooked, pickup, dropoff, pickupDate, picku
         {tripType === 'hourly' && <Detail label="Hours" value={hoursBooked} />}
         <Detail label="Pickup Location" value={pickup?.name} />
         {tripType === 'distance' && <Detail label="Dropoff Location" value={dropoff?.name} />}
-        <Detail
-          label="Pickup Date & Time"
-          value={
-            pickupDate ? `${format(new Date(pickupDate), 'dd LLLL yyyy')} @ ${pickupTime || '10:00 AM Dubai Time'}` : ''
-          }
-        />
+        <Detail label="Pickup Date" value={pickupDate ? `${format(new Date(pickupDate), 'dd LLLL yyyy')}` : ''} />
+        <Detail label="Pickup Time" value={pickupTime ? pickupTime : ''} />
         <Detail
           label="Vehicle Selected"
           value={vehicle ? `${vehicleData?.brand || ''} ${vehicleData?.model || ''}` : 'Please select your limo'}
@@ -186,8 +182,8 @@ function Benefits({}) {
 
 function Detail({ label, value }) {
   return (
-    <div className="flex items-center justify-between lg:block py-2.5 px-3">
-      <label className="text-[12px] text-gray-500 uppercase font-extralight tracking-wide block mb-0.5 leading-6 md:leading-4">
+    <div className="flex items-center justify-between gap-3 lg:block py-2.5 px-3">
+      <label className="text-[12px] text-gray-500 uppercase font-extralight tracking-wide block mb-0.5 leading-5 md:leading-4">
         {label}
       </label>
       <p className="text-[15px] font-light text-right lg:text-left text-primary-900">{value || '—'}</p>

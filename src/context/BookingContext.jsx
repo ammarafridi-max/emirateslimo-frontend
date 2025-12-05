@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { useGetZoneByAddress } from '../hooks/useGetZoneByAddress';
 import { useGetDistance } from '../hooks/useGetDistance';
 import { CurrencyContext } from './CurrencyContext';
-import toast from 'react-hot-toast';
 import { useLocalStorage } from '../hooks/useLocalStorage';
+import { trackVehicleSelection } from '../lib/analytics';
+import toast from 'react-hot-toast';
 
 export const BookingContext = createContext();
 
@@ -72,6 +73,7 @@ export default function BookingProvider({ children }) {
   const [bookingData, setBookingData] = useState(
     { ...initialBookingData, ...JSON.parse(localStorage.getItem('bookingData')) } || initialBookingData,
   );
+  const isAirportTransfer = bookingData?.pickup?.type === 'airport' || bookingData?.dropoff?.type === 'airport';
 
   async function submitLimoForm(data) {
     try {
@@ -83,27 +85,35 @@ export default function BookingProvider({ children }) {
       });
 
       let dropoffZone = null;
+      let distance = null;
 
       if (bookingData?.tripType === 'distance' && data.dropoff?.lat && data.dropoff?.lng) {
+        data.hoursBooked = null;
         dropoffZone = await getZoneByAddress({
           lat: data.dropoff.lat,
           lng: data.dropoff.lng,
         });
+
+        distance = await getDistance({
+          originLat: data?.pickup?.lat,
+          originLng: data?.pickup?.lng,
+          destLat: data?.dropoff?.lat,
+          destLng: data?.dropoff?.lng,
+        });
       }
 
-      toast.dismiss();
+      if (bookingData?.tripType === 'hourly') {
+        data.dropoff = null;
+        data.distance = null;
+        data.tripDuration = null;
+      }
 
       if (!pickupZone) {
         toast.error('Pickup location not covered.');
         return;
       }
 
-      const distance = await getDistance({
-        originLat: data?.pickup?.lat,
-        originLng: data?.pickup?.lng,
-        destLat: data?.dropoff?.lat,
-        destLng: data?.dropoff?.lng,
-      });
+      deleteLocalStorage('bookingData');
 
       setBookingData((prev) => {
         const updated = {
@@ -120,8 +130,8 @@ export default function BookingProvider({ children }) {
           pickupDate: data.pickupDate,
           pickupTime: data.pickupTime,
           hoursBooked: bookingData?.tripType === 'hourly' ? data?.hoursBooked : null,
-          distance: distance?.distanceKm,
-          tripDuration: distance?.durationMin,
+          distance: distance?.distanceKm || null,
+          tripDuration: distance?.durationMin || null,
         };
         updateLocalStorage('bookingData', updated);
         return updated;
@@ -161,6 +171,7 @@ export default function BookingProvider({ children }) {
   }
 
   function handleSelectVehicle(vehicle) {
+    trackVehicleSelection({ id: vehicle?.id, brand: vehicle?.brand, model: vehicle?.model });
     setBookingData((prev) => {
       const updated = {
         ...prev,
@@ -230,6 +241,7 @@ export default function BookingProvider({ children }) {
         bookingData,
         setBookingData,
         isLoadingLimoForm,
+        isAirportTransfer,
         handleChange,
         handleNumberChange,
         handleSelectVehicle,
