@@ -4,13 +4,12 @@ import { useCreateBooking } from '../hooks/useCreateBooking';
 import { BookingContext } from '../context/BookingContext';
 import { FaStripe } from 'react-icons/fa6';
 import { Helmet } from 'react-helmet-async';
+import { trackBeginCheckout, trackBookingDetailsEntered } from '../lib/analytics';
 import SectionTitle from '../components/SectionTitle';
 import Input from '../components/FormElements/Input';
 import BookingLayout from '../components/BookingLayout';
 import BookingSummary from '../components/BookingSummary';
 import PhoneNumber from '../components/FormElements/PhoneNumber';
-import { trackBeginCheckout, trackBookingDetailsEntered } from '../lib/analytics';
-import { CurrencyContext } from '../context/CurrencyContext';
 
 const paymentMethods = [
   {
@@ -84,7 +83,7 @@ export default function BookingDetails() {
     });
     trackBeginCheckout({
       currency: orderSummary?.currency?.toUpperCase(),
-      amount: orderSummary?.total,
+      value: orderSummary?.total,
       items,
     });
     createBooking({ ...bookingData });
