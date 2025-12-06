@@ -4,7 +4,11 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { HelmetProvider } from 'react-helmet-async';
 import { Toaster } from 'react-hot-toast';
-import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { useEffect } from 'react';
+import { initializeGA } from './lib/analytics';
+import TagManager from 'react-gtm-module';
+import AnalyticsTracker from './lib/AnalyticsTracker';
 import ScrollToTop from './components/ScrollToTop';
 
 // Layout
@@ -19,14 +23,14 @@ import Home from './pages/Home';
 import DubaiAirportTransfer from './pages/DubaiAirportTransfer';
 import ChauffeurService from './pages/ChauffeurService';
 import Fleet from './pages/Fleet';
+import PageNotFound from './pages/PageNotFound';
+import TermsAndConditions from './pages/TermsAndConditions';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 
 // Booking
 import SelectLimo from './pages/SelectLimo';
 import BookingDetails from './pages/BookingDetails';
 import Payment from './pages/Payment';
-import { useEffect } from 'react';
-import { initializeGA, trackPageView } from './lib/analytics';
-import AnalyticsTracker from './lib/AnalyticsTracker';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -35,6 +39,12 @@ const queryClient = new QueryClient({
     },
   },
 });
+
+const tagManagerArgs = {
+  gtmId: import.meta.env.VITE_GOOGLE_TAG_MANAGER_ID,
+};
+
+TagManager.initialize(tagManagerArgs);
 
 export default function App() {
   useEffect(() => {
@@ -53,12 +63,15 @@ export default function App() {
               <BookingProvider>
                 <ScrollToTop />
                 <Routes>
+                  <Route path="*" element={<PageNotFound />} />
                   <Route element={<AppLayout />}>
                     <Route index element={<Home />} />
                     <Route path="dubai-airport-transfer" element={<DubaiAirportTransfer />} />
                     <Route path="chauffeur-service" element={<ChauffeurService />} />
                     <Route path="fleet" element={<Fleet />} />
                     <Route path="payment" element={<Payment />} />
+                    <Route path="terms-and-conditions" element={<TermsAndConditions />} />
+                    <Route path="privacy-policy" element={<PrivacyPolicy />} />
                   </Route>
                   <Route path="book/select-limo" element={<SelectLimo />} />
                   <Route path="book/booking-details" element={<BookingDetails />} />
