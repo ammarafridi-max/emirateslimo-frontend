@@ -8,14 +8,14 @@ export const CurrencyContext = createContext();
 export default function CurrencyProvider({ children }) {
   const currencies = [
     {
-      code: 'AED',
-      sign: 'AED',
-      conversionRate: 1,
-    },
-    {
       code: 'USD',
       sign: '$',
       conversionRate: 0.27,
+    },
+    {
+      code: 'AED',
+      sign: 'AED',
+      conversionRate: 1,
     },
     {
       code: 'EUR',
