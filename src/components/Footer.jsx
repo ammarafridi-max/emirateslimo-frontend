@@ -1,7 +1,17 @@
-import { FaStripe, FaGooglePay, FaApplePay, FaPhoneAlt, FaEnvelope, FaMapPin, FaWhatsapp } from 'react-icons/fa';
+import {
+  FaStripe,
+  FaGooglePay,
+  FaApplePay,
+  FaPhoneAlt,
+  FaEnvelope,
+  FaMapPin,
+  FaWhatsapp,
+  FaCircle,
+} from 'react-icons/fa';
 import { RiVisaLine, RiMastercardLine } from 'react-icons/ri';
 import { FaFacebook, FaInstagram } from 'react-icons/fa6';
 import Container from './Container';
+import { Link } from 'react-router-dom';
 
 const icons = [<FaStripe />, <FaGooglePay />, <FaApplePay />, <RiVisaLine />, <RiMastercardLine />];
 
@@ -72,17 +82,20 @@ export default function Footer() {
           ))}
         </div>
         <div>
-          <p className="text-center text-primary-300 font-light text-[14px] lg:text-[16px]">
+          <p className="text-center text-white/60 font-light text-[14px] lg:text-[16px]">
             © 2025 TRAVL Technologies. All Rights Reserved.
           </p>
           <div className="flex items-center justify-center gap-2.5 text-[14px] font-light text-white">
-            <a href="/terms-and-conditions" className="text-primary-300 hover:text-primary-100">
-              Terms & Conditions
-            </a>
-            <span>|</span>
-            <a href="/privacy-policy" className="text-primary-300 hover:text-primary-100">
-              Privacy Policy
-            </a>
+            <div className="flex items-center justify-center flex-wrap gap-2 text-[14px] text-gray-400">
+              <Link to="/terms-and-conditions" className="text-white/60 hover:text-white">
+                Terms & Conditions
+              </Link>
+              <FaCircle className="text-[5px]" />
+              <Link to="/terms-and-conditions" className="text-white/60 hover:text-white">
+                Privacy Policy
+              </Link>
+              {/* <FaCircle className="text-[5px]" /> */}
+            </div>
           </div>
         </div>
       </Container>

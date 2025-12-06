@@ -3,7 +3,7 @@ import { LuUsers, LuLuggage } from 'react-icons/lu';
 
 export default function FleetCard({ index, vehicle }) {
   return (
-    <motion.div className="min-w-80 lg:min-w-auto group relative overflow-hidden rounded-2xl bg-white border border-primary-100 lg:shadow-md lg:hover:shadow-xl transition-all duration-300">
+    <motion.div className="min-w-full group relative overflow-hidden rounded-2xl bg-white border border-primary-100 lg:shadow-md lg:hover:shadow-xl transition-all duration-300">
       <div className="relative h-50 overflow-hidden bg-gray-100">
         <img
           src={vehicle?.featuredImage || '/images/fleet-placeholder.jpg'}
@@ -11,7 +11,7 @@ export default function FleetCard({ index, vehicle }) {
           className="w-full object-cover object-center aspect-video transition-transform duration-700 group-hover:scale-105"
           loading="lazy"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-transparent"></div>
         <div className="absolute bottom-5 left-5 text-white">
           <h3 className="text-[20px] font-light tracking-wide">
             {vehicle?.brand} {vehicle?.model}

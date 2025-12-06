@@ -13,7 +13,7 @@ export default function Fleet() {
         <SectionTitle textAlign="center" subtitle="Our Fleet">
           Luxury Vehicles To Choose From
         </SectionTitle>
-        <div className="mt-12 flex lg:grid lg:grid-cols-3 gap-6 overflow-x-scroll lg:overflow-x-visible">
+        <div className="mt-12 flex lg:grid lg:grid-cols-3 gap-y-10 gap-x-7 overflow-x-scroll lg:overflow-x-visible">
           {vehicles?.map((v, i) => (
             <FleetCard key={i} index={i} vehicle={v} />
           ))}

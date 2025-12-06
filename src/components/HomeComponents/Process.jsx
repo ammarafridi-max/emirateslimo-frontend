@@ -23,12 +23,12 @@ const steps = [
   },
 ];
 
-export default function Process() {
+export default function Process({ title = 'Book Your Ride in 4 Easy Steps' }) {
   return (
     <PrimarySection id="process" className="py-10 lg:py-25">
       <Container>
         <SectionTitle textAlign="center" subtitle="Our Process" className="text-center">
-          Book Your Ride in 4 Easy Steps
+          {title}
         </SectionTitle>
 
         <div className="mt-5 lg:mt-10 grid grid-cols-1 gap-5 lg:grid-cols-4">

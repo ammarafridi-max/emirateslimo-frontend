@@ -14,10 +14,10 @@ export const links = [
   {
     name: 'Chauffeur Service',
     href: '/chauffeur-service',
-    subpages: [
-      { name: 'Dubai Chauffeur Service', href: 'dubai-chauffeur-transfer' },
-      { name: 'Abu Dhabi Chauffeur Service', href: 'abu-dhabi-airport-transfer' },
-    ],
+    // subpages: [
+    //   { name: 'Dubai Chauffeur Service', href: 'dubai-chauffeur-transfer' },
+    //   { name: 'Abu Dhabi Chauffeur Service', href: 'abu-dhabi-airport-transfer' },
+    // ],
   },
   { name: 'City Tours', href: '/city-tours' },
 ];
